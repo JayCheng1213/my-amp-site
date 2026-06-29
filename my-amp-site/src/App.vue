@@ -1,103 +1,136 @@
 <template>
-  <div class="min-h-screen flex bg-zinc-50 font-sans antialiased text-zinc-800">
+  <div class="min-h-screen flex bg-zinc-950 font-sans antialiased text-zinc-300 selection:bg-emerald-500/30">
     
-    <aside class="fixed bottom-0 left-0 z-50 w-full h-16 bg-white border-t border-zinc-200 md:sticky md:top-0 md:h-screen md:w-64 md:border-t-0 md:border-r flex md:flex-col justify-between px-6 py-4 backdrop-blur-md md:backdrop-blur-none bg-white/90 md:bg-white">
+    <!-- 主要內容區（全滿排版，完美突顯線稿科技感） -->
+    <main class="flex-grow max-w-4xl w-full mx-auto px-4 py-8 md:py-12 space-y-10">
       
-      <div class="hidden md:block my-4">
-        <div class="font-mono font-black text-xl tracking-widest text-zinc-950">JAY_LAB.</div>
-        <p class="text-[10px] font-mono text-zinc-400 mt-1 tracking-wider uppercase">EE & Audio Research</p>
-      </div>
-
-      <nav class="w-full flex md:flex-col justify-around md:justify-start md:space-y-1.5 items-center md:items-stretch h-full md:h-auto">
-        <button 
-          v-for="nav in navItems" 
-          :key="nav.id"
-          @click="currentView = nav.id"
-          :class="[currentView === nav.id ? 'bg-zinc-900 text-white font-semibold' : 'text-zinc-500 hover:bg-zinc-100 hover:text-zinc-950']"
-          class="flex items-center space-x-3 px-4 py-2.5 rounded-lg text-sm transition-all font-mono w-full justify-center md:justify-start"
-        >
-          <span class="text-xs tracking-tighter">{{ nav.icon }}</span>
-          <span class="hidden sm:inline md:inline">{{ nav.name }}</span>
-        </button>
-      </nav>
-
-      <div class="hidden md:block border-t border-zinc-100 pt-4 text-[11px] font-mono text-zinc-400 space-y-1">
-        <div>CORE // VUE 3.x</div>
-        <div>HOST // DS412+</div>
-        <div class="flex items-center space-x-1.5">
-          <span class="w-2 h-2 rounded-full bg-emerald-500 inline-block animate-pulse"></span>
-          <span>SSL ENCRYPTED</span>
+      <!-- 頂部極簡 Header -->
+      <header class="flex justify-between items-center border-b border-zinc-800 pb-6">
+        <div>
+          <div class="flex items-center space-x-2 text-[10px] font-mono text-emerald-500 tracking-widest mb-1 animate-pulse">
+            <span>●</span> <span>SYSTEM_READY // WIREFRAME_MODE</span>
+          </div>
+          <h1 class="text-xl font-bold tracking-wider text-white font-mono uppercase">Interactive Blueprint Console</h1>
         </div>
-      </div>
-    </aside>
+        <div class="text-xs font-mono text-zinc-500 hidden sm:block">
+          DEVICES: RWD_ACTIVE
+        </div>
+      </header>
 
-    <main class="flex-grow min-h-screen md:max-w-3xl lg:max-w-4xl px-6 py-10 md:py-16 pb-24 md:pb-16 overflow-y-auto">
-      
-      <div v-if="currentView === 'engineering'" class="space-y-12">
-        <header class="border-b border-zinc-200 pb-6">
-          <h1 class="text-2xl font-bold tracking-tight text-zinc-950 font-mono">01 / ENGINEERING_LOGS</h1>
-          <p class="text-zinc-400 text-xs mt-1 font-mono">真空管電路設計、手工搭棚調音、微控制器自動化環境</p>
-        </header>
+      <!-- 核心區塊：網格佈局（手機端垂直堆疊，電腦端並排展示） -->
+      <section class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+        
+        <!-- 左側/上方：控制面板（毛玻璃效果 Glassmorphism Container） -->
+        <div class="bg-zinc-900/40 backdrop-blur-md border border-zinc-800 rounded-2xl p-5 space-y-4 lg:col-span-1">
+          <div class="font-mono text-xs text-zinc-400 font-semibold tracking-wider uppercase border-b border-zinc-800 pb-2">
+            Layer Controller // 圖層控制
+          </div>
+          <p class="text-xs text-zinc-500 leading-relaxed">
+            透過下方響應式按鈕即時切換硬體搭棚與機殼佈局線稿。點擊按鈕觸發 Vue 3 狀態變更，即時渲染底層數據。
+          </p>
+          
+          <!-- 互動按鈕群（手機端水平橫排滑動，電腦端垂直排列） -->
+          <div class="flex sm:grid sm:grid-cols-3 lg:flex lg:flex-col gap-2 overflow-x-auto pb-2 sm:pb-0 no-scrollbar">
+            <button 
+              @click="activeLayer = 'chassis'"
+              :class="[activeLayer === 'chassis' ? 'bg-emerald-500/10 border-emerald-500 text-emerald-400 font-bold shadow-sm shadow-emerald-500/10' : 'bg-zinc-900/50 border-zinc-800 text-zinc-400 hover:border-zinc-700 hover:text-zinc-200']"
+              class="flex-shrink-0 px-4 py-3 rounded-xl border text-xs font-mono transition-all duration-300 flex items-center justify-between gap-3 text-left min-w-[140px] sm:min-w-0"
+            >
+              <span>01 / 管位佈局</span>
+              <span class="text-[10px] opacity-60">🔘</span>
+            </button>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          <div v-for="item in engineeringLogs" :key="item.title" class="group border border-zinc-200 rounded-xl bg-white overflow-hidden hover:shadow-sm transition-all duration-300 flex flex-col justify-between">
-            <div class="p-5">
-              <div class="flex items-center justify-between text-[11px] font-mono text-zinc-400 mb-3">
-                <span>{{ item.date }}</span>
-                <span class="text-zinc-300">|</span>
-                <span>{{ item.tag }}</span>
+            <button 
+              @click="activeLayer = 'signal'"
+              :class="[activeLayer === 'signal' ? 'bg-blue-500/10 border-blue-500 text-blue-400 font-bold shadow-sm shadow-blue-500/10' : 'bg-zinc-900/50 border-zinc-800 text-zinc-400 hover:border-zinc-700 hover:text-zinc-200']"
+              class="flex-shrink-0 px-4 py-3 rounded-xl border text-xs font-mono transition-all duration-300 flex items-center justify-between gap-3 text-left min-w-[140px] sm:min-w-0"
+            >
+              <span>02 / 訊號路徑</span>
+              <span class="text-[10px] opacity-60">⚡</span>
+            </button>
+
+            <button 
+              @click="activeLayer = 'power'"
+              :class="[activeLayer === 'power' ? 'bg-amber-500/10 border-amber-500 text-amber-400 font-bold shadow-sm shadow-amber-500/10' : 'bg-zinc-900/50 border-zinc-800 text-zinc-400 hover:border-zinc-700 hover:text-zinc-200']"
+              class="flex-shrink-0 px-4 py-3 rounded-xl border text-xs font-mono transition-all duration-300 flex items-center justify-between gap-3 text-left min-w-[140px] sm:min-w-0"
+            >
+              <span>03 / 電源漣波</span>
+              <span class="text-[10px] opacity-60">〰️</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 右側/下方：硬核線稿展示大面板 (The Blueprint Sandbox) -->
+        <div class="lg:col-span-2 bg-gradient-to-br from-zinc-900 to-zinc-950 border border-zinc-800 rounded-2xl p-6 min-h-[380px] relative overflow-hidden flex flex-col justify-between">
+          
+          <!-- 背景裝飾科技線條網格 -->
+          <div class="absolute inset-0 bg-[linear-gradient(to_right,#27272a_1px,transparent_1px),linear-gradient(to_bottom,#27272a_1px,transparent_1px)] bg-[size:24px_24px] opacity-20 pointer-events-none"></div>
+
+          <!-- 頂部懸浮狀態（標準毛玻璃標籤） -->
+          <div class="relative z-10 flex justify-between items-center bg-zinc-900/60 backdrop-blur-md border border-zinc-800/80 rounded-xl p-3 text-xs font-mono">
+            <span class="text-zinc-400">CURRENT_LAYER: <span class="text-white font-bold uppercase">{{ activeLayer }}</span></span>
+            <span class="text-[10px] px-2 py-0.5 rounded bg-zinc-800 text-zinc-400 border border-zinc-700">SCALE 1:1</span>
+          </div>
+
+          <!-- 正中央：動態模擬虛擬線稿（隨按鈕切換） -->
+          <div class="relative z-10 my-8 flex items-center justify-center min-h-[180px]">
+            
+            <!-- 圖層 1：管位佈局線稿 (Chassis Layer) -->
+            <div v-if="activeLayer === 'chassis'" class="w-full max-w-md grid grid-cols-2 gap-8 text-center animate-fadeIn">
+              <div class="border border-dashed border-emerald-500/40 rounded-full aspect-square p-4 flex flex-col items-center justify-center bg-emerald-500/[0.02] relative group">
+                <div class="absolute inset-0 border border-emerald-500/10 rounded-full scale-110 animate-pulse"></div>
+                <div class="text-xs font-mono text-emerald-400 font-bold">[ V1 ]</div>
+                <div class="text-[10px] font-mono text-zinc-500 mt-1">E80CC Driver</div>
               </div>
-              <h3 class="font-bold text-base text-zinc-900 group-hover:text-emerald-600 transition-colors mb-2">{{ item.title }}</h3>
-              <p class="text-zinc-500 text-xs leading-relaxed line-clamp-3">{{ item.desc }}</p>
+              <div class="border border-dashed border-emerald-500/40 rounded-full aspect-square p-4 flex flex-col items-center justify-center bg-emerald-500/[0.02] relative">
+                <div class="absolute inset-0 border border-emerald-500/10 rounded-full scale-110 animate-pulse"></div>
+                <div class="text-xs font-mono text-emerald-400 font-bold">[ V2 ]</div>
+                <div class="text-[10px] font-mono text-zinc-500 mt-1">1626 Power</div>
+              </div>
             </div>
-            <div class="px-5 py-3 bg-zinc-50 border-t border-zinc-100 flex justify-between items-center text-xs font-mono text-zinc-400">
-              <span>METRICS: {{ item.status }}</span>
-              <span class="group-hover:translate-x-1 transition-transform text-zinc-600">→</span>
+
+            <!-- 圖層 2：訊號路徑線稿 (Signal Path Layer) -->
+            <div v-slot="signal" v-if="activeLayer === 'signal'" class="w-full space-y-4 max-w-sm font-mono text-xs animate-fadeIn">
+              <div class="flex items-center justify-between border border-blue-500/30 rounded-xl p-3 bg-blue-500/[0.02]">
+                <span class="text-blue-400">RCA_INPUT (L/R)</span>
+                <span class="text-zinc-600">————————→</span>
+                <span class="text-zinc-300 font-bold">100KΩ Vol Pot</span>
+              </div>
+              <div class="flex items-center justify-between border border-blue-500/30 rounded-xl p-3 bg-blue-500/[0.02]">
+                <span class="text-zinc-300 font-bold">Grid Resistor</span>
+                <span class="text-zinc-600">————————→</span>
+                <span class="text-blue-400">E80CC Grid (Pin 2)</span>
+              </div>
             </div>
+
+            <!-- 圖層 3：電源漣波阻隔層 (Power Ripple Layer) -->
+            <div v-if="activeLayer === 'power'" class="w-full max-w-md p-4 border border-dashed border-amber-500/30 rounded-xl bg-amber-500/[0.01] font-mono text-xs space-y-3 animate-fadeIn">
+              <div class="flex justify-between items-center text-amber-400 font-bold">
+                <span>⚡ B+ MAIN REGULATOR</span>
+                <span class="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-400">ACTIVE</span>
+              </div>
+              <div class="grid grid-cols-3 gap-2 text-center text-[11px] pt-2">
+                <div class="border border-zinc-800 p-2 rounded bg-zinc-900/50">250V IN</div>
+                <div class="border border-amber-500/20 p-2 rounded bg-amber-500/[0.03] text-amber-300">MOSFET Filter</div>
+                <div class="border border-zinc-800 p-2 rounded bg-zinc-900/50">Ripple &lt; 1μV</div>
+              </div>
+            </div>
+
           </div>
-        </div>
-      </div>
 
-      <div v-if="currentView === 'flavor'" class="space-y-12">
-        <header class="border-b border-zinc-200 pb-6">
-          <h1 class="text-2xl font-bold tracking-tight text-zinc-950 font-mono">02 / FLAVOR_LAB</h1>
-          <p class="text-zinc-400 text-xs mt-1 font-mono">精品咖啡手沖 4:6 比例紀錄、Beanbon 烘豆失重率曲線、精調調酒筆記</p>
-        </header>
-
-        <div class="space-y-6">
-          <div v-for="coffee in flavorLogs" :key="coffee.name" class="p-5 border border-zinc-200 rounded-xl bg-white flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-            <div class="space-y-1">
-              <span class="text-[10px] font-mono font-semibold px-2 py-0.5 rounded bg-amber-50 text-amber-700">{{ coffee.roast }}</span>
-              <h3 class="font-bold text-base text-zinc-900 pt-1">{{ coffee.name }}</h3>
-              <p class="text-zinc-500 text-xs">{{ coffee.notes }}</p>
-            </div>
-            <div class="flex sm:flex-col justify-between sm:justify-center items-center sm:items-end border-t sm:border-t-0 pt-3 sm:pt-0 border-zinc-100 text-xs font-mono text-zinc-400 gap-1">
-              <div>水溫: {{ coffee.temp }}</div>
-              <div class="hidden sm:block text-[10px] text-zinc-300">—————</div>
-              <div>萃取比: {{ coffee.ratio }}</div>
-            </div>
+          <!-- 底部懸浮說明（底部毛玻璃控制台回饋） -->
+          <div class="relative z-10 bg-white/[0.02] backdrop-blur-sm border border-white/[0.05] rounded-xl p-3 text-xs font-mono text-zinc-500 flex justify-between items-center">
+            <span>STATUS // COMPONENT_OK</span>
+            <span class="text-emerald-500 text-[10px] font-bold">READY TO BUILD</span>
           </div>
+
         </div>
-      </div>
+      </section>
 
-      <div v-if="currentView === 'about'" class="space-y-8 max-w-2xl">
-        <header class="border-b border-zinc-200 pb-6">
-          <h1 class="text-2xl font-bold tracking-tight text-zinc-950 font-mono">03 / ABOUT_ME</h1>
-          <p class="text-zinc-400 text-xs mt-1 font-mono">JAY CHENG // 實驗室主理人簡介</p>
-        </header>
-
-        <section class="space-y-4 text-sm leading-relaxed text-zinc-600">
-          <p>
-            歡迎來到我的個人技術空間。這裡是我在電子工程學系研究之餘，用來安放硬體浪漫的避風港。
-          </p>
-          <p>
-            專注於<strong>整合電路（IC）工程目標</strong>的同時，我熱衷於研究復古與現代的極致交點──真空管單端甲類擴大機。從電路物理模擬到物理搭棚，我追求極致純淨、無哼聲的低阻音訊表現。
-          </p>
-          <p>
-            除了解碼複雜的硬體訊號，我也習慣在烘豆機的溫控曲線、或是手沖濾杯的精密流量中尋找工程師的控制欲。這個網站的所有靜態檔案均託管於我房間的 Synology DS412+ NAS 中。
-          </p>
-        </section>
-      </div>
+      <!-- 頁尾宣告 -->
+      <footer class="text-center font-mono text-[10px] text-zinc-600 pt-6 border-t border-zinc-900">
+        CONSOLE_RENDER_ENGINE // TAILWIND_CSS_v3 // VUE_3_COMPOSITION_API
+      </footer>
 
     </main>
   </div>
@@ -106,49 +139,27 @@
 <script setup>
 import { ref } from 'vue'
 
-// 目前所在的導覽視圖狀態
-const currentView = ref('engineering')
-
-// 導覽列項目資料
-const navItems = [
-  { id: 'engineering', name: '工程實驗日誌', icon: '⚡' },
-  { id: 'flavor', name: '風味觀測研究', icon: '☕' },
-  { id: 'about', name: '關於主理人', icon: '◔' }
-]
-
-// 【核心區】工程實驗日誌資料陣列（以後有新文章，直接在下面複製一組貼上即可！）
-const engineeringLogs = ref([
-  {
-    date: '2026.05.20',
-    tag: 'AUDIO',
-    title: 'E80CC 🚀 1626 Darling Amp 零底噪調校',
-    desc: '針對低阻高感耳機特別優化的微型單端系統。為了解決直熱管固有的交流哼聲，嘗試導入電子濾波器與單端星型接地佈線。',
-    status: 'THD+N 0.042%'
-  },
-  {
-    date: '2026.04.12',
-    tag: 'EMBEDDED',
-    title: 'ESP32 與 MQTT 在硬體除錯環境的部署',
-    desc: '利用輕量化 MQTT 協定將工作站實體儀器的電壓、電流數據即時串流至 local broker，打造全自動化的參數紀錄看板。',
-    status: 'RTT < 15ms'
-  }
-])
-
-// 【核心區】風味日誌資料陣列
-const flavorLogs = ref([
-  {
-    roast: '淺焙 LIGHT ROAST',
-    name: '衣索比亞 耶加雪菲 沃卡村 G1',
-    notes: 'Beanbon BB100 一爆下豆，總烘焙時間 5分40秒，失重率控制在 12.8%。以 4:6 法前段提高酸質表現，散發明顯的檸檬皮與白色花香調。',
-    temp: '92°C',
-    ratio: '1:15'
-  },
-  {
-    roast: '中淺焙 MEDIUM LIGHT',
-    name: '肯亞 涅里 恰加處理廠 PB',
-    notes: '經典的黑醋栗與烏梅風味。厚實度（Body）極佳，適合在夜間進行 STM32 暫存器配置除錯時作為精神支柱。',
-    temp: '90°C',
-    ratio: '1:15.5'
-  }
-])
+// 掌控當前點擊觸發的動態圖層：'chassis' | 'signal' | 'power'
+const activeLayer = ref('chassis')
 </script>
+
+<style scoped>
+/* 補上一點點純淨的淡入動畫，讓切換圖層時線稿有淡入的高級感 */
+.animate-fadeIn {
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(2px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 隱藏手機端橫向滾動條，保持視覺極簡 */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+</style>
