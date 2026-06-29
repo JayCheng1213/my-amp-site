@@ -11,41 +11,36 @@
         <span>[🧠]</span> <span>SYS_REG_MATRIX // 核心暫存器</span>
       </div>
       <h2 :class="[theme === 'light' ? 'text-stone-900' : 'text-white']" class="text-base font-black mt-1 uppercase tracking-tight">
-        {{ amp.fullName }}
+        Jaycheng // 個人簡介
       </h2>
     </div>
 
     <div :class="[theme === 'light' ? 'border-stone-200' : 'border-zinc-900/80']" class="border-t pt-3 space-y-3.5 text-xs">
+      
       <div class="space-y-0.5">
-        <span class="text-[10px] text-zinc-500 block">CORE_ARCH // 核心架構</span>
+        <span class="text-[10px] text-zinc-500 block">MAIN // 要去不去的學校</span>
         <span class="text-sm font-bold tracking-wide" :class="[theme === 'light' ? 'text-stone-800' : 'text-zinc-200']">
-          {{ amp.type }}
+          國立臺北科技大學 (NYUT)
         </span>
       </div>
       
       <div class="space-y-0.5">
-        <span class="text-[10px] text-zinc-500 block">HOST_MCU // 實體封裝節點</span>
+        <span class="text-[10px] text-zinc-500 block">CURRENT_STATE // 運行暫存</span>
         <span class="text-sm font-bold tracking-wide text-emerald-500">
-          {{ amp.tubes }}
+          電機系 大二
         </span>
       </div>
       
       <div class="space-y-0.5">
-        <span class="text-[10px] text-zinc-500 block">INSTRUCTION_SETS // 指令集驅動</span>
-        <span class="text-sm font-medium tracking-wide" :class="[theme === 'light' ? 'text-stone-700' : 'text-zinc-300']">
-          {{ amp.power }}
+        <span class="text-[10px] text-zinc-500 block">PASSION_BUS // 興趣總線</span>
+        <span class="text-[11px] font-medium tracking-wide leading-relaxed block" :class="[theme === 'light' ? 'text-stone-700' : 'text-zinc-300']">
+          設計&組裝真空管擴大機 / MCU單晶系統開發 / 精品咖啡
         </span>
       </div>
 
-      <div class="grid grid-cols-2 gap-2 border-t border-dashed pt-2.5" :class="[theme === 'light' ? 'border-stone-200' : 'border-zinc-800']">
-        <div>
-          <span class="text-[9px] text-zinc-500 block">UPTIME // 運行時長</span>
-          <span class="text-[11px] font-bold">SINCE_2005.12</span>
-        </div>
-        <div>
-          <span class="text-[9px] text-zinc-500 block">BAUD_RATE // 波特率</span>
-          <span class="text-[11px] font-bold text-amber-500">115200 bps</span>
-        </div>
+      <div class="border-t border-dashed pt-2.5" :class="[theme === 'light' ? 'border-stone-200' : 'border-zinc-800']">
+        <span class="text-[9px] text-zinc-500 block">UPTIME // 運行時長</span>
+        <span class="text-sm font-bold text-amber-500 tracking-wider">SINCE_2005.12</span>
       </div>
     </div>
 
@@ -53,14 +48,14 @@
          class="p-2.5 border rounded-xl flex justify-between items-center text-[10px]">
       <span class="text-zinc-500">FIRMWARE_STATUS</span>
       <span class="px-2 py-0.5 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded font-bold text-[9px] uppercase tracking-widest animate-pulse">
-        {{ amp.statusText }}
+        ACTIVE
       </span>
     </div>
   </div>
 
   <div v-else
        :class="[theme === 'light' ? 'bg-white/80 border-stone-300/80 text-stone-800' : 'bg-zinc-900/40 border-zinc-900/80 text-zinc-300']"
-       class="backdrop-blur-md border rounded-2xl p-5 space-y-4 lg:col-span-1 transition-colors duration-300">
+       class="backdrop-blur-md border rounded-2xl p-5 space-y-4 lg:col-span-1 transition-colors duration-300 font-sans">
     <div>
       <span class="text-xs font-bold font-mono text-zinc-500 block tracking-wider uppercase">SPECIFICATIONS</span>
       <h2 :class="[theme === 'light' ? 'text-stone-900' : 'text-white']" class="text-base font-bold font-mono mt-0.5">{{ amp.fullName }}</h2>
