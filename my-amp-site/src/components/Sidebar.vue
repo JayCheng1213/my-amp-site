@@ -18,31 +18,27 @@
        @mouseenter="isHovered = true"
        @mouseleave="isHovered = false">
     
-    <div :class="[isHovered ? 'opacity-0 scale-75 pointer-events-none' : 'opacity-100 scale-100']"
-         class="absolute left-5 top-6 w-10 h-10 cursor-pointer transition-all duration-300 shadow-md group">
+    <div :class="[isHovered ? 'opacity-0 scale-90 pointer-events-none' : 'opacity-100 scale-100']"
+         class="absolute left-full top-0 w-8 h-36 cursor-pointer transition-all duration-300 origin-top-left">
       
-      <svg class="absolute inset-0 w-full h-full transition-all duration-300 drop-shadow-sm" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M11 1H39V39H1V11L11 1Z"
-              :stroke="theme === 'light' ? '#a8a29e' : '#27272a'"
-              :fill="theme === 'light' ? 'rgba(231, 229, 228, 0.95)' : 'rgba(9, 9, 11, 0.65)'"
+      <svg class="w-full h-full drop-shadow-[2px_2px_4px_rgba(0,0,0,0.15)]" viewBox="0 0 32 145" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0 0 L30 0 L24 14 L32 28 L20 45 L32 62 L20 80 L28 98 L16 115 L24 135 L0 145 Z"
+              :fill="theme === 'light' ? 'rgba(231, 229, 228, 0.98)' : 'rgba(24, 24, 27, 0.98)'"
+              :stroke="theme === 'light' ? '#d6d3d1' : '#27272a'"
               stroke-width="1"
               class="transition-colors duration-300"/>
       </svg>
-      
-      <span class="absolute text-[11px] opacity-20 group-hover:opacity-90 group-hover:scale-110 transition-all duration-200 top-2.5 right-2">
-        💡
-      </span>
-      
-      <span class="absolute text-xs font-bold bottom-1.5 left-2.5 group-hover:text-emerald-400 transition-colors">
+
+      <span class="absolute left-2.5 top-8 text-[10px] text-zinc-500/60 font-bold tracking-widest pointer-events-none select-none">
         ⋮
       </span>
     </div>
 
     <aside :class="[
-             isHovered ? 'translate-x-0 shadow-2xl shadow-black/60' : '-translate-x-full',
-             theme === 'light' ? 'bg-stone-200/95 border-stone-300/80' : 'bg-zinc-900/95 border-zinc-900/80'
+             isHovered ? 'translate-x-0 shadow-[25px_0_50px_-12px_rgba(0,0,0,0.5)]' : '-translate-x-full',
+             theme === 'light' ? 'bg-stone-200/98 border-stone-300/80' : 'bg-zinc-900/98 border-zinc-900/80'
            ]"
-           class="w-60 h-full backdrop-blur-md border-r p-5 flex flex-col justify-between transition-transform duration-300 ease-in-out">
+           class="w-60 h-full backdrop-blur-md border-r p-5 flex flex-col justify-between transition-transform duration-300 cubic-bezier(0.16, 1, 0.3, 1)">
       
       <div class="space-y-5">
         <div class="flex justify-between items-start">
