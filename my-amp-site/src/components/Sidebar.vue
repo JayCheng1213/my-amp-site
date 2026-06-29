@@ -18,10 +18,19 @@
        @mouseenter="isHovered = true"
        @mouseleave="isHovered = false">
     
-    <div :class="[isHovered ? 'opacity-0 scale-75 pointer-events-none' : 'opacity-100 scale-100']"
-         :theme-mode="theme"
-         class="absolute left-5 top-6 w-9 h-9 flex items-center justify-center rounded-xl border border-zinc-900 bg-zinc-950/40 text-zinc-500 hover:text-emerald-400 hover:border-emerald-500/30 cursor-pointer transition-all duration-300 shadow-sm">
-      <span class="text-sm tracking-widest leading-none font-bold">⋮</span>
+    <div :class="[
+           isHovered ? 'opacity-0 scale-75 pointer-events-none' : 'opacity-100 scale-100',
+           theme === 'light' ? 'bg-stone-200/90 border-stone-400/60 text-stone-700' : 'bg-zinc-950/60 border-zinc-900 text-zinc-500'
+         ]"
+         class="absolute left-5 top-6 w-10 h-10 cursor-pointer transition-all duration-300 shadow-md group torn-paper-tag">
+      
+      <span class="absolute text-[11px] opacity-20 group-hover:opacity-80 group-hover:scale-110 transition-all duration-200 top-2.5 right-2">
+        💡
+      </span>
+      
+      <span class="absolute text-xs font-bold bottom-1.5 left-2.5 group-hover:text-emerald-400 transition-colors">
+        ⋮
+      </span>
     </div>
 
     <aside :class="[
@@ -78,7 +87,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue' // 💡 引入 ref 驅動感應晶片
+import { ref } from 'vue'
 import ProjectSelector from './ProjectSelector.vue'
 import { useFontSize } from '../composables/useFontSize'
 import { useTheme } from '../composables/useTheme'
@@ -88,7 +97,14 @@ defineEmits(['select'])
 
 const { fontSize, setFontSize } = useFontSize()
 const { theme, toggleTheme } = useTheme()
-
-// 💡 宣告觸碰感應狀態，預設收起 (false)
 const isHovered = ref(false)
 </script>
+
+<style scoped>
+/* ✂️ 撕紙效果核心電路：切除左上角 11px */
+.torn-paper-tag {
+  border: 1px solid;
+  clip-path: polygon(11px 0%, 100% 0%, 100% 100%, 0% 100%, 0% 11px);
+  border-radius: 4px;
+}
+</style>
