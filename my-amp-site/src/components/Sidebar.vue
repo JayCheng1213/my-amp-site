@@ -18,13 +18,18 @@
        @mouseenter="isHovered = true"
        @mouseleave="isHovered = false">
     
-    <div :class="[
-           isHovered ? 'opacity-0 scale-75 pointer-events-none' : 'opacity-100 scale-100',
-           theme === 'light' ? 'bg-stone-200/90 border-stone-400/60 text-stone-700' : 'bg-zinc-950/60 border-zinc-900 text-zinc-500'
-         ]"
-         class="absolute left-5 top-6 w-10 h-10 cursor-pointer transition-all duration-300 shadow-md group torn-paper-tag">
+    <div :class="[isHovered ? 'opacity-0 scale-75 pointer-events-none' : 'opacity-100 scale-100']"
+         class="absolute left-5 top-6 w-10 h-10 cursor-pointer transition-all duration-300 shadow-md group">
       
-      <span class="absolute text-[11px] opacity-20 group-hover:opacity-80 group-hover:scale-110 transition-all duration-200 top-2.5 right-2">
+      <svg class="absolute inset-0 w-full h-full transition-all duration-300 drop-shadow-sm" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M11 1H39V39H1V11L11 1Z"
+              :stroke="theme === 'light' ? '#a8a29e' : '#27272a'"
+              :fill="theme === 'light' ? 'rgba(231, 229, 228, 0.95)' : 'rgba(9, 9, 11, 0.65)'"
+              stroke-width="1"
+              class="transition-colors duration-300"/>
+      </svg>
+      
+      <span class="absolute text-[11px] opacity-20 group-hover:opacity-90 group-hover:scale-110 transition-all duration-200 top-2.5 right-2">
         💡
       </span>
       
@@ -99,12 +104,3 @@ const { fontSize, setFontSize } = useFontSize()
 const { theme, toggleTheme } = useTheme()
 const isHovered = ref(false)
 </script>
-
-<style scoped>
-/* ✂️ 撕紙效果核心電路：切除左上角 11px */
-.torn-paper-tag {
-  border: 1px solid;
-  clip-path: polygon(11px 0%, 100% 0%, 100% 100%, 0% 100%, 0% 11px);
-  border-radius: 4px;
-}
-</style>

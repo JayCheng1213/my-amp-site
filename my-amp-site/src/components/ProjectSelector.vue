@@ -13,7 +13,7 @@
           ? (theme === 'light' ? 'bg-emerald-600/10 border-emerald-600 text-emerald-700 font-bold shadow-sm' : 'bg-emerald-500/10 border-emerald-500 text-emerald-400 font-bold shadow-sm') 
           : (theme === 'light' ? 'bg-stone-200/40 border-stone-300 text-stone-500 hover:text-stone-800 hover:border-stone-400' : 'bg-zinc-900/10 border-zinc-900/60 text-zinc-500 hover:border-zinc-800 hover:text-zinc-300')
       ]"
-      class="px-3 py-1.5 rounded-xl border text-xs font-mono transition-all duration-200 shrink-0 lg:w-full lg:text-left cursor-pointer jelly-btn"
+      class="px-3 py-1.5 rounded-xl border text-xs font-mono shrink-0 lg:w-full lg:text-left cursor-pointer jelly-btn"
     >
       <span class="text-zinc-600 mr-1 lg:inline hidden">▪</span> {{ amp.menuName }}
     </button>
@@ -31,10 +31,31 @@ defineEmits(['select'])
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-/* 🍮 果凍律動（Jelly Jiggle）阻尼震盪電路 */
+/* 🍮 升級版：超級果凍與外邊距動態排開電路 */
+.jelly-btn {
+  /* 💡 焊接高彈性阻尼過渡，確保擠開鄰近按鈕時絲滑不抖動 */
+  transition: transform 0.2s, margin 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.2s, border-color 0.2s;
+  will-change: transform, margin;
+}
+
 .jelly-btn:hover {
-  /* 觸碰時觸發 0.5 秒的高級彈性動畫，並定格在最後的放大狀態 */
   animation: jellyAnimation 0.5s ease-in-out forwards;
+}
+
+/* 💻 電腦端（垂直排版）：觸碰時朝上下彈性擠開鄰居 */
+@media (min-width: 1024px) {
+  .jelly-btn:hover {
+    margin-top: 6px;
+    margin-bottom: 6px;
+  }
+}
+
+/* 📱 行動端（橫向排版）：觸碰時朝左右彈性擠開鄰居 */
+@media (max-width: 1023px) {
+  .jelly-btn:hover {
+    margin-left: 6px;
+    margin-right: 6px;
+  }
 }
 
 @keyframes jellyAnimation {
@@ -42,16 +63,16 @@ defineEmits(['select'])
     transform: scale(1, 1);
   }
   30% {
-    transform: scale(1.08, 0.92); /* 橫向壓扁拓寬 */
+    transform: scale(1.15, 0.85); /* 壓得更扁 */
   }
   50% {
-    transform: scale(0.94, 1.06); /* 縱向拉長縮窄 */
+    transform: scale(0.90, 1.10); /* 縱向扯得更長 */
   }
   70% {
-    transform: scale(1.04, 0.97); /* 輕微二次反彈 */
+    transform: scale(1.07, 0.94);
   }
   100% {
-    transform: scale(1.03, 1.03); /* 最終平穩停留在微幅放大的質感 */
+    transform: scale(1.06, 1.06); /* 💡 終點增益放大到 1.06 倍，存在感極強 */
   }
 }
 </style>
