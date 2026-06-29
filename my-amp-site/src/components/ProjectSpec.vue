@@ -20,12 +20,12 @@
       <div class="space-y-0.5">
         <span class="text-[10px] text-zinc-500 block">MAIN // 要去不去的學校</span>
         <span class="text-sm font-bold tracking-wide" :class="[theme === 'light' ? 'text-stone-800' : 'text-zinc-200']">
-          國立臺北科技大學 (NYUT)
+          國立臺北科技大學 (NTUT)
         </span>
       </div>
       
       <div class="space-y-0.5">
-        <span class="text-[10px] text-zinc-500 block">CURRENT_STATE // 運行暫存</span>
+        <span class="text-[10px] text-zinc-500 block">CURRENT_STATE // 狀態暫存</span>
         <span class="text-sm font-bold tracking-wide text-emerald-500">
           電機系 大二
         </span>
