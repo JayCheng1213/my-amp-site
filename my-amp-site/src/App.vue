@@ -1,7 +1,11 @@
 <template>
   <div class="min-h-screen flex flex-col lg:flex-row bg-zinc-950 font-sans antialiased text-zinc-300 selection:bg-emerald-500/30">
     
-    <Sidebar />
+    <Sidebar 
+      :projects="ampProjects"
+      :activeId="activeAmpId"
+      @select="switchAmp"
+    />
 
     <main class="flex-grow max-w-6xl w-full mx-auto px-4 py-6 lg:py-12 space-y-6 overflow-y-auto">
       <header class="border-b border-zinc-900/80 pb-4">
@@ -12,14 +16,8 @@
         // FETCHING CORE BUFFER FROM NAS...
       </div>
 
-      <div v-else class="grid grid-cols-1 lg:grid-cols-4 gap-6 items-start">
+      <div v-else class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
         
-        <ProjectSelector 
-          :projects="ampProjects" 
-          :activeId="activeAmpId" 
-          @select="switchAmp" 
-        />
-
         <template v-if="activeAmp">
           <ProjectSpec :amp="activeAmp" class="animate-fadeIn" />
 
@@ -37,16 +35,11 @@
 </template>
 
 <script setup>
-// 💡 引進視覺零件
 import Sidebar from './components/Sidebar.vue'
-import ProjectSelector from './components/ProjectSelector.vue'
 import ProjectSpec from './components/ProjectSpec.vue'
 import MarkdownViewer from './components/MarkdownViewer.vue'
-
-// 💡 引進控制晶片
 import { useProjects } from './composables/useProjects'
 
-// 解構晶片腳位，直接交付 HTML 渲染
 const {
   ampProjects,
   activeAmpId,

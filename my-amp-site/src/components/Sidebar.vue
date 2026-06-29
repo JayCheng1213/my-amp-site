@@ -9,19 +9,41 @@
         <p class="text-[10px] font-mono text-zinc-500 mt-0.5 uppercase">Research & Logs</p>
       </div>
 
-      <nav class="flex lg:flex-col gap-1 overflow-x-auto lg:overflow-x-visible pb-1 lg:pb-0 no-scrollbar">
-        <button class="px-3 py-1.5 rounded-lg text-xs font-mono border border-zinc-800 bg-zinc-900 text-white shrink-0 text-left lg:w-full flex items-center space-x-2">
+      <nav class="space-y-4">
+        <button class="px-3 py-1.5 rounded-lg text-xs font-mono border border-zinc-800 bg-zinc-900 text-white w-full flex items-center space-x-2">
           <span>⚡</span> <span>真空管專案研究</span>
         </button>
+
+        <div class="pt-2 lg:border-t lg:border-zinc-900/60">
+          <ProjectSelector 
+            :projects="projects" 
+            :activeId="activeId" 
+            @select="$emit('select', $event)" 
+          />
+        </div>
       </nav>
     </div>
 
     <div class="hidden lg:block border-t border-zinc-900/60 pt-4 text-[9px] font-mono text-zinc-600 space-y-0.5">
       <div>HOST // SYNOLOGY_NAS</div>
-      <div>RENDER // TAILWIND_V4</div>
+      <div>RENDER // SIDEBAR_INTEGRATED</div>
     </div>
   </aside>
 </template>
+
+<script setup>
+// 引入切換器零件
+import ProjectSelector from './ProjectSelector.vue'
+
+// 接收來自 App.vue 的專案資料訊號
+defineProps({
+  projects: { type: Array, required: true },
+  activeId: { type: String, required: true }
+})
+
+// 宣告向上傳遞的切換事件
+defineEmits(['select'])
+</script>
 
 <style scoped>
 .no-scrollbar::-webkit-scrollbar { display: none; }
