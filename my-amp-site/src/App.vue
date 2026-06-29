@@ -117,7 +117,7 @@ const activeAmp = computed(() => {
 onMounted(async () => {
   try {
     // 讀取由 Google Drive 透過 Cloud Sync 下載到 NAS 本地的總目錄
-    const response = await fetch('/nas-media-project/projects.json')
+    const response = await fetch('/nas-media/projects.json')
     const data = await response.json()
     
     ampProjects.value = data
