@@ -17,18 +17,18 @@
       </nav>
     </div>
 
-    <div class="space-y-4">
+    <div class="hidden lg:block space-y-4">
       
       <div class="pt-4 border-t border-zinc-900/60 space-y-2">
         <div class="text-[0.6rem] font-mono text-zinc-600 uppercase tracking-wider">ENVIRONMENT // 環境燈光</div>
         <div :class="[theme === 'light' ? 'bg-stone-200/60 border-stone-300' : 'bg-zinc-950/60 border-zinc-900']" class="flex gap-1 p-1 border rounded-xl">
           <button @click="toggleTheme" :class="[theme === 'light' ? 'bg-amber-600/10 text-amber-700 border-amber-600/20 font-bold' : 'text-zinc-600 border-transparent hover:text-zinc-400']"
-                  class="flex-1 text-center py-1 text-[0.65rem] font-mono border rounded-lg cursor-pointer transition-all duration-200">
-            ☀️ 溫和亮
+                  class="flex-1 text-center py-1 text-xs font-mono border rounded-lg cursor-pointer transition-all duration-200">
+            ☀️
           </button>
           <button @click="toggleTheme" :class="[theme === 'dark' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30 font-bold' : 'text-zinc-600 border-transparent hover:text-zinc-400']"
-                  class="flex-1 text-center py-1 text-[0.65rem] font-mono border rounded-lg cursor-pointer transition-all duration-200">
-            🌙 深夜庵
+                  class="flex-1 text-center py-1 text-xs font-mono border rounded-lg cursor-pointer transition-all duration-200">
+            🌙
           </button>
         </div>
       </div>
@@ -44,7 +44,7 @@
         </div>
       </div>
 
-      <div class="hidden lg:block border-t border-zinc-900/60 pt-3 text-[0.6rem] font-mono text-zinc-600 space-y-0.5">
+      <div class="border-t border-zinc-900/60 pt-3 text-[0.6rem] font-mono text-zinc-600 space-y-0.5">
         <div>HOST // SYNOLOGY_NAS</div>
         <div>THEME // {{ theme.toUpperCase() }}_MODE</div>
       </div>
@@ -55,11 +55,11 @@
 <script setup>
 import ProjectSelector from './ProjectSelector.vue'
 import { useFontSize } from '../composables/useFontSize'
-import { useTheme } from '../composables/useTheme' // 💡 引入控制晶片
+import { useTheme } from '../composables/useTheme'
 
 defineProps({ projects: Array, activeId: String })
 defineEmits(['select'])
 
 const { fontSize, setFontSize } = useFontSize()
-const { theme, toggleTheme } = useTheme() // 💡 接入引腳
+const { theme, toggleTheme } = useTheme()
 </script>
