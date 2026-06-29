@@ -10,11 +10,7 @@
       </div>
 
       <nav class="space-y-4">
-        <button class="px-3 py-1.5 rounded-lg text-xs font-mono border border-zinc-800 bg-zinc-900 text-white w-full flex items-center space-x-2">
-          <span>⚡</span> <span>真空管專案研究</span>
-        </button>
-
-        <div class="pt-2 lg:border-t lg:border-zinc-900/60">
+        <div class="pt-2">
           <ProjectSelector 
             :projects="projects" 
             :activeId="activeId" 
