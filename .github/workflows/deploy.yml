@@ -19,18 +19,19 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
-          cache: 'npm'
+          node-version: 22
 
       - name: Install Dependencies
+        working-directory: ./my-amp-site # 👈 密碼 1：告訴它進去這個資料夾安裝
         run: npm install
 
       - name: Build Project
+        working-directory: ./my-amp-site # 👈 密碼 2：告訴它進去這個資料夾編譯
         run: npm run build
 
       - name: Deploy to Deploy Branch
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: dist # Vite 打包後的純網頁靜態資料夾
+          folder: my-amp-site/dist # 👈 密碼 3：打包後的成品在子資料夾的 dist 裡
           branch: deploy # 目標分支
           token: ${{ secrets.GITHUB_TOKEN }}
