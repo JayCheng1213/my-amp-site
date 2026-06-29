@@ -3,10 +3,10 @@ name: Build and Deploy Vue Site
 on:
   push:
     branches:
-      - main # 監聽 main 分支的 push
+      - main 
 
 permissions:
-  contents: write # 賦予寫入權限，用來將打包後的網頁推送到 deploy 分支
+  contents: write 
 
 jobs:
   build-and-deploy:
@@ -22,16 +22,16 @@ jobs:
           node-version: 22
 
       - name: Install Dependencies
-        working-directory: ./my-amp-site # 👈 密碼 1：告訴它進去這個資料夾安裝
+        working-directory: ./my-amp-site 
         run: npm install
 
       - name: Build Project
-        working-directory: ./my-amp-site # 👈 密碼 2：告訴它進去這個資料夾編譯
+        working-directory: ./my-amp-site 
         run: npm run build
 
       - name: Deploy to Deploy Branch
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: my-amp-site/dist # 👈 密碼 3：打包後的成品在子資料夾的 dist 裡
-          branch: deploy # 目標分支
+          folder: my-amp-site/dist 
+          branch: deploy 
           token: ${{ secrets.GITHUB_TOKEN }}
