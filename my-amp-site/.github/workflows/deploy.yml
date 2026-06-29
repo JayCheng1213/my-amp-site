@@ -1,0 +1,36 @@
+name: Build and Deploy Vue Site
+
+on:
+  push:
+    branches:
+      - main # 監聽 main 分支的 push
+
+permissions:
+  contents: write # 賦予寫入權限，用來將打包後的網頁推送到 deploy 分支
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build Project
+        run: npm run build
+
+      - name: Deploy to Deploy Branch
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: dist # Vite 打包後的純網頁靜態資料夾
+          branch: deploy # 目標分支
+          token: ${{ secrets.GITHUB_TOKEN }}
