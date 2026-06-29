@@ -90,7 +90,7 @@
             </div>
 
             <!-- 圖層 2：訊號路徑線稿 (Signal Path Layer) -->
-            <div v-slot="signal" v-if="activeLayer === 'signal'" class="w-full space-y-4 max-w-sm font-mono text-xs animate-fadeIn">
+            <div v-if="activeLayer === 'signal'" class="w-full space-y-4 max-w-sm font-mono text-xs animate-fadeIn">
               <div class="flex items-center justify-between border border-blue-500/30 rounded-xl p-3 bg-blue-500/[0.02]">
                 <span class="text-blue-400">RCA_INPUT (L/R)</span>
                 <span class="text-zinc-600">————————→</span>
