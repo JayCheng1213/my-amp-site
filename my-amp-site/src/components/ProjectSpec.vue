@@ -1,5 +1,65 @@
 <template>
-  <div :class="[theme === 'light' ? 'bg-white/80 border-stone-300/80 text-stone-800' : 'bg-zinc-900/40 border-zinc-900/80 text-zinc-300']"
+  <div v-if="amp.id === 'bio'"
+       :class="[theme === 'light' ? 'bg-white/90 border-stone-300/80 text-stone-800' : 'bg-zinc-900/40 border-zinc-900/80 text-zinc-300']"
+       class="backdrop-blur-md border rounded-2xl p-5 space-y-4 lg:col-span-1 transition-colors duration-300 font-mono relative overflow-hidden">
+    
+    <div class="absolute top-0 right-0 w-16 h-16 border-b border-l border-dashed opacity-20 pointer-events-none"
+         :class="[theme === 'light' ? 'border-stone-400' : 'border-emerald-500']"></div>
+
+    <div>
+      <div class="flex items-center space-x-1.5 text-xs font-bold text-emerald-500 tracking-wider">
+        <span>[🧠]</span> <span>SYS_REG_MATRIX // 核心暫存器</span>
+      </div>
+      <h2 :class="[theme === 'light' ? 'text-stone-900' : 'text-white']" class="text-base font-black mt-1 uppercase tracking-tight">
+        {{ amp.fullName }}
+      </h2>
+    </div>
+
+    <div :class="[theme === 'light' ? 'border-stone-200' : 'border-zinc-900/80']" class="border-t pt-3 space-y-3.5 text-xs">
+      <div class="space-y-0.5">
+        <span class="text-[10px] text-zinc-500 block">CORE_ARCH // 核心架構</span>
+        <span class="text-sm font-bold tracking-wide" :class="[theme === 'light' ? 'text-stone-800' : 'text-zinc-200']">
+          {{ amp.type }}
+        </span>
+      </div>
+      
+      <div class="space-y-0.5">
+        <span class="text-[10px] text-zinc-500 block">HOST_MCU // 實體封裝節點</span>
+        <span class="text-sm font-bold tracking-wide text-emerald-500">
+          {{ amp.tubes }}
+        </span>
+      </div>
+      
+      <div class="space-y-0.5">
+        <span class="text-[10px] text-zinc-500 block">INSTRUCTION_SETS // 指令集驅動</span>
+        <span class="text-sm font-medium tracking-wide" :class="[theme === 'light' ? 'text-stone-700' : 'text-zinc-300']">
+          {{ amp.power }}
+        </span>
+      </div>
+
+      <div class="grid grid-cols-2 gap-2 border-t border-dashed pt-2.5" :class="[theme === 'light' ? 'border-stone-200' : 'border-zinc-800']">
+        <div>
+          <span class="text-[9px] text-zinc-500 block">UPTIME // 運行時長</span>
+          <span class="text-[11px] font-bold">SINCE_2005.12</span>
+        </div>
+        <div>
+          <span class="text-[9px] text-zinc-500 block">BAUD_RATE // 波特率</span>
+          <span class="text-[11px] font-bold text-amber-500">115200 bps</span>
+        </div>
+      </div>
+    </div>
+
+    <div :class="[theme === 'light' ? 'bg-stone-100 border-stone-200' : 'bg-zinc-950/60 border-zinc-900']" 
+         class="p-2.5 border rounded-xl flex justify-between items-center text-[10px]">
+      <span class="text-zinc-500">FIRMWARE_STATUS</span>
+      <span class="px-2 py-0.5 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded font-bold text-[9px] uppercase tracking-widest animate-pulse">
+        {{ amp.statusText }}
+      </span>
+    </div>
+  </div>
+
+  <div v-else
+       :class="[theme === 'light' ? 'bg-white/80 border-stone-300/80 text-stone-800' : 'bg-zinc-900/40 border-zinc-900/80 text-zinc-300']"
        class="backdrop-blur-md border rounded-2xl p-5 space-y-4 lg:col-span-1 transition-colors duration-300">
     <div>
       <span class="text-xs font-bold font-mono text-zinc-500 block tracking-wider uppercase">SPECIFICATIONS</span>
@@ -7,12 +67,12 @@
     </div>
 
     <div :class="[theme === 'light' ? 'border-stone-200' : 'border-zinc-900/80']" class="border-t pt-3 space-y-2 font-mono text-xs">
-      <div class="flex justify-between"><span class="text-zinc-500">架構類型</span><span>{{ amp.type }}</span></div>
+      <div class="flex justify-between"><span class="text-zinc-500">架構類型</span><span class="font-medium">{{ amp.type }}</span></div>
       <div class="flex justify-between">
         <span class="text-zinc-500">真空管配置</span>
         <span :class="[theme === 'light' ? 'text-emerald-700 font-bold' : 'text-emerald-400 font-semibold']">{{ amp.tubes }}</span>
       </div>
-      <div class="flex justify-between"><span class="text-zinc-500">輸出功率</span><span>{{ amp.power }}</span></div>
+      <div class="flex justify-between"><span class="text-zinc-500">輸出功率</span><span class="font-medium">{{ amp.power }}</span></div>
     </div>
 
     <div :class="[theme === 'light' ? 'bg-stone-100 border-stone-200' : 'bg-zinc-950/60 border-zinc-900']" class="p-2.5 border rounded-xl flex justify-between items-center text-[10px] font-mono">
