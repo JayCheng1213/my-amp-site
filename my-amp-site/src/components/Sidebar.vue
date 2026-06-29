@@ -19,9 +19,9 @@
        @mouseleave="isHovered = false">
     
     <div :class="[isHovered ? 'opacity-0 scale-90 pointer-events-none' : 'opacity-100 scale-100']"
-         class="absolute left-full top-0 w-8 h-36 cursor-pointer transition-all duration-300 origin-top-left">
+         class="absolute left-0 top-0 w-8 h-36 cursor-pointer transition-all duration-300 origin-top-left group">
       
-      <svg class="w-full h-full drop-shadow-[2px_2px_4px_rgba(0,0,0,0.15)]" viewBox="0 0 32 145" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg class="w-full h-full drop-shadow-[2px_2px_4px_rgba(0,0,0,0.2)]" viewBox="0 0 32 145" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M0 0 L30 0 L24 14 L32 28 L20 45 L32 62 L20 80 L28 98 L16 115 L24 135 L0 145 Z"
               :fill="theme === 'light' ? 'rgba(231, 229, 228, 0.98)' : 'rgba(24, 24, 27, 0.98)'"
               :stroke="theme === 'light' ? '#d6d3d1' : '#27272a'"
@@ -29,7 +29,7 @@
               class="transition-colors duration-300"/>
       </svg>
 
-      <span class="absolute left-2.5 top-8 text-[10px] text-zinc-500/60 font-bold tracking-widest pointer-events-none select-none">
+      <span class="absolute left-2 top-8 text-[10px] text-zinc-500/60 font-bold tracking-widest pointer-events-none select-none">
         ⋮
       </span>
     </div>

@@ -31,11 +31,10 @@ defineEmits(['select'])
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-/* 🍮 完美阻尼與大尺度氣墊擠開線路 */
 .jelly-btn {
-  /* 💡 採用進階的阻尼彈簧 bezier 曲線，確保按鈕擠壓鄰居時帶有果凍回彈力道 */
-  transition: transform 0.25s cubic-bezier(0.25, 0.8, 0.25, 1), 
-              margin 0.35s cubic-bezier(0.34, 1.65, 0.64, 1), 
+  /* 鎖定高阻尼感過渡，讓推開鄰居時富有彈性感 */
+  transition: transform 0.25s cubic-bezier(0.34, 1.75, 0.64, 1), 
+              margin 0.35s cubic-bezier(0.34, 1.75, 0.64, 1), 
               background-color 0.2s, border-color 0.2s;
   will-change: transform, margin;
 }
@@ -44,19 +43,19 @@ defineEmits(['select'])
   animation: megaJelly 0.45s ease-in-out forwards;
 }
 
-/* 💻 電腦端：大幅朝上下推開鄰居 10px，形成極具張力的力場 */
+/* 💻 電腦端：大幅朝上下推開鄰居 16px，張力直接拉滿 */
 @media (min-width: 1024px) {
   .jelly-btn:hover {
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-top: 16px;
+    margin-bottom: 16px;
   }
 }
 
-/* 📱 行動端：橫向朝左右推開鄰居 10px */
+/* 📱 行動端：橫向朝左右推開鄰居 16px */
 @media (max-width: 1023px) {
   .jelly-btn:hover {
-    margin-left: 10px;
-    margin-right: 10px;
+    margin-left: 16px;
+    margin-right: 16px;
   }
 }
 
@@ -65,16 +64,16 @@ defineEmits(['select'])
     transform: scale(1, 1);
   }
   30% {
-    transform: scale(1.18, 0.82); /* 大幅度壓扁 */
+    transform: scale(1.22, 0.78); /* 壓得極扁 */
   }
   50% {
-    transform: scale(0.85, 1.15); /* 大幅度拉長 */
+    transform: scale(0.82, 1.18); /* 拉得極長 */
   }
   70% {
-    transform: scale(1.09, 0.95);
+    transform: scale(1.13, 0.92);
   }
   100% {
-    transform: scale(1.08, 1.08); /* 💡 最終放大倍率直衝 1.08 倍 */
+    transform: scale(1.12, 1.12); /* 💡 最終放大倍率灌到 1.12 倍 */
   }
 }
 </style>
