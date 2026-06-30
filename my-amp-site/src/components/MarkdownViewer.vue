@@ -29,6 +29,27 @@ defineProps({ ampId: String, content: String, path: String, loading: Boolean })
 </script>
 
 <style scoped>
+/* ========================================================================= */
+/* 💡 多媒體訊號擴充：確保圖片與影片完美咬合面板寬度，並加入工業圓角 */
+/* ========================================================================= */
+:deep(.markdown-body img),
+:deep(.markdown-body video),
+:deep(.markdown-body iframe) {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px; /* 貼合你的面板圓角 */
+  margin: 1.5rem 0;
+  border: 1px solid #27272a; /* 暗模式下的冷灰色邊框 */
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+}
+
+/* ☀️ 溫和亮色模式下的多媒體邊框調校 */
+.light-mode :deep(.markdown-body img),
+.light-mode :deep(.markdown-body video),
+.light-mode :deep(.markdown-body iframe) {
+  border-color: #d6d3d1; /* 亮模式下的暖大理石邊框 */
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
 /* 🌙 暗黑模式專屬 Markdown 配色 */
 :deep(.markdown-body h2) { font-size: 0.9rem; font-weight: 800; color: #ffffff; margin-top: 1.5rem; margin-bottom: 0.75rem; }
 :deep(.markdown-body h3) { font-size: 0.8rem; font-weight: 700; color: #e4e4e7; margin-top: 1.25rem; margin-bottom: 0.5rem; display: flex; align-items: center; }
