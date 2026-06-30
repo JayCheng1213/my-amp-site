@@ -2,21 +2,20 @@
   <div :class="[theme === 'light' ? 'bg-stone-100 text-stone-800' : 'bg-zinc-950 text-zinc-300']"
        class="min-h-screen font-sans antialiased selection:bg-emerald-500/30 transition-colors duration-300 relative">
     
-    <Sidebar :projects="ampProjects" :activeId="activeAmpId" @select="switchAmp" />
+    <Sidebar 
+      :activeProjects="activeProjects" 
+      :archivedProjects="archivedProjects" 
+      :activeId="activeAmpId" 
+      @select="switchAmp" 
+    />
 
     <main class="max-w-6xl w-full mx-auto px-4 py-6 lg:py-12 lg:px-12 space-y-6 flex flex-col justify-between">
-      
       <div class="space-y-6 flex-grow">
-        <!-- 💡 核心改動：加入 flex 佈局，讓編碼完美推至右側紅圈處 -->
-        <header :class="[theme === 'light' ? 'border-stone-300/80' : 'border-zinc-900/80']" 
-                class="border-b pb-4 lg:pl-12 flex justify-between items-center">
+        <header :class="[theme === 'light' ? 'border-stone-300/80' : 'border-zinc-900/80']" class="border-b pb-4 lg:pl-12 flex justify-between items-center">
           <h1 :class="[theme === 'light' ? 'text-stone-900' : 'text-white']" class="text-lg font-bold tracking-wider font-mono uppercase">PROJECTS LAB DASHBOARD</h1>
-          
-          <!-- 🛠️ 畫面右側紅圈專屬：動態機體編碼顯示器 -->
           <div v-if="activeAmp" class="font-mono text-xs tracking-widest text-zinc-500/80 flex items-center space-x-2 animate-fadeIn">
             <span class="text-[9px] text-zinc-600 hidden sm:inline">// UNIT_ID</span>
-            <span :class="[theme === 'light' ? 'text-stone-900 border-stone-400 bg-stone-200/30' : 'text-emerald-400 border-emerald-500/30 bg-emerald-500/5']" 
-                  class="font-bold border px-2.5 py-0.5 rounded-lg text-[11px]">
+            <span :class="[theme === 'light' ? 'text-stone-900 border-stone-400 bg-stone-200/30' : 'text-emerald-400 border-emerald-500/30 bg-emerald-500/5']" class="font-bold border px-2.5 py-0.5 rounded-lg text-[11px]">
               {{ activeAmp.deviceCode || 'JAY_UNKNOWN' }}
             </span>
           </div>
@@ -34,9 +33,7 @@
         </div>
       </div>
 
-      <!-- 行動端（Mobile）專屬底部控制台 -->
-      <div :class="[theme === 'light' ? 'border-stone-300/80' : 'border-zinc-900']" 
-           class="block lg:hidden mt-12 pt-6 border-t space-y-4">
+      <div :class="[theme === 'light' ? 'border-stone-300/80' : 'border-zinc-900']" class="block lg:hidden mt-12 pt-6 border-t space-y-4">
         <div class="grid grid-cols-2 gap-4">
           <div class="space-y-1.5">
             <div class="text-[0.6rem] font-mono text-zinc-500 uppercase tracking-wider">ENVIRONMENT // 燈光</div>
@@ -56,7 +53,6 @@
         </div>
         <div class="text-center font-mono text-[9px] text-zinc-600 uppercase tracking-widest pt-2">Mobile sync responsive node OK</div>
       </div>
-
     </main>
   </div>
 </template>
@@ -69,7 +65,8 @@ import { useProjects } from './composables/useProjects'
 import { useTheme } from './composables/useTheme'
 import { useFontSize } from './composables/useFontSize'
 
-const { ampProjects, activeAmpId, isLoading, isMarkdownLoading, activeAmp, renderedMarkdown, switchAmp } = useProjects()
+// 💡 接入全新分流後的解構引腳
+const { activeProjects, archivedProjects, activeAmpId, isLoading, isMarkdownLoading, activeAmp, renderedMarkdown, switchAmp } = useProjects()
 const { theme, toggleTheme } = useTheme()
 const { fontSize, setFontSize } = useFontSize()
 </script>

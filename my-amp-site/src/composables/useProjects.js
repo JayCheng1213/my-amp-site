@@ -1,7 +1,6 @@
 import { ref, onMounted, computed } from 'vue'
 import { marked } from 'marked'
 
-// 個人簡介項目 (保持不變)
 const bioItem = {
   id: 'bio',
   menuName: '個人簡介',
@@ -12,7 +11,8 @@ const bioItem = {
   statusText: 'ACTIVE',
   statusColor: 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20',
   markdownPath: '/nas-media/posts/mydata.md',
-  deviceCode: 'JAY_CORE'
+  deviceCode: 'JAY_CORE',
+  archived: false
 }
 
 export function useProjects() {
@@ -25,6 +25,16 @@ export function useProjects() {
   const activeAmp = computed(() => {
     if (activeAmpId.value === 'bio') return bioItem
     return ampProjects.value.find(amp => amp.id === activeAmpId.value) || null
+  })
+
+  // 💡 新增分流電路 A：捕捉現役專案 (archived 為 false)
+  const activeProjects = computed(() => {
+    return ampProjects.value.filter(amp => !amp.archived)
+  })
+
+  // 💡 新增分流電流 B：捕捉歷史老作品 (archived 為 true)
+  const archivedProjects = computed(() => {
+    return ampProjects.value.filter(amp => amp.archived)
   })
 
   const renderedMarkdown = computed(() => {
@@ -56,7 +66,7 @@ export function useProjects() {
       const response = await fetch('/nas-media/projects.json')
       const data = await response.json()
       
-      // 💡 核心改動：加入精密數位排序，強制比對 deviceCode (例如 JAY_01, JAY_02) 進行自然升序排列
+      // 依舊保持 01 02 03 自動化排序
       data.sort((a, b) => {
         const codeA = a.deviceCode || ''
         const codeB = b.deviceCode || ''
@@ -75,6 +85,8 @@ export function useProjects() {
 
   return {
     ampProjects,
+    activeProjects,   // 倒出引腳
+    archivedProjects, // 倒出引腳
     activeAmpId,
     isLoading,
     isMarkdownLoading,
