@@ -39,13 +39,24 @@ defineProps({ ampId: String, content: String, path: String, loading: Boolean })
 :deep(.markdown-body table) { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 11px; background-color: rgba(9, 9, 11, 0.4); border: 1px solid #27272a; }
 :deep(.markdown-body th) { background-color: #18181b; color: #ffffff; padding: 6px 10px; border-bottom: 1px solid #27272a; }
 :deep(.markdown-body td) { padding: 6px 10px; border-bottom: 1px solid #18181b; color: #d4d4d8; }
-:deep(.markdown-body blockquote) { border-left: 3px solid #10b981; background-color: rgba(16, 185, 129, 0.02); padding: 8px 12px; margin: 1rem 0; }
 
-/* ☀️ 💡 溫和亮色模式下的專屬 Markdown 調音 (焦糖紙質風) */
+/* 💡 核心修正：改進 blockquote 內襯墊，並強制歸零內層 p 標籤的 margin */
+:deep(.markdown-body blockquote) { 
+  border-left: 3px solid #10b981; 
+  background-color: rgba(16, 185, 129, 0.02); 
+  padding: 10px 14px; 
+  margin: 1.25rem 0; 
+  border-radius: 0 8px 8px 0;
+}
+:deep(.markdown-body blockquote p) {
+  margin: 0 !important; /* ⚡ 阻斷全域 p 標籤的 margin-bottom 殘留，達成完美絕對置中 */
+}
+
+/* ☀️ 溫和亮色模式下的專屬 Markdown 調音 */
 .light-mode :deep(.markdown-body h2) { color: #1c1917; }
 .light-mode :deep(.markdown-body h3) { color: #44403c; }
 .light-mode :deep(.markdown-body p) { color: #57534e; }
-.light-mode :deep(.markdown-body strong) { color: #047857; } /* 溫和的暗綠色 */
+.light-mode :deep(.markdown-body strong) { color: #047857; }
 .light-mode :deep(.markdown-body hr) { border-top: 1px dashed #d6d3d1; }
 .light-mode :deep(.markdown-body table) { background-color: rgba(255, 255, 255, 0.8); border: 1px solid #d6d3d1; }
 .light-mode :deep(.markdown-body th) { background-color: #e7e5e4; color: #1c1917; border-bottom: 1px solid #d6d3d1; }
