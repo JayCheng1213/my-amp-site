@@ -2,14 +2,10 @@
   <div :class="[theme === 'light' ? 'bg-stone-100 text-stone-800' : 'bg-zinc-950 text-zinc-300']"
        class="min-h-screen font-sans antialiased selection:bg-emerald-500/30 transition-colors duration-300 relative">
     
-    <Sidebar 
-      :activeProjects="activeProjects" 
-      :archivedProjects="archivedProjects" 
-      :activeId="activeAmpId" 
-      @select="switchAmp" 
-    />
+    <Sidebar :activeProjects="activeProjects" :archivedProjects="archivedProjects" :activeId="activeAmpId" @select="switchAmp" />
 
     <main class="max-w-6xl w-full mx-auto px-4 py-6 lg:py-12 lg:px-12 space-y-6 flex flex-col justify-between">
+      
       <div class="space-y-6 flex-grow">
         <header :class="[theme === 'light' ? 'border-stone-300/80' : 'border-zinc-900/80']" class="border-b pb-4 lg:pl-12 flex justify-between items-center">
           <h1 :class="[theme === 'light' ? 'text-stone-900' : 'text-white']" class="text-lg font-bold tracking-wider font-mono uppercase">PROJECTS LAB DASHBOARD</h1>
@@ -27,7 +23,11 @@
 
         <div v-else class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start lg:pl-12">
           <template v-if="activeAmp">
-            <ProjectSpec :amp="activeAmp" class="animate-fadeIn" />
+            <div class="lg:col-span-1 space-y-6 flex flex-col">
+              <ProjectSpec :amp="activeAmp" class="animate-fadeIn" />
+              <ProjectGallery :items="galleryItems" :loading="isGalleryLoading" class="animate-fadeIn" />
+            </div>
+
             <MarkdownViewer :ampId="activeAmp.id" :content="renderedMarkdown" :path="activeAmp.markdownPath" :loading="isMarkdownLoading" class="animate-fadeIn" />
           </template>
         </div>
@@ -61,12 +61,12 @@
 import Sidebar from './components/Sidebar.vue'
 import ProjectSpec from './components/ProjectSpec.vue'
 import MarkdownViewer from './components/MarkdownViewer.vue'
+import ProjectGallery from './components/ProjectGallery.vue' // 💡 引入展示櫃組件
 import { useProjects } from './composables/useProjects'
 import { useTheme } from './composables/useTheme'
 import { useFontSize } from './composables/useFontSize'
 
-// 💡 接入全新分流後的解構引腳
-const { activeProjects, archivedProjects, activeAmpId, isLoading, isMarkdownLoading, activeAmp, renderedMarkdown, switchAmp } = useProjects()
+const { activeProjects, archivedProjects, activeAmpId, isLoading, isMarkdownLoading, galleryItems, isGalleryLoading, activeAmp, renderedMarkdown, switchAmp } = useProjects()
 const { theme, toggleTheme } = useTheme()
 const { fontSize, setFontSize } = useFontSize()
 </script>
