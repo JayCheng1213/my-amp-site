@@ -29,9 +29,9 @@
           />
         </div>
 
-        <div class="w-full max-h-0 opacity-0 overflow-hidden transition-all duration-500 ease-out-expo group-hover:max-h-16 group-hover:opacity-100 group-hover:mt-2.5">
-          <p :class="[theme === 'light' ? 'text-stone-600 bg-stone-100' : 'text-zinc-400 bg-zinc-950/40']"
-             class="text-[11px] leading-relaxed p-2 rounded-lg border border-dashed border-zinc-800/40 text-center">
+        <div class="w-full max-h-0 opacity-0 overflow-hidden transition-all duration-500 ease-out-expo group-hover:max-h-24 group-hover:opacity-100 group-hover:mt-2.5">
+          <p :class="[theme === 'light' ? 'text-stone-600 bg-stone-100/80' : 'text-zinc-400 bg-zinc-950/40']"
+             class="text-xs leading-relaxed p-2.5 rounded-lg border border-dashed border-zinc-800/40 text-left">
             <span class="text-emerald-500 mr-1">▪</span> {{ img.caption }}
           </p>
         </div>
@@ -51,7 +51,6 @@ defineProps({
 </script>
 
 <style scoped>
-/* 💡 導入精準的工業級阻尼曲線，確保滑出與畫框動作極具高階機械阻尼感 */
 .ease-out-expo {
   transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
 }
