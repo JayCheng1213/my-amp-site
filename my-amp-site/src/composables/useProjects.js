@@ -1,36 +1,36 @@
 import { ref, onMounted, computed } from 'vue'
 import { marked } from 'marked'
 
-// 真空管核心電路圖 SVG 矩陣（採用標準 40x40 網格精密走線）
+// 💡 終極幾何校正：徹底拉開 g1 與燈絲頂點的 Y 軸座標，確保 100% 絕緣不短路
 const TUBE_SVG_REGISTRY = {
   FILAMENT: `
     <svg class="inline-block w-5 h-5 mr-2 align-middle transform -translate-y-[1px]" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
       <rect x="3" y="3" width="34" height="34" rx="6" stroke="currentColor" stroke-width="1.5" class="opacity-30"/>
-      <path d="M14 32 L20 16 L26 32" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M14 30 L20 16 L26 30" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
   `,
   DIODE: `
     <svg class="inline-block w-5 h-5 mr-2 align-middle transform -translate-y-[1px]" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
       <rect x="3" y="3" width="34" height="34" rx="6" stroke="currentColor" stroke-width="1.5" class="opacity-30"/>
-      <path d="M12 10 H28" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
-      <path d="M14 30 L20 18 L26 30" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M12 12 H28" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+      <path d="M14 30 L20 20 L26 30" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
   `,
   TRIODE: `
     <svg class="inline-block w-5 h-5 mr-2 align-middle transform -translate-y-[1px]" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
       <rect x="3" y="3" width="34" height="34" rx="6" stroke="currentColor" stroke-width="1.5" class="opacity-30"/>
       <path d="M12 10 H28" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
-      <path d="M13 20 H27" stroke="currentColor" stroke-width="2" stroke-dasharray="2.5 2.5"/>
-      <path d="M14 32 L20 22 L26 32" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M13 18 H27" stroke="currentColor" stroke-width="1.8" stroke-dasharray="2 2"/>
+      <path d="M14 32 L20 26 L26 32" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
   `,
   TETRODE: `
     <svg class="inline-block w-5 h-5 mr-2 align-middle transform -translate-y-[1px]" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
       <rect x="3" y="3" width="34" height="34" rx="6" stroke="currentColor" stroke-width="1.5" class="opacity-30"/>
       <path d="M12 10 H28" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
-      <path d="M13 17 H27" stroke="currentColor" stroke-width="1.5" stroke-dasharray="2 2"/>
-      <path d="M13 24 H27" stroke="currentColor" stroke-width="2" stroke-dasharray="2.5 2.5"/>
-      <path d="M14 33 L20 25 L26 33" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M13 16 H27" stroke="currentColor" stroke-width="1.5" stroke-dasharray="2 2"/>
+      <path d="M13 22 H27" stroke="currentColor" stroke-width="1.8" stroke-dasharray="2 2"/>
+      <path d="M14 34 L20 28 L26 34" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
   `,
   PENTODE: `
@@ -38,9 +38,9 @@ const TUBE_SVG_REGISTRY = {
       <rect x="3" y="3" width="34" height="34" rx="6" stroke="currentColor" stroke-width="1.5" class="opacity-30"/>
       <path d="M12 10 H28" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
       <path d="M13 15 H27" stroke="currentColor" stroke-width="1.5" stroke-dasharray="2 2"/>
-      <path d="M13 21 H27" stroke="currentColor" stroke-width="1.5" stroke-dasharray="2 2"/>
-      <path d="M13 27 H27" stroke="currentColor" stroke-width="2" stroke-dasharray="2.5 2.5"/>
-      <path d="M14 34 L20 28 L26 34" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M13 20 H27" stroke="currentColor" stroke-width="1.5" stroke-dasharray="2 2"/>
+      <path d="M13 25 H27" stroke="currentColor" stroke-width="1.8" stroke-dasharray="2 2"/>
+      <path d="M14 35 L20 30 L26 35" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
   `
 }
@@ -50,7 +50,7 @@ const bioItem = {
   menuName: '個人簡介',
   fullName: 'Jaycheng // 個人簡介',
   type: '電子工程架構 (EE)',
-  tubes: '國立臺北科技大學 (NYUT)',
+  tubes: '國立臺北科技大學 (NTUT)',
   power: '設計&組裝真空管擴大機 / MCU單晶系統開發 / 精品咖啡',
   statusText: 'ACTIVE',
   statusColor: 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20',
@@ -81,11 +81,8 @@ export function useProjects() {
     const folderName = activeAmpId.value === 'bio' ? 'mydata' : activeAmpId.value
     const currentFolder = `/nas-media/posts/${folderName}/`
     
-    // 1. 資產相對路徑修正
     rawHtml = rawHtml.replace(/(src|href)=["'](?!http|\/)([^"']+)["']/g, `$1="${currentFolder}$2"`)
     
-    // 2. 💡 核心優化：真空管電路符號巨集解調線路
-    // 自動將 [FILAMENT]、[TRIODE] 等識別碼，熱熔替換成高精度的 inline SVG 符號
     return rawHtml.replace(/\[(FILAMENT|DIODE|TRIODE|TETRODE|PENTODE)\]/g, (match, type) => {
       return TUBE_SVG_REGISTRY[type] || match
     })
