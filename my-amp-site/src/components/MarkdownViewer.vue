@@ -43,6 +43,7 @@ defineProps({ ampId: String, content: String, path: String, loading: Boolean })
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
 }
 
+
 /* ☀️ 溫和亮色模式下的多媒體邊框調校 */
 .light-mode :deep(.markdown-body img),
 .light-mode :deep(.markdown-body video),
@@ -62,12 +63,11 @@ defineProps({ ampId: String, content: String, path: String, loading: Boolean })
 :deep(.markdown-body td) { padding: 6px 10px; border-bottom: 1px solid #18181b; color: #d4d4d8; }
 
 /* 💡 核心修正：改進 blockquote 內襯墊，並強制歸零內層 p 標籤的 margin */
-:deep(.markdown-body blockquote) { 
-  border-left: 3px solid #10b981; 
-  background-color: rgba(16, 185, 129, 0.02); 
-  padding: 10px 14px; 
-  margin: 1.25rem 0; 
-  border-radius: 0 8px 8px 0;
+:deep(.markdown-body h3:not(:has(svg))::before) { 
+  content: "■"; 
+  color: #10b981; 
+  font-size: 0.6rem; 
+  margin-right: 0.5rem; 
 }
 :deep(.markdown-body blockquote p) {
   margin: 0 !important; /* ⚡ 阻斷全域 p 標籤的 margin-bottom 殘留，達成完美絕對置中 */
