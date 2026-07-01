@@ -113,5 +113,5 @@ defineProps({ ampId: String, content: String, path: String, loading: Boolean })
 .light-mode :deep(.markdown-body iframe) { border-color: #d6d3d1; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
 
 .light-mode :deep(.markdown-body h2:hover svg),
-.light-mode :deep(.markdown-body h3:hover svg) { color: #ear580c !important; filter: drop-shadow(0 0 6px rgba(234, 88, 12, 0.5)); }
+.light-mode :deep(.markdown-body h3:hover svg) { color: #ea580c !important; filter: drop-shadow(0 0 6px rgba(234, 88, 12, 0.5)); }
 </style>
