@@ -22,24 +22,20 @@
           // FETCHING CORE BUFFER FROM NAS...
         </div>
 
-        <div v-else class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start pl-12 lg:pl-12">
+        <div v-else class="grid gap-6 items-start pl-0 lg:pl-12 matrix-grid-layout">
           <template v-if="activeAmp">
             
-            <ProjectSpec :amp="activeAmp" class="lg:col-start-1 lg:row-start-1 animate-fadeIn" />
+            <ProjectSpec :amp="activeAmp" class="spec-zone animate-fadeIn" />
             
             <MarkdownViewer 
               :ampId="activeAmp.id" 
               :content="renderedMarkdown" 
               :path="activeAmp.markdownPath" 
               :loading="isMarkdownLoading" 
-              class="lg:col-start-2 lg:col-span-2 lg:row-start-1 lg:row-span-2 animate-fadeIn" 
+              class="markdown-zone animate-fadeIn" 
             />
             
-            <ProjectGallery 
-              :items="galleryItems" 
-              :loading="isGalleryLoading" 
-              class="lg:col-start-1 lg:row-start-2 animate-fadeIn" 
-            />
+            <ProjectGallery :items="galleryItems" :loading="isGalleryLoading" class="gallery-zone animate-fadeIn" />
 
           </template>
         </div>
@@ -86,4 +82,28 @@ const { fontSize, setFontSize } = useFontSize()
 <style scoped>
 .animate-fadeIn { animation: fadeIn 0.25s ease-out forwards; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(2px); } to { opacity: 1; transform: translateY(0); } }
+
+/* 📱 手機端：純單行垂直通道，卡片完美貼齊兩側邊緣並保持原生空隙 */
+.matrix-grid-layout {
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "spec"
+    "markdown"
+    "gallery";
+}
+
+/* 宣告各零件的封裝引腳 */
+.spec-zone { grid-area: spec; }
+.markdown-zone { grid-area: markdown; }
+.gallery-zone { grid-area: gallery; }
+
+/* 💻 桌機端：啟動雙軌分流矩陣（強行解鎖行高鎖定） */
+@media (min-width: 1024px) {
+  .matrix-grid-layout {
+    grid-template-columns: 1fr 2fr; /* 保持左側面板與右側日誌的黃金比例 */
+    grid-template-areas:
+      "spec    markdown"
+      "gallery markdown";
+  }
+}
 </style>
