@@ -46,7 +46,7 @@
       <span class="text-[10px] text-zinc-500 block">IO_CHANNELS // 外部通訊埠</span>
   <div class="font-mono text-xs space-y-1.5 pt-0.5">
     <div class="flex items-center">
-      <span class="text-emerald-500 font-bold w-28">[0x01_GMAIL] :</span>
+      <span class="text-emerald-500 font-bold w-28">[0x01_GMAIL]  :</span>
       <a href="mailto:Jaycheng1213@gmail.com" :class="[theme === 'light' ? 'text-stone-800 hover:text-emerald-600' : 'text-zinc-300 hover:text-emerald-400']" class="transition-colors duration-200">
         Jaycheng1213@gmail.com
       </a>
@@ -60,7 +60,7 @@
     </div>
     
     <div class="flex items-center">
-      <span class="text-fuchsia-500 font-bold w-28">[0x03_IG] :</span>
+      <span class="text-fuchsia-500 font-bold w-28">[0x03_IG]   :</span>
       <a href="https://instagram.com/jaycheng1213" target="_blank" :class="[theme === 'light' ? 'text-stone-800 hover:text-fuchsia-600' : 'text-zinc-300 hover:text-fuchsia-400']" class="transition-colors duration-200">
         jaycheng1213
       </a>
