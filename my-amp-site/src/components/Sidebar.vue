@@ -1,27 +1,68 @@
 <template>
-  <aside :class="[theme === 'light' ? 'bg-stone-200/50 border-stone-300/80' : 'bg-zinc-900/30 border-zinc-900/80']"
-         class="w-full lg:hidden backdrop-blur-md border-b p-5 flex flex-col justify-between shrink-0 transition-colors duration-300">
-    <div class="space-y-4">
-      <div>
-        <div class="flex items-center space-x-2 text-[0.6rem] font-mono text-emerald-500 tracking-widest uppercase mb-1">
-          <span>●</span> <span>CORE_MOBILE // READY</span>
+  <button 
+    @click="isMobileOpen = !isMobileOpen"
+    :class="[
+      theme === 'light' 
+        ? 'border-stone-300 text-stone-700 bg-stone-100/90' 
+        : 'border-zinc-800 text-zinc-400 bg-zinc-950/80'
+    ]"
+    class="lg:hidden fixed top-4 left-4 z-[60] w-9 h-9 border rounded-xl flex flex-col items-center justify-center gap-1.5 backdrop-blur-md shadow-sm transition-all duration-300 cursor-pointer"
+  >
+    <span class="w-4 h-0.5 bg-current transition-all duration-300 transform origin-center" :class="{ 'rotate-45 translate-y-2': isMobileOpen }"></span>
+    <span class="w-4 h-0.5 bg-current transition-all duration-300" :class="{ 'opacity-0 scale-90': isMobileOpen }"></span>
+    <span class="w-4 h-0.5 bg-current transition-all duration-300 transform origin-center" :class="{ '-rotate-45 -translate-y-2': isMobileOpen }"></span>
+  </button>
+
+  <Teleport to="body">
+    <Transition name="fade">
+      <div v-if="isMobileOpen" 
+           @click="isMobileOpen = false"
+           class="lg:hidden fixed inset-0 z-40 bg-zinc-950/60 backdrop-blur-sm"></div>
+    </Transition>
+
+    <Transition name="slide">
+      <aside 
+        v-if="isMobileOpen"
+        :class="[
+          theme === 'light' ? 'bg-stone-200/98 border-stone-300/80 text-stone-800' : 'bg-zinc-900/98 border-zinc-900/80 text-zinc-300'
+        ]"
+        class="lg:hidden fixed left-0 top-0 h-screen w-64 border-r z-50 p-5 flex flex-col justify-between shadow-2xl font-mono transition-colors duration-300"
+      >
+        <div class="space-y-6 pt-10">
+          <div>
+            <div class="flex items-center space-x-1.5 text-[0.6rem] text-emerald-500 tracking-widest uppercase mb-1">
+              <span>●</span> <span>CORE_MOBILE // READY</span>
+            </div>
+            <h1 :class="[theme === 'light' ? 'text-stone-900' : 'text-white']" class="text-lg font-black tracking-wider">JAY_AUDIO</h1>
+          </div>
+          
+          <nav class="space-y-3">
+            <button @click="handleMobileSelect('bio')"
+              :class="[activeId === 'bio' ? (theme === 'light' ? 'bg-emerald-600/10 border-emerald-600 text-emerald-700 font-bold' : 'bg-emerald-500/10 border-emerald-500 text-emerald-400 font-bold') : (theme === 'light' ? 'bg-stone-300/40 border-stone-300/60 text-stone-500' : 'bg-zinc-900/40 border-zinc-900/60 text-zinc-500')]"
+              class="px-3 py-2 rounded-xl border text-xs w-full text-left cursor-pointer transition-colors duration-200">
+              <span class="mr-1.5">👤</span> 個人簡介
+            </button>
+            
+            <div class="h-[1px] border-b border-zinc-800/40 my-2 w-full"></div>
+            
+            <ProjectSelector :projects="activeProjects" :activeId="activeId" @select="handleMobileSelect" label="PROJECT_LIST:" />
+          </nav>
         </div>
-        <h1 :class="[theme === 'light' ? 'text-stone-900' : 'text-white']" class="text-lg font-black tracking-wider font-mono">JAY_AUDIO</h1>
-      </div>
-      
-      <nav class="flex items-center gap-2 overflow-x-auto no-scrollbar pt-1">
-        <button @click="$emit('select', 'bio')"
-          :class="[activeId === 'bio' ? (theme === 'light' ? 'bg-emerald-600/10 border-emerald-600 text-emerald-700 font-bold shadow-sm' : 'bg-emerald-500/10 border-emerald-500 text-emerald-400 font-bold shadow-sm') : (theme === 'light' ? 'bg-stone-200/40 border-stone-300 text-stone-500' : 'bg-zinc-900/10 border-zinc-900/60 text-zinc-500')]"
-          class="px-3 py-1.5 rounded-xl border text-xs font-mono shrink-0 cursor-pointer">👤 簡介</button>
-        <div class="h-4 w-[1px] bg-zinc-800 shrink-0"></div>
-        
-        <ProjectSelector :projects="activeProjects" :activeId="activeId" @select="$emit('select', $event)" />
-        
-        <div v-if="archivedProjects.length > 0" class="h-4 w-[1px] bg-zinc-800 shrink-0 mx-1"></div>
-        <ProjectSelector v-if="archivedProjects.length > 0" :projects="archivedProjects" :activeId="activeId" @select="$emit('select', $event)" />
-      </nav>
-    </div>
-  </aside>
+
+        <div class="space-y-4">
+          <div v-if="archivedProjects.length > 0" class="pt-4 border-t border-zinc-800/40">
+            <ProjectSelector :projects="archivedProjects" :activeId="activeId" @select="handleMobileSelect" label="LEGACY_CORES // 歷代作品:" />
+          </div>
+
+          <div class="border-t border-zinc-800/40 pt-3 text-[9px] text-zinc-600 space-y-0.5">
+            <div>NODE // MOBILE_DRAWER_ACTIVE</div>
+            <div>SWIPE_TO_CLOSE // TRUE</div>
+          </div>
+        </div>
+      </aside>
+    </Transition>
+  </Teleport>
+
 
   <div class="hidden lg:block fixed left-0 top-0 h-screen z-50 font-mono"
        @mouseenter="isHovered = true"
@@ -30,7 +71,7 @@
     <div :class="[isHovered ? 'opacity-0 scale-90 pointer-events-none' : 'opacity-100 scale-100']"
          class="absolute left-0 top-0 w-8 h-36 cursor-pointer transition-all duration-300 origin-top-left group">
       <svg class="w-full h-full drop-shadow-[2px_2px_4px_rgba(0,0,0,0.2)]" viewBox="0 0 32 145" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M0 0 L30 0 L24 14 L32 28 L20 45 L32 62 L20 80 L28 98 L16 115 L24 135 L0 145 Z" :fill="theme === 'light' ? 'rgba(231, 229, 228, 0.98)' : 'rgba(24, 24, 27, 0.98)'" :stroke="theme === 'light' ? '#d6d3d1' : '#27272a'" stroke-width="1" class="transition-colors duration-300"/>
+        <path d="M0 0 L30 0 L24 14 L32 28 L20 45 L32 62 L20 80 L28 98 L16 115 L24 135 L0 145 Z" :fill="theme === 'light' ? 'rgba(231, 229, 228, 0.98)' : 'rgba(24, 24, 27, 0.98)'" :stroke="theme === 'light' ? '#d6d3d1' : '#27272a'" stroke-width="1"/>
       </svg>
       <span class="absolute text-[11px] opacity-20 group-hover:opacity-90 group-hover:scale-110 transition-all duration-200 top-2.5 right-2">💡</span>
     </div>
@@ -53,7 +94,7 @@
           <div class="jelly-wrapper w-full">
             <button @click="$emit('select', 'bio')"
               :class="[activeId === 'bio' ? (theme === 'light' ? 'bg-emerald-600/10 border-emerald-600 text-emerald-700 font-bold shadow-sm' : 'bg-emerald-500/10 border-emerald-500 text-emerald-400 font-bold shadow-sm') : (theme === 'light' ? 'bg-stone-200/40 border-stone-300 text-stone-500 hover:text-stone-800 hover:border-stone-400' : 'bg-zinc-900/10 border-zinc-900/60 text-zinc-500 hover:border-zinc-800 hover:text-zinc-300')]"
-              class="px-3 py-1.5 rounded-xl border text-xs font-mono w-full text-left cursor-pointer jelly-btn">
+              class="px-3 py-1.5 rounded-xl border text-xs w-full text-left cursor-pointer jelly-btn">
               <span class="text-zinc-600 mr-1">👤</span> 個人簡介
             </button>
           </div>
@@ -64,7 +105,6 @@
       </div>
 
       <div class="space-y-4">
-        
         <div v-if="archivedProjects.length > 0" class="pt-4 border-t border-zinc-800/40">
           <ProjectSelector :projects="archivedProjects" :activeId="activeId" @select="$emit('select', $event)" label="LEGACY_CORES // 歷代作品:" />
         </div>
@@ -101,22 +141,30 @@ import ProjectSelector from './ProjectSelector.vue'
 import { useFontSize } from '../composables/useFontSize'
 import { useTheme } from '../composables/useTheme'
 
-// 💡 接收分流後的全新陣列引腳
 defineProps({ activeProjects: Array, archivedProjects: Array, activeId: String })
-defineEmits(['select'])
+const emit = defineEmits(['select'])
 
 const { fontSize, setFontSize } = useFontSize()
 const { theme, toggleTheme } = useTheme()
+
 const isHovered = ref(false)
+const isMobileOpen = ref(false) // 💡 新增：手機端側欄開關狀態
+
+// 💡 處理手機點選：切換專案並自動收回側邊欄，體驗流暢
+const handleMobileSelect = (id) => {
+  emit('select', id)
+  isMobileOpen.value = false
+}
 </script>
 
 <style scoped>
-.no-scrollbar::-webkit-scrollbar { display: none; }
-.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+/* 📥 行動端遮罩淡入淡出 (Fade) 動效 */
+.fade-enter-active, .fade-leave-active { transition: opacity 0.25s ease; }
+.fade-enter-from, .fade-leave-to { opacity: 0; }
 
-.jelly-wrapper { transition: padding 0.35s cubic-bezier(0.34, 1.75, 0.64, 1); padding: 0px; will-change: padding; }
-@media (min-width: 1024px) { .jelly-wrapper:hover { padding-top: 14px; padding-bottom: 14px; } }
-.jelly-btn { transition: transform 0.25s cubic-bezier(0.25, 0.8, 0.25, 1), background-color 0.2s, border-color 0.2s; will-change: transform; }
-.jelly-wrapper:hover .jelly-btn { animation: megaJelly 0.45s ease-in-out forwards; }
-@keyframes megaJelly { 0% { transform: scale(1, 1); } 30% { transform: scale(1.20, 0.80); } 50% { transform: scale(0.83, 1.17); } 70% { transform: scale(1.13, 0.93); } 100% { transform: scale(1.12, 1.12); } }
+/* 📥 行動端抽屜滑出滑入 (Slide) 工業級阻尼曲線 */
+.slide-enter-active, .slide-leave-active { 
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1); 
+}
+.slide-enter-from, .slide-leave-to { transform: translateX(-100%); }
 </style>

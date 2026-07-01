@@ -7,7 +7,7 @@
     <main class="max-w-6xl w-full mx-auto px-4 py-6 lg:py-12 lg:px-12 space-y-6 flex flex-col justify-between">
       
       <div class="space-y-6 flex-grow">
-        <header :class="[theme === 'light' ? 'border-stone-300/80' : 'border-zinc-900/80']" class="border-b pb-4 lg:pl-12 flex justify-between items-center">
+        <header :class="[theme === 'light' ? 'border-stone-300/80' : 'border-zinc-900/80']" class="border-b pb-4 pl-12 lg:pl-12 flex justify-between items-center">
           <h1 :class="[theme === 'light' ? 'text-stone-900' : 'text-white']" class="text-lg font-bold tracking-wider font-mono uppercase">PROJECTS LAB DASHBOARD</h1>
           <div v-if="activeAmp" class="font-mono text-xs tracking-widest text-zinc-500/80 flex items-center space-x-2 animate-fadeIn">
             <span class="text-[9px] text-zinc-600 hidden sm:inline">// UNIT_ID</span>
