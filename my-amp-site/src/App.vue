@@ -21,14 +21,25 @@
           // FETCHING CORE BUFFER FROM NAS...
         </div>
 
-        <div v-else class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start lg:pl-12">
+        <div v-else class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start pl-12 lg:pl-12">
           <template v-if="activeAmp">
-            <div class="lg:col-span-1 space-y-6 flex flex-col">
-              <ProjectSpec :amp="activeAmp" class="animate-fadeIn" />
-              <ProjectGallery :items="galleryItems" :loading="isGalleryLoading" class="animate-fadeIn" />
+            
+            <div class="contents lg:flex lg:flex-col lg:col-span-1 lg:space-y-6 lg:order-1">
+              
+              <ProjectSpec :amp="activeAmp" class="order-1 animate-fadeIn" />
+              
+              <ProjectGallery :items="galleryItems" :loading="isGalleryLoading" class="order-3 animate-fadeIn" />
+            
             </div>
 
-            <MarkdownViewer :ampId="activeAmp.id" :content="renderedMarkdown" :path="activeAmp.markdownPath" :loading="isMarkdownLoading" class="animate-fadeIn" />
+            <MarkdownViewer 
+              :ampId="activeAmp.id" 
+              :content="renderedMarkdown" 
+              :path="activeAmp.markdownPath" 
+              :loading="isMarkdownLoading" 
+              class="lg:col-span-2 order-2 lg:order-2 animate-fadeIn" 
+            />
+
           </template>
         </div>
       </div>
@@ -61,7 +72,7 @@
 import Sidebar from './components/Sidebar.vue'
 import ProjectSpec from './components/ProjectSpec.vue'
 import MarkdownViewer from './components/MarkdownViewer.vue'
-import ProjectGallery from './components/ProjectGallery.vue' // 💡 引入展示櫃組件
+import ProjectGallery from './components/ProjectGallery.vue'
 import { useProjects } from './composables/useProjects'
 import { useTheme } from './composables/useTheme'
 import { useFontSize } from './composables/useFontSize'
