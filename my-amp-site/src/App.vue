@@ -22,20 +22,24 @@
           // FETCHING CORE BUFFER FROM NAS...
         </div>
 
-        <div v-else class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start lg:pl-12">
+        <div v-else class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start pl-12 lg:pl-12">
           <template v-if="activeAmp">
             
-            <ProjectSpec :amp="activeAmp" class="animate-fadeIn" />
+            <ProjectSpec :amp="activeAmp" class="lg:col-start-1 lg:row-start-1 animate-fadeIn" />
             
             <MarkdownViewer 
               :ampId="activeAmp.id" 
               :content="renderedMarkdown" 
               :path="activeAmp.markdownPath" 
               :loading="isMarkdownLoading" 
-              class="lg:col-span-2 animate-fadeIn" 
+              class="lg:col-start-2 lg:col-span-2 lg:row-start-1 lg:row-span-2 animate-fadeIn" 
             />
             
-            <ProjectGallery :items="galleryItems" :loading="isGalleryLoading" class="animate-fadeIn" />
+            <ProjectGallery 
+              :items="galleryItems" 
+              :loading="isGalleryLoading" 
+              class="lg:col-start-1 lg:row-start-2 animate-fadeIn" 
+            />
 
           </template>
         </div>
