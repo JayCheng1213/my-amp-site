@@ -34,24 +34,25 @@
               class="px-3 py-2 rounded-xl border text-xs w-full text-left cursor-pointer transition-colors duration-200">
               <span class="mr-1.5">👤</span> 個人簡介
             </button>
-            <div class="h-[1px] border-b border-zinc-800/40 my-2 w-full"></div>
+            <div :class="[theme === 'light' ? 'border-stone-300' : 'border-zinc-800/40']" class="h-[1px] border-b my-2 w-full"></div>
             <ProjectSelector :projects="activeProjects" :activeId="activeId" @select="handleMobileSelect" label="PROJECT_LIST:" />
           </nav>
         </div>
 
         <div class="space-y-4">
-          <div v-if="archivedProjects.length > 0" class="pt-4 border-t border-zinc-800/40">
+          <div v-if="archivedProjects.length > 0" :class="[theme === 'light' ? 'border-stone-300' : 'border-zinc-800/40']" class="pt-4 border-t">
             <ProjectSelector :projects="archivedProjects" :activeId="activeId" @select="handleMobileSelect" label="LEGACY_CORES // 歷代作品:" />
           </div>
 
-          <div class="pt-4 border-t border-dashed border-zinc-800/40 space-y-1">
+          <div :class="[theme === 'light' ? 'border-stone-300' : 'border-zinc-800/40']" class="pt-4 border-t border-dashed space-y-1">
             <div class="text-[9px] text-zinc-500 uppercase tracking-wider">TELEMETRY // 訪客計數</div>
-            <div class="text-xs font-bold font-mono tracking-widest bg-zinc-950/40 px-2 py-1 rounded-lg border border-zinc-900 text-center text-emerald-400">
-              {{ uniqueVisitors }} <span class="text-zinc-600 font-normal">/</span> {{ totalViews }}
+            <div :class="[theme === 'light' ? 'bg-stone-300/50 border-stone-300/80 text-emerald-700' : 'bg-zinc-950/40 border-zinc-900 text-emerald-400']"
+                 class="text-xs font-bold font-mono tracking-widest px-2 py-1 rounded-lg border text-center transition-colors duration-300">
+              {{ uniqueVisitors }} <span :class="[theme === 'light' ? 'text-stone-400' : 'text-zinc-600']" class="font-normal">/</span> {{ totalViews }}
             </div>
           </div>
 
-          <div class="border-t border-zinc-800/40 pt-3 text-[9px] text-zinc-600 space-y-0.5">
+          <div :class="[theme === 'light' ? 'border-stone-300' : 'border-zinc-800/40']" class="pt-3 border-t text-[9px] text-zinc-600 space-y-0.5">
             <div>NODE // MOBILE_DRAWER_ACTIVE</div>
           </div>
         </div>
@@ -76,7 +77,7 @@
             </div>
             <h1 :class="[theme === 'light' ? 'text-stone-900' : 'text-white']" class="text-lg font-black tracking-wider">JAY_AUDIO</h1>
           </div>
-          <span class="text-[9px] px-1.5 py-0.5 rounded border border-zinc-800 text-zinc-600 bg-zinc-950/20">CTRL_PNL</span>
+          <span :class="[theme === 'light' ? 'border-stone-300 text-stone-500 bg-stone-100' : 'border-zinc-800 text-zinc-600 bg-zinc-950/20']" class="text-[9px] px-1.5 py-0.5 rounded border">CTRL_PNL</span>
         </div>
 
         <nav class="space-y-3 pt-2">
@@ -85,17 +86,17 @@
               <span class="text-zinc-600 mr-1">👤</span> 個人簡介
             </button>
           </div>
-          <div class="h-[1px] border-b border-zinc-800/40 my-1 w-full"></div>
+          <div :class="[theme === 'light' ? 'border-stone-300/60' : 'border-zinc-800/40']" class="h-[1px] border-b my-1 w-full"></div>
           <ProjectSelector :projects="activeProjects" :activeId="activeId" @select="$emit('select', $event)" label="PROJECT_LIST:" />
         </nav>
       </div>
 
       <div class="space-y-4">
-        <div v-if="archivedProjects.length > 0" class="pt-4 border-t border-zinc-800/40">
+        <div v-if="archivedProjects.length > 0" :class="[theme === 'light' ? 'border-stone-300' : 'border-zinc-800/40']" class="pt-4 border-t">
           <ProjectSelector :projects="archivedProjects" :activeId="activeId" @select="$emit('select', $event)" label="LEGACY_CORES // 歷代作品:" />
         </div>
 
-        <div class="pt-4 border-t border-zinc-800/60 space-y-2">
+        <div :class="[theme === 'light' ? 'border-stone-300' : 'border-zinc-800/60']" class="pt-4 border-t space-y-2">
           <div class="text-[0.6rem] text-zinc-600 uppercase tracking-wider">ENVIRONMENT // 燈光</div>
           <div :class="[theme === 'light' ? 'bg-stone-200/60 border-stone-300' : 'bg-zinc-950/60 border-zinc-900']" class="flex gap-1 p-1 border rounded-xl">
             <button @click="toggleTheme" :class="[theme === 'light' ? 'bg-amber-600/10 text-amber-700 border-amber-600/20 font-bold' : 'text-zinc-600 border-transparent']" class="flex-1 text-center py-0.5 text-xs border rounded-lg cursor-pointer">☀️</button>
@@ -103,7 +104,7 @@
           </div>
         </div>
 
-        <div class="border-t border-zinc-800/60 pt-3 space-y-2">
+        <div :class="[theme === 'light' ? 'border-stone-300' : 'border-zinc-800/60']" class="border-t pt-3 space-y-2">
           <div class="text-[0.6rem] text-zinc-600 uppercase tracking-wider">CONSOLE_SIZE // 增益</div>
           <div :class="[theme === 'light' ? 'bg-stone-200/60 border-stone-300' : 'bg-zinc-950/60 border-zinc-900']" class="flex gap-1 p-1 border rounded-xl">
             <button v-for="size in ['small', 'medium', 'large']" :key="size" @click="setFontSize(size)" :class="[fontSize === size ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30 font-bold' : 'text-zinc-600 border-transparent']" class="flex-1 text-center py-0.5 text-[0.65rem] border rounded-lg cursor-pointer">
@@ -112,14 +113,15 @@
           </div>
         </div>
 
-        <div class="border-t border-zinc-800/60 pt-3 space-y-1.5">
+        <div :class="[theme === 'light' ? 'border-stone-300' : 'border-zinc-800/60']" class="border-t pt-3 space-y-1.5">
           <div class="text-[0.6rem] text-zinc-600 uppercase tracking-wider">TELEMETRY // 訪客計數</div>
-          <div class="font-mono text-xs font-bold bg-zinc-950/40 p-2 border border-zinc-900 rounded-xl text-center text-emerald-400 tracking-widest shadow-inner">
-            {{ uniqueVisitors }} <span class="text-zinc-600 font-normal">/</span> {{ totalViews }}
+          <div :class="[theme === 'light' ? 'bg-stone-300/50 border-stone-300/80 text-emerald-700' : 'bg-zinc-950/40 border-zinc-900 text-emerald-400']" 
+               class="font-mono text-xs font-bold p-2 border rounded-xl text-center tracking-widest shadow-inner transition-colors duration-300">
+            {{ uniqueVisitors }} <span :class="[theme === 'light' ? 'text-stone-400' : 'text-zinc-600']" class="font-normal">/</span> {{ totalViews }}
           </div>
         </div>
 
-        <div class="border-t border-zinc-800/60 pt-3 text-[0.6rem] text-zinc-600 space-y-0.5">
+        <div :class="[theme === 'light' ? 'border-stone-300' : 'border-zinc-800/60']" class="border-t pt-3 text-[0.6rem] text-zinc-600 space-y-0.5">
           <div>HOST // SYNOLOGY_NAS</div>
           <div>THEME // {{ theme.toUpperCase() }}_DRAWER</div>
         </div>
@@ -133,22 +135,17 @@ import { ref, onMounted } from 'vue'
 import ProjectSelector from './ProjectSelector.vue'
 import { useFontSize } from '../composables/useFontSize'
 import { useTheme } from '../composables/useTheme'
-import { useAnalytics } from '../composables/useAnalytics' // 💡 導入邏輯晶片
+import { useAnalytics } from '../composables/useAnalytics'
 
 defineProps({ activeProjects: Array, archivedProjects: Array, activeId: String })
 const emit = defineEmits(['select'])
 
 const { fontSize, setFontSize } = useFontSize()
 const { theme, toggleTheme } = useTheme()
-
-const isHovered = ref(false)
-const isMobileOpen = ref(false)
-
-// 💡 連鎖通電：解構流量計數器狀態
 const { uniqueVisitors, totalViews, triggerTelemetry } = useAnalytics()
 
 onMounted(() => {
-  triggerTelemetry() // 💡 網頁開機載入時，自動發射遙測統計
+  triggerTelemetry()
 })
 
 const handleMobileSelect = (id) => {
@@ -156,3 +153,10 @@ const handleMobileSelect = (id) => {
   isMobileOpen.value = false
 }
 </script>
+
+<style scoped>
+.fade-enter-active, .fade-leave-active { transition: opacity 0.25s ease; }
+.fade-enter-from, .fade-leave-to { opacity: 0; }
+.slide-enter-active, .slide-leave-active { transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1); }
+.slide-enter-from, .slide-leave-to { transform: translateX(-100%); }
+</style>
