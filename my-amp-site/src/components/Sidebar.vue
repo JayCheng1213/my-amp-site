@@ -1,4 +1,7 @@
 <template>
+  <!-- ========================================================================= -->
+  <!-- 📱 軌道 A：行動端滑出抽屜箱 Layout -->
+  <!-- ========================================================================= -->
   <button 
     @click="isMobileOpen = !isMobileOpen"
     :class="[theme === 'light' ? 'border-stone-300 text-stone-700 bg-stone-100/90' : 'border-zinc-800 text-zinc-400 bg-zinc-950/80']"
@@ -44,6 +47,7 @@
             <ProjectSelector :projects="archivedProjects" :activeId="activeId" @select="handleMobileSelect" label="LEGACY_CORES // 歷代作品:" />
           </div>
 
+          <!-- 訪客計數器面板 -->
           <div :class="[theme === 'light' ? 'border-stone-300' : 'border-zinc-800/40']" class="pt-4 border-t border-dashed space-y-1">
             <div class="text-[9px] text-zinc-500 uppercase tracking-wider">TELEMETRY // 訪客計數</div>
             <div :class="[theme === 'light' ? 'bg-stone-300/50 border-stone-300/80 text-emerald-700' : 'bg-zinc-950/40 border-zinc-900 text-emerald-400']"
@@ -60,6 +64,9 @@
     </Transition>
   </Teleport>
 
+  <!-- ========================================================================= -->
+  <!-- 💻 軌道 B：電腦端懸浮撕紙抽屜 Layout -->
+  <!-- ========================================================================= -->
   <div class="hidden lg:block fixed left-0 top-0 h-screen z-50 font-mono" @mouseenter="isHovered = true" @mouseleave="isHovered = false">
     <div :class="[isHovered ? 'opacity-0 scale-90 pointer-events-none' : 'opacity-100 scale-100']" class="absolute left-0 top-0 w-8 h-36 cursor-pointer transition-all duration-300 origin-top-left group">
       <svg class="w-full h-full drop-shadow-[2px_2px_4px_rgba(0,0,0,0.2)]" viewBox="0 0 32 145" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -96,6 +103,7 @@
           <ProjectSelector :projects="archivedProjects" :activeId="activeId" @select="$emit('select', $event)" label="LEGACY_CORES // 歷代作品:" />
         </div>
 
+        <!-- ENVIRONMENT 環境燈光 -->
         <div :class="[theme === 'light' ? 'border-stone-300' : 'border-zinc-800/60']" class="pt-4 border-t space-y-2">
           <div class="text-[0.6rem] text-zinc-600 uppercase tracking-wider">ENVIRONMENT // 燈光</div>
           <div :class="[theme === 'light' ? 'bg-stone-200/60 border-stone-300' : 'bg-zinc-950/60 border-zinc-900']" class="flex gap-1 p-1 border rounded-xl">
@@ -104,6 +112,7 @@
           </div>
         </div>
 
+        <!-- CONSOLE_SIZE 字體增益 -->
         <div :class="[theme === 'light' ? 'border-stone-300' : 'border-zinc-800/60']" class="border-t pt-3 space-y-2">
           <div class="text-[0.6rem] text-zinc-600 uppercase tracking-wider">CONSOLE_SIZE // 增益</div>
           <div :class="[theme === 'light' ? 'bg-stone-200/60 border-stone-300' : 'bg-zinc-950/60 border-zinc-900']" class="flex gap-1 p-1 border rounded-xl">
@@ -113,6 +122,7 @@
           </div>
         </div>
 
+        <!-- 桌機端計數器面板 -->
         <div :class="[theme === 'light' ? 'border-stone-300' : 'border-zinc-800/60']" class="border-t pt-3 space-y-1.5">
           <div class="text-[0.6rem] text-zinc-600 uppercase tracking-wider">TELEMETRY // 訪客計數</div>
           <div :class="[theme === 'light' ? 'bg-stone-300/50 border-stone-300/80 text-emerald-700' : 'bg-zinc-950/40 border-zinc-900 text-emerald-400']" 
@@ -139,6 +149,10 @@ import { useAnalytics } from '../composables/useAnalytics'
 
 defineProps({ activeProjects: Array, archivedProjects: Array, activeId: String })
 const emit = defineEmits(['select'])
+
+// 💡 核心補焊：重新接回狀態暫存器，解決斷路開不開的問題！
+const isHovered = ref(false)
+const isMobileOpen = ref(false)
 
 const { fontSize, setFontSize } = useFontSize()
 const { theme, toggleTheme } = useTheme()
