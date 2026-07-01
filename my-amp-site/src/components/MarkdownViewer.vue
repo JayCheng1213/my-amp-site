@@ -35,7 +35,7 @@ defineProps({ ampId: String, content: String, path: String, loading: Boolean })
 :deep(.markdown-body h2) { font-size: 0.9rem; font-weight: 800; color: #ffffff; margin-top: 1.5rem; margin-bottom: 0.75rem; }
 :deep(.markdown-body h3) { font-size: 0.8rem; font-weight: 700; color: #e4e4e7; margin-top: 1.25rem; margin-bottom: 0.5rem; display: flex; align-items: center; }
 
-/* 💡 智慧型標籤：只有當 h3 內文沒有我們手繪的真空管 SVG 線路時，才去 prepand 綠色方塊 ■ */
+/* 智慧型標籤：沒有手繪真空管符號時，才去 prepend 綠色方塊 ■ */
 :deep(.markdown-body h3:not(:has(svg))::before) { 
   content: "■"; 
   color: #10b981; 
@@ -47,60 +47,69 @@ defineProps({ ampId: String, content: String, path: String, loading: Boolean })
 :deep(.markdown-body strong) { color: #34d399; font-weight: 600; }
 :deep(.markdown-body hr) { border: 0; border-top: 1px dashed #27272a; margin: 1.5rem 0; }
 
-/* 表格結構組件 */
+/* 表格與區塊引用 */
 :deep(.markdown-body table) { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 11px; background-color: rgba(9, 9, 11, 0.4); border: 1px solid #27272a; }
 :deep(.markdown-body th) { background-color: #18181b; color: #ffffff; padding: 6px 10px; border-bottom: 1px solid #27272a; }
 :deep(.markdown-body td) { padding: 6px 10px; border-bottom: 1px solid #18181b; color: #d4d4d8; }
+:deep(.markdown-body blockquote) { border-left: 3px solid #10b981; background-color: rgba(16, 185, 129, 0.02); padding: 10px 14px; margin: 1.25rem 0; border-radius: 0 8px 8px 0; }
+:deep(.markdown-body blockquote p) { margin: 0 !important; }
 
-/* 區塊引用與垂直置中修正 */
-:deep(.markdown-body blockquote) { 
-  border-left: 3px solid #10b981; 
-  background-color: rgba(16, 185, 129, 0.02); 
-  padding: 10px 14px; 
-  margin: 1.25rem 0; 
-  border-radius: 0 8px 8px 0;
-}
-:deep(.markdown-body blockquote p) {
-  margin: 0 !important; /* 歸零殘留 margin，確保綠色線條與文字絕對垂直置中 */
-}
-
-/* ========================================================================= */
-/* 🖼️ 多媒體動態適配濾波電路（確保圖片、影片、YouTube 完美咬合面板） */
-/* ========================================================================= */
+/* 多媒體動態適配 */
 :deep(.markdown-body img),
 :deep(.markdown-body video),
 :deep(.markdown-body iframe) {
-  max-width: 100%;
-  height: auto;
-  border-radius: 12px; /* 契合主機殼的儀表板圓角 */
-  margin: 1.5rem 0;
-  border: 1px solid #27272a; /* 暗黑模式下的冷工藝邊框 */
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+  max-width: 100%; height: auto; border-radius: 12px; margin: 1.5rem 0;
+  border: 1px solid #27272a; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
 }
 
 /* ========================================================================= */
-/* ☀️ 溫和亮色模式下的專屬 Markdown 調音 (暖大理石焦糖紙質風) */
+/* 💡 真空管 ICON 訊號增益與動態熱發光電路 (全新加入 ⚡) */
+/* ========================================================================= */
+:deep(.markdown-body h2 svg),
+:deep(.markdown-body h3 svg) {
+  /* 1. 稍微放大尺寸 (由 w-5 h-5 拓寬增益至約 25px，存在感更完美) */
+  width: 1.55rem !important;
+  height: 1.55rem !important;
+  /* 2. 注入高階阻尼彈簧曲線，確保放大與收回時帶有實體物理慣性 */
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+              filter 0.4s ease-in-out, 
+              color 0.3s ease;
+  cursor: pointer;
+}
+
+/* 當滑鼠懸停在標題列上時，模擬「真空管鎢絲通電熱發光」效果 */
+:deep(.markdown-body h2:hover svg),
+:deep(.markdown-body h3:hover svg) {
+  /* 微微等比例放大 1.1 倍 */
+  transform: scale(1.1) translateY(-0.5px); 
+  /* 燈絲通電：色調瞬間轉為極具靈魂的暖黃橘光 (Amber Glow) */
+  color: #ff9100 !important; 
+  /* 雙層疊加雙線性濾波：外圈大範圍渲染微光 + 內圈高亮，逼真還原暗室真空管發光力場 */
+  filter: drop-shadow(0 0 8px rgba(255, 145, 0, 0.65)) 
+          drop-shadow(0 0 2px rgba(239, 68, 68, 0.35));
+}
+
+/* ========================================================================= */
+/* ☀️ 溫和亮色模式下的專屬 Markdown 調音 */
 /* ========================================================================= */
 .light-mode :deep(.markdown-body h2) { color: #1c1917; }
 .light-mode :deep(.markdown-body h3) { color: #44403c; }
 .light-mode :deep(.markdown-body p) { color: #57534e; }
 .light-mode :deep(.markdown-body strong) { color: #047857; }
 .light-mode :deep(.markdown-body hr) { border-top: 1px dashed #d6d3d1; }
-
-/* 亮模式表格過濾 */
 .light-mode :deep(.markdown-body table) { background-color: rgba(255, 255, 255, 0.8); border: 1px solid #d6d3d1; }
 .light-mode :deep(.markdown-body th) { background-color: #e7e5e4; color: #1c1917; border-bottom: 1px solid #d6d3d1; }
 .light-mode :deep(.markdown-body td) { border-bottom: 1px solid #f5f5f4; color: #44403c; }
-
-/* 亮模式區塊引用 */
 .light-mode :deep(.markdown-body blockquote) { border-left: 3px solid #059669; background-color: rgba(5, 150, 105, 0.03); }
 .light-mode :deep(.markdown-body blockquote p) { color: #57534e; }
-
-/* 亮模式多媒體邊框調校 */
 .light-mode :deep(.markdown-body img),
 .light-mode :deep(.markdown-body video),
-.light-mode :deep(.markdown-body iframe) {
-  border-color: #d6d3d1; /* 亮模式暖色系邊框線 */
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+.light-mode :deep(.markdown-body iframe) { border-color: #d6d3d1; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
+
+/* 亮色模式下的發光調校：稍微降低發光底色透明度，維持高質感不刺眼 */
+.light-mode :deep(.markdown-body h2:hover svg),
+.light-mode :deep(.markdown-body h3:hover svg) {
+  color: #ea580c !important; /* 亮模式採用略深的焦糖深橘 */
+  filter: drop-shadow(0 0 6px rgba(234, 88, 12, 0.5));
 }
 </style>
