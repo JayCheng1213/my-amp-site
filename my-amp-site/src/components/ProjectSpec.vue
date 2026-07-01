@@ -43,28 +43,34 @@
         <span class="text-sm font-bold text-amber-500 tracking-wider">SINCE_2005.12</span>
       </div>
       <div class="space-y-1">
-      <span class="text-[10px] text-zinc-500 block">IO_CHANNELS // 外部通訊埠</span>
-  <div class="font-mono text-xs space-y-1.5 pt-0.5">
-    <div class="flex items-center">
-      <span class="text-emerald-500 font-bold w-28">[0x01_GMAIL]  :</span>
-      <a href="mailto:Jaycheng1213@gmail.com" :class="[theme === 'light' ? 'text-stone-800 hover:text-emerald-600' : 'text-zinc-300 hover:text-emerald-400']" class="transition-colors duration-200">
+  <span class="text-[10px] text-zinc-500 block">IO_CHANNELS // 外部通訊埠</span>
+  <div class="font-mono text-xs space-y-2 pt-1 w-full">
+    
+    <div class="flex items-center justify-between w-full h-7">
+      <span class="text-emerald-500 font-bold">[0x01_GMAIL] :</span>
+      <a href="mailto:Jaycheng1213@gmail.com" 
+         :class="[theme === 'light' ? 'bg-stone-300/30 border-stone-300/60 text-stone-800 hover:bg-emerald-600/10 hover:text-emerald-700 hover:border-emerald-600/30 shadow-[0_1px_2px_rgba(0,0,0,0.02)]' : 'bg-zinc-800/30 border-zinc-800/60 text-zinc-300 hover:bg-emerald-500/10 hover:text-emerald-400 hover:border-emerald-500/30 shadow-inner']" 
+         class="px-2 py-0.5 rounded-lg border transition-all duration-200 text-[11px]">
         Jaycheng1213@gmail.com
       </a>
     </div>
     
-    <div class="flex items-center">
-      <span class="text-sky-500 font-bold w-28">[0x02_LINE_ID] :</span>
-      <span :class="[theme === 'light' ? 'text-stone-800' : 'text-zinc-300']">
+    <div class="flex items-center justify-between w-full h-7">
+      <span class="text-sky-500 font-bold">[0x02_LINE_ID] :</span>
+      <span :class="[theme === 'light' ? 'text-stone-800' : 'text-zinc-300']" class="pr-2 font-medium tracking-wide">
         jaycheng1213
       </span>
     </div>
     
-    <div class="flex items-center">
-      <span class="text-fuchsia-500 font-bold w-28">[0x03_IG]   :</span>
-      <a href="https://instagram.com/jaycheng1213" target="_blank" :class="[theme === 'light' ? 'text-stone-800 hover:text-fuchsia-600' : 'text-zinc-300 hover:text-fuchsia-400']" class="transition-colors duration-200">
+    <div class="flex items-center justify-between w-full h-7">
+      <span class="text-fuchsia-500 font-bold">[0x03_IG] :</span>
+      <a href="https://instagram.com/jaycheng1213" target="_blank" 
+         :class="[theme === 'light' ? 'bg-stone-300/30 border-stone-300/60 text-stone-800 hover:bg-fuchsia-600/10 hover:text-fuchsia-700 hover:border-fuchsia-600/30 shadow-[0_1px_2px_rgba(0,0,0,0.02)]' : 'bg-zinc-800/30 border-zinc-800/60 text-zinc-300 hover:bg-fuchsia-500/10 hover:text-fuchsia-400 hover:border-fuchsia-500/30 shadow-inner']" 
+         class="px-2 py-0.5 rounded-lg border transition-all duration-200 text-[11px]">
         jaycheng1213
       </a>
     </div>
+
   </div>
 </div>
     </div>
