@@ -42,6 +42,33 @@
         <span class="text-[9px] text-zinc-500 block">UPTIME // 運行時長</span>
         <span class="text-sm font-bold text-amber-500 tracking-wider">SINCE_2005.12</span>
       </div>
+      <div class="space-y-1">
+      <div :class="[theme === 'light' ? 'text-stone-500' : 'text-zinc-500']" class="text-[0.65rem] tracking-widest uppercase">
+    IO_CHANNELS // 外部通訊埠
+  </div>
+  <div class="font-mono text-xs space-y-1.5 pt-0.5">
+    <div class="flex items-center">
+      <span class="text-emerald-500 font-bold w-28">[0x01_SMTP] :</span>
+      <a href="mailto:Jaycheng1213@gmail.com" :class="[theme === 'light' ? 'text-stone-800 hover:text-emerald-600' : 'text-zinc-300 hover:text-emerald-400']" class="transition-colors duration-200">
+        Jaycheng1213@gmail.com
+      </a>
+    </div>
+    
+    <div class="flex items-center">
+      <span class="text-sky-500 font-bold w-28">[0x02_UART] :</span>
+      <span :class="[theme === 'light' ? 'text-stone-800' : 'text-zinc-300']">
+        jaycheng1213
+      </span>
+    </div>
+    
+    <div class="flex items-center">
+      <span class="text-fuchsia-500 font-bold w-28">[0x03_DISP] :</span>
+      <a href="https://instagram.com/jaycheng1213" target="_blank" :class="[theme === 'light' ? 'text-stone-800 hover:text-fuchsia-600' : 'text-zinc-300 hover:text-fuchsia-400']" class="transition-colors duration-200">
+        jaycheng1213
+      </a>
+    </div>
+  </div>
+</div>
     </div>
 
     <div :class="[theme === 'light' ? 'bg-stone-100 border-stone-200' : 'bg-zinc-950/60 border-zinc-900']" 
