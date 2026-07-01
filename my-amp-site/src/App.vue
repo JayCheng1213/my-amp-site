@@ -7,7 +7,8 @@
     <main class="max-w-6xl w-full mx-auto px-4 py-6 lg:py-12 lg:px-12 space-y-6 flex flex-col justify-between">
       
       <div class="space-y-6 flex-grow">
-        <header :class="[theme === 'light' ? 'border-stone-300/80' : 'border-zinc-900/80']" class="border-b pb-4 pl-12 lg:pl-12 flex justify-between items-center">
+        <header :class="[theme === 'light' ? 'border-stone-300/80' : 'border-zinc-900/80']" 
+                class="border-b pb-4 pl-12 lg:pl-12 flex justify-between items-center">
           <h1 :class="[theme === 'light' ? 'text-stone-900' : 'text-white']" class="text-lg font-bold tracking-wider font-mono uppercase">PROJECTS LAB DASHBOARD</h1>
           <div v-if="activeAmp" class="font-mono text-xs tracking-widest text-zinc-500/80 flex items-center space-x-2 animate-fadeIn">
             <span class="text-[9px] text-zinc-600 hidden sm:inline">// UNIT_ID</span>
@@ -21,24 +22,20 @@
           // FETCHING CORE BUFFER FROM NAS...
         </div>
 
-        <div v-else class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start pl-12 lg:pl-12">
+        <div v-else class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start lg:pl-12">
           <template v-if="activeAmp">
             
-            <div class="contents lg:flex lg:flex-col lg:col-span-1 lg:space-y-6 lg:order-1">
-              
-              <ProjectSpec :amp="activeAmp" class="order-1 animate-fadeIn" />
-              
-              <ProjectGallery :items="galleryItems" :loading="isGalleryLoading" class="order-3 animate-fadeIn" />
+            <ProjectSpec :amp="activeAmp" class="animate-fadeIn" />
             
-            </div>
-
             <MarkdownViewer 
               :ampId="activeAmp.id" 
               :content="renderedMarkdown" 
               :path="activeAmp.markdownPath" 
               :loading="isMarkdownLoading" 
-              class="lg:col-span-2 order-2 lg:order-2 animate-fadeIn" 
+              class="lg:col-span-2 animate-fadeIn" 
             />
+            
+            <ProjectGallery :items="galleryItems" :loading="isGalleryLoading" class="animate-fadeIn" />
 
           </template>
         </div>
