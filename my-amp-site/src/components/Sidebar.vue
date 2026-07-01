@@ -1,7 +1,4 @@
 <template>
-  <!-- ========================================================================= -->
-  <!-- 📱 軌道 A：行動端滑出抽屜箱 Layout -->
-  <!-- ========================================================================= -->
   <button 
     @click="isMobileOpen = !isMobileOpen"
     :class="[theme === 'light' ? 'border-stone-300 text-stone-700 bg-stone-100/90' : 'border-zinc-800 text-zinc-400 bg-zinc-950/80']"
@@ -47,7 +44,6 @@
             <ProjectSelector :projects="archivedProjects" :activeId="activeId" @select="handleMobileSelect" label="LEGACY_CORES // 歷代作品:" />
           </div>
 
-          <!-- 訪客計數器面板 -->
           <div :class="[theme === 'light' ? 'border-stone-300' : 'border-zinc-800/40']" class="pt-4 border-t border-dashed space-y-1">
             <div class="text-[9px] text-zinc-500 uppercase tracking-wider">TELEMETRY // 訪客計數</div>
             <div :class="[theme === 'light' ? 'bg-stone-300/50 border-stone-300/80 text-emerald-700' : 'bg-zinc-950/40 border-zinc-900 text-emerald-400']"
@@ -64,9 +60,6 @@
     </Transition>
   </Teleport>
 
-  <!-- ========================================================================= -->
-  <!-- 💻 軌道 B：電腦端懸浮撕紙抽屜 Layout -->
-  <!-- ========================================================================= -->
   <div class="hidden lg:block fixed left-0 top-0 h-screen z-50 font-mono" @mouseenter="isHovered = true" @mouseleave="isHovered = false">
     <div :class="[isHovered ? 'opacity-0 scale-90 pointer-events-none' : 'opacity-100 scale-100']" class="absolute left-0 top-0 w-8 h-36 cursor-pointer transition-all duration-300 origin-top-left group">
       <svg class="w-full h-full drop-shadow-[2px_2px_4px_rgba(0,0,0,0.2)]" viewBox="0 0 32 145" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -77,17 +70,11 @@
 
     <aside :class="[isHovered ? 'translate-x-0 shadow-[25px_0_50px_-12px_rgba(0,0,0,0.5)]' : '-translate-x-full', theme === 'light' ? 'bg-stone-200/98 border-stone-300/80' : 'bg-zinc-900/98 border-zinc-900/80']" class="w-60 h-full backdrop-blur-md border-r p-5 flex flex-col justify-between transition-transform duration-300 cubic-bezier(0.16, 1, 0.3, 1)">
       <div class="space-y-5">
-        <div class="flex justify-between items-start">
-          <div>
-            <div class="flex items-center space-x-1.5 text-[0.6rem] text-emerald-500 tracking-widest uppercase mb-1">
-              <span class="animate-pulse">●</span> <span>DRAWER // OPEN</span>
-            </div>
-            <h1 :class="[theme === 'light' ? 'text-stone-900' : 'text-white']" class="text-lg font-black tracking-wider">JAY_AUDIO</h1>
-          </div>
-          <span :class="[theme === 'light' ? 'border-stone-300 text-stone-500 bg-stone-100' : 'border-zinc-800 text-zinc-600 bg-zinc-950/20']" class="text-[9px] px-1.5 py-0.5 rounded border">CTRL_PNL</span>
+        <div class="pt-2">
+          <h1 :class="[theme === 'light' ? 'text-stone-900' : 'text-white']" class="text-lg font-black tracking-wider">JAY_AUDIO</h1>
         </div>
 
-        <nav class="space-y-3 pt-2">
+        <nav class="space-y-3">
           <div class="jelly-wrapper w-full">
             <button @click="$emit('select', 'bio')" :class="[activeId === 'bio' ? (theme === 'light' ? 'bg-emerald-600/10 border-emerald-600 text-emerald-700 font-bold shadow-sm' : 'bg-emerald-500/10 border-emerald-500 text-emerald-400 font-bold shadow-sm') : (theme === 'light' ? 'bg-stone-200/40 border-stone-300 text-stone-500 hover:text-stone-800 hover:border-stone-400' : 'bg-zinc-900/10 border-zinc-900/60 text-zinc-500 hover:border-zinc-800 hover:text-zinc-300')]" class="px-3 py-1.5 rounded-xl border text-xs w-full text-left cursor-pointer jelly-btn">
               <span class="text-zinc-600 mr-1">👤</span> 個人簡介
@@ -103,7 +90,6 @@
           <ProjectSelector :projects="archivedProjects" :activeId="activeId" @select="$emit('select', $event)" label="LEGACY_CORES // 歷代作品:" />
         </div>
 
-        <!-- ENVIRONMENT 環境燈光 -->
         <div :class="[theme === 'light' ? 'border-stone-300' : 'border-zinc-800/60']" class="pt-4 border-t space-y-2">
           <div class="text-[0.6rem] text-zinc-600 uppercase tracking-wider">ENVIRONMENT // 燈光</div>
           <div :class="[theme === 'light' ? 'bg-stone-200/60 border-stone-300' : 'bg-zinc-950/60 border-zinc-900']" class="flex gap-1 p-1 border rounded-xl">
@@ -112,7 +98,6 @@
           </div>
         </div>
 
-        <!-- CONSOLE_SIZE 字體增益 -->
         <div :class="[theme === 'light' ? 'border-stone-300' : 'border-zinc-800/60']" class="border-t pt-3 space-y-2">
           <div class="text-[0.6rem] text-zinc-600 uppercase tracking-wider">CONSOLE_SIZE // 增益</div>
           <div :class="[theme === 'light' ? 'bg-stone-200/60 border-stone-300' : 'bg-zinc-950/60 border-zinc-900']" class="flex gap-1 p-1 border rounded-xl">
@@ -122,7 +107,6 @@
           </div>
         </div>
 
-        <!-- 桌機端計數器面板 -->
         <div :class="[theme === 'light' ? 'border-stone-300' : 'border-zinc-800/60']" class="border-t pt-3 space-y-1.5">
           <div class="text-[0.6rem] text-zinc-600 uppercase tracking-wider">TELEMETRY // 訪客計數</div>
           <div :class="[theme === 'light' ? 'bg-stone-300/50 border-stone-300/80 text-emerald-700' : 'bg-zinc-950/40 border-zinc-900 text-emerald-400']" 
@@ -131,11 +115,7 @@
           </div>
         </div>
 
-        <div :class="[theme === 'light' ? 'border-stone-300' : 'border-zinc-800/60']" class="border-t pt-3 text-[0.6rem] text-zinc-600 space-y-0.5">
-          <div>HOST // SYNOLOGY_NAS</div>
-          <div>THEME // {{ theme.toUpperCase() }}_DRAWER</div>
         </div>
-      </div>
     </aside>
   </div>
 </template>
@@ -150,7 +130,6 @@ import { useAnalytics } from '../composables/useAnalytics'
 defineProps({ activeProjects: Array, archivedProjects: Array, activeId: String })
 const emit = defineEmits(['select'])
 
-// 💡 核心補焊：重新接回狀態暫存器，解決斷路開不開的問題！
 const isHovered = ref(false)
 const isMobileOpen = ref(false)
 
