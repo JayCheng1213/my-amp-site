@@ -54,39 +54,45 @@ defineProps({ ampId: String, content: String, path: String, loading: Boolean })
 :deep(.markdown-body blockquote) { border-left: 3px solid #10b981; background-color: rgba(16, 185, 129, 0.02); padding: 10px 14px; margin: 1.25rem 0; border-radius: 0 8px 8px 0; }
 :deep(.markdown-body blockquote p) { margin: 0 !important; }
 
-/* 多媒體動態適配 */
+/* ========================================================================= */
+/* 🖼️ 多媒體動態適配（基礎外殼配置） */
+/* ========================================================================= */
 :deep(.markdown-body img),
 :deep(.markdown-body video),
 :deep(.markdown-body iframe) {
-  max-width: 100%; height: auto; border-radius: 12px; margin: 1.5rem 0;
-  border: 1px solid #27272a; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+  max-width: 100%;
+  border-radius: 12px;
+  margin: 1.5rem 0;
+  border: 1px solid #27272a;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
 }
 
 /* ========================================================================= */
-/* 💡 真空管 ICON 訊號增益與動態熱發光電路 (全新加入 ⚡) */
+/* 💡 直式多媒體限流電路：強制鎖定最大高度，防範手機直式影音拉長爆窗 ⚡ */
+/* ========================================================================= */
+:deep(.markdown-body video),
+:deep(.markdown-body img) {
+  max-height: 480px !important; /* 閹割最高上限，貼合桌面黃金視覺高度 */
+  width: auto !important;       /* 寬度強制隨高度收縮，絕不產生橫向拉伸形變 */
+  display: block;
+  margin-left: auto;
+  margin-right: auto;           /* 工業級完美居中校正 */
+  object-fit: contain;
+}
+
+/* ========================================================================= */
+/* 🌌 真空管 ICON 訊號增益與動態熱發光電路 */
 /* ========================================================================= */
 :deep(.markdown-body h2 svg),
 :deep(.markdown-body h3 svg) {
-  /* 1. 稍微放大尺寸 (由 w-5 h-5 拓寬增益至約 25px，存在感更完美) */
-  width: 1.55rem !important;
-  height: 1.55rem !important;
-  /* 2. 注入高階阻尼彈簧曲線，確保放大與收回時帶有實體物理慣性 */
-  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
-              filter 0.4s ease-in-out, 
-              color 0.3s ease;
+  width: 1.55rem !important; height: 1.55rem !important;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.4s ease-in-out, color 0.3s ease;
   cursor: pointer;
 }
-
-/* 當滑鼠懸停在標題列上時，模擬「真空管鎢絲通電熱發光」效果 */
 :deep(.markdown-body h2:hover svg),
 :deep(.markdown-body h3:hover svg) {
-  /* 微微等比例放大 1.1 倍 */
-  transform: scale(1.1) translateY(-0.5px); 
-  /* 燈絲通電：色調瞬間轉為極具靈魂的暖黃橘光 (Amber Glow) */
-  color: #ff9100 !important; 
-  /* 雙層疊加雙線性濾波：外圈大範圍渲染微光 + 內圈高亮，逼真還原暗室真空管發光力場 */
-  filter: drop-shadow(0 0 8px rgba(255, 145, 0, 0.65)) 
-          drop-shadow(0 0 2px rgba(239, 68, 68, 0.35));
+  transform: scale(1.1) translateY(-0.5px); color: #ff9100 !important; 
+  filter: drop-shadow(0 0 8px rgba(255, 145, 0, 0.65)) drop-shadow(0 0 2px rgba(239, 68, 68, 0.35));
 }
 
 /* ========================================================================= */
@@ -106,10 +112,6 @@ defineProps({ ampId: String, content: String, path: String, loading: Boolean })
 .light-mode :deep(.markdown-body video),
 .light-mode :deep(.markdown-body iframe) { border-color: #d6d3d1; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
 
-/* 亮色模式下的發光調校：稍微降低發光底色透明度，維持高質感不刺眼 */
 .light-mode :deep(.markdown-body h2:hover svg),
-.light-mode :deep(.markdown-body h3:hover svg) {
-  color: #ea580c !important; /* 亮模式採用略深的焦糖深橘 */
-  filter: drop-shadow(0 0 6px rgba(234, 88, 12, 0.5));
-}
+.light-mode :deep(.markdown-body h3:hover svg) { color: #ear580c !important; filter: drop-shadow(0 0 6px rgba(234, 88, 12, 0.5)); }
 </style>
