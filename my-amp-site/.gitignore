@@ -25,3 +25,7 @@ dist-ssr
 
 nas-media/
 nas-media-projects/
+my-amp-site/api/analytics.db
+my-amp-site/api/analytics.db-journal
+my-amp-site/api/analytics.db-wal
+my-amp-site/api/analytics.db-shm
