@@ -1,34 +1,51 @@
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 
-// 宣告全域響應式變數
-const fontSize = ref('medium') 
+// 💡 1. 完整保留大師的精密字體增益表（直接控制實體像素偏壓）
+const sizeMap = {
+  small: '18px',   // 手機端預設緊湊級
+  medium: '22px',  // 桌機端預設舒適級
+  large: '26px'    // 深度發燒大字體
+}
+
+// 💡 2. 導入動態分頻偵測器（自動判斷初始檔位）
+const getInitialFontSize = () => {
+  // 優先讀取訪客原有的「手動調校紀錄」
+  const savedSize = localStorage.getItem('jay-audio-user-fontsize')
+  if (savedSize && sizeMap[savedSize]) return savedSize
+
+  // 若為全新的外網訪客，啟動硬體分流（對齊 1024px 斷點）
+  if (typeof window !== 'undefined') {
+    // 📱 手機/平板小於 1024px ➡️ 預設 small (18px)
+    // 💻 電腦桌機大於等於 1024px ➡️ 預設 medium (22px)
+    return window.innerWidth < 1024 ? 'small' : 'medium'
+  }
+  
+  return 'medium'
+}
+
+// 初始化響應式狀態暫存器
+const fontSize = ref(getInitialFontSize())
 
 export function useFontSize() {
-  // 💡 重新校正的字體增益表：加大基準、拉開階梯落差（每級大跨度 4px）
-  const sizeMap = {
-    small: '18px',   // 提升最小基準，原來的 16px 太小直接淘汰
-    medium: '22px',  // 中字體跳級 4px，拉開與小字體的體感落差
-    large: '26px'    // 大字體再灌 4px，徹底解脫老花與視覺疲勞
-  }
 
-  // 寫入快取與切換電路
+  // 💡 3. 切換電路：同時封存快取並強行改寫頂層實體電壓
   const setFontSize = (size) => {
     if (!sizeMap[size]) return
     
     fontSize.value = size
-    // 鎖進瀏覽器快取緩衝區
+    // 鎖進你原有的瀏覽器快取緩衝區
     localStorage.setItem('jay-audio-user-fontsize', size)
     
-    // 對準最頂層網頁節點注入實體偏壓
-    document.documentElement.style.fontSize = sizeMap[size]
+    // 直接對準最頂層網頁節點（<html>）注入實體像素偏壓，全站即時縮放！
+    if (typeof window !== 'undefined') {
+      document.documentElement.style.fontSize = sizeMap[size]
+    }
   }
 
-  // 通電初始化
-  onMounted(() => {
-    // 讀取快取，若首次進站預設為 'medium'
-    const savedSize = localStorage.getItem('jay-audio-user-fontsize') || 'medium'
-    setFontSize(savedSize)
-  })
+  // 💡 4. 網頁初次加載時，立刻讓當前檔位通電點火（防止畫面閃爍）
+  if (typeof window !== 'undefined') {
+    document.documentElement.style.fontSize = sizeMap[fontSize.value]
+  }
 
   return {
     fontSize,
