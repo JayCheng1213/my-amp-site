@@ -26,6 +26,7 @@ dist-ssr
 nas-media/
 nas-media-projects/
 api/
+telemetry_data/
 my-amp-site/api/analytics.db
 my-amp-site/api/analytics.db-journal
 my-amp-site/api/analytics.db-wal
