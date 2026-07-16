@@ -32,29 +32,29 @@
               <div class="text-xs font-bold mt-1 uppercase" :class="[theme === 'light' ? 'text-stone-700' : 'text-zinc-400']">INPUT_SOURCES</div>
             </div>
             
-            <div class="flex-grow flex flex-col justify-between space-y-4">
+            <div class="flex-grow grid grid-rows-5 gap-y-2 pb-2">
               
-              <div class="flex-1 flex flex-col items-center justify-center">
-                <span class="text-xs font-bold opacity-70 tracking-widest mb-2" :class="[theme === 'light' ? 'text-stone-800' : 'text-zinc-200']">PC 串流</span>
-                <svg viewBox="0 0 100 80" class="w-full h-28 stroke-current fill-none stroke-2" :class="[theme === 'light' ? 'text-stone-700' : 'text-zinc-300']">
+              <div class="row-start-1 flex flex-col items-center justify-center">
+                <span class="text-xs font-bold opacity-70 tracking-widest" :class="[theme === 'light' ? 'text-stone-800' : 'text-zinc-200']">PC 串流</span>
+                <svg viewBox="0 0 100 80" class="w-full h-16 stroke-current fill-none stroke-2 mt-1" :class="[theme === 'light' ? 'text-stone-700' : 'text-zinc-300']">
                   <rect x="30" y="5" width="40" height="60" rx="2" />
                   <line x1="35" y1="20" x2="65" y2="20" />
                   <circle cx="50" cy="52" r="3" class="fill-emerald-500 stroke-none animate-pulse" />
                 </svg>
               </div>
               
-              <div class="flex-1 flex flex-col items-center justify-center">
-                <span class="text-xs font-bold opacity-70 tracking-widest mb-2" :class="[theme === 'light' ? 'text-stone-800' : 'text-zinc-200']">CD 撥放器</span>
-                <svg viewBox="0 0 100 80" class="w-full h-28 stroke-current fill-none stroke-2" :class="[theme === 'light' ? 'text-stone-700' : 'text-zinc-300']">
+              <div class="row-start-3 flex flex-col items-center justify-center">
+                <span class="text-xs font-bold opacity-70 tracking-widest" :class="[theme === 'light' ? 'text-stone-800' : 'text-zinc-200']">CD 撥放器</span>
+                <svg viewBox="0 0 100 80" class="w-full h-16 stroke-current fill-none stroke-2 mt-1" :class="[theme === 'light' ? 'text-stone-700' : 'text-zinc-300']">
                   <rect x="5" y="30" width="90" height="24" rx="2" />
                   <rect x="20" y="38" width="40" height="3" class="fill-current stroke-none" />
                   <circle cx="85" cy="42" r="3" class="fill-emerald-500 stroke-none" />
                 </svg>
               </div>
               
-              <div class="flex-1 flex flex-col items-center justify-center">
-                <span class="text-xs font-bold opacity-70 tracking-widest mb-2" :class="[theme === 'light' ? 'text-stone-800' : 'text-zinc-200']">黑膠唱盤</span>
-                <svg viewBox="0 0 100 80" class="w-full h-28 stroke-current fill-none stroke-2" :class="[theme === 'light' ? 'text-stone-700' : 'text-zinc-300']">
+              <div class="row-start-5 flex flex-col items-center justify-center">
+                <span class="text-xs font-bold opacity-70 tracking-widest" :class="[theme === 'light' ? 'text-stone-800' : 'text-zinc-200']">黑膠唱盤</span>
+                <svg viewBox="0 0 100 80" class="w-full h-16 stroke-current fill-none stroke-2 mt-1" :class="[theme === 'light' ? 'text-stone-700' : 'text-zinc-300']">
                   <rect x="5" y="15" width="90" height="50" rx="2" />
                   <circle cx="35" cy="40" r="18" />
                   <circle cx="35" cy="40" r="2" class="fill-current" />
@@ -74,11 +74,11 @@
               <div class="text-xs font-bold mt-1 uppercase" :class="[theme === 'light' ? 'text-stone-700' : 'text-zinc-400']">PROCESSING</div>
             </div>
             
-            <div class="flex-grow flex flex-col justify-around space-y-4">
+            <div class="flex-grow grid grid-rows-5 gap-y-2 pb-2">
               
-              <div class="flex-1 flex flex-col items-center justify-center">
-                <span class="text-xs font-bold opacity-70 tracking-widest mb-2" :class="[theme === 'light' ? 'text-stone-800' : 'text-zinc-200']">DAC 解碼器</span>
-                <svg viewBox="0 0 100 80" class="w-full h-28 stroke-current fill-none stroke-2" :class="[theme === 'light' ? 'text-stone-700' : 'text-zinc-300']">
+              <div class="row-start-2 flex flex-col items-center justify-center">
+                <span class="text-xs font-bold opacity-70 tracking-widest" :class="[theme === 'light' ? 'text-stone-800' : 'text-zinc-200']">DAC 解碼器</span>
+                <svg viewBox="0 0 100 80" class="w-full h-16 stroke-current fill-none stroke-2 mt-1" :class="[theme === 'light' ? 'text-stone-700' : 'text-zinc-300']">
                   <rect x="5" y="25" width="90" height="30" rx="2" />
                   <circle cx="30" cy="40" r="8" class="stroke-emerald-500" />
                   <circle cx="80" cy="40" r="6" />
@@ -86,9 +86,9 @@
                 </svg>
               </div>
               
-              <div class="flex-1 flex flex-col items-center justify-center">
-                <span class="text-xs font-bold opacity-70 tracking-widest mb-2" :class="[theme === 'light' ? 'text-stone-800' : 'text-zinc-200']">唱頭放大器</span>
-                <svg viewBox="0 0 100 80" class="w-full h-28 stroke-current fill-none stroke-2" :class="[theme === 'light' ? 'text-stone-700' : 'text-zinc-300']">
+              <div class="row-start-5 flex flex-col items-center justify-center">
+                <span class="text-xs font-bold opacity-70 tracking-widest" :class="[theme === 'light' ? 'text-stone-800' : 'text-zinc-200']">唱頭放大器</span>
+                <svg viewBox="0 0 100 80" class="w-full h-16 stroke-current fill-none stroke-2 mt-1" :class="[theme === 'light' ? 'text-stone-700' : 'text-zinc-300']">
                   <rect x="5" y="25" width="90" height="30" rx="2" />
                   <circle cx="30" cy="40" r="3" />
                   <circle cx="45" cy="40" r="3" />
@@ -107,11 +107,11 @@
               <div class="text-xs font-bold mt-1 uppercase" :class="[theme === 'light' ? 'text-stone-700' : 'text-zinc-400']">AMPLIFICATION</div>
             </div>
             
-            <div class="flex-grow flex flex-col justify-around space-y-4">
+            <div class="flex-grow grid grid-rows-5 gap-y-2 pb-2">
               
-              <div class="flex-1 flex flex-col items-center justify-center">
-                <span class="text-xs font-bold opacity-70 tracking-widest mb-2" :class="[theme === 'light' ? 'text-stone-800' : 'text-zinc-200']">2A3 AMP</span>
-                <svg viewBox="0 0 100 80" class="w-full h-28 stroke-current fill-none stroke-2" :class="[theme === 'light' ? 'text-stone-700' : 'text-zinc-300']">
+              <div class="row-start-2 flex flex-col items-center justify-center">
+                <span class="text-xs font-bold opacity-70 tracking-widest" :class="[theme === 'light' ? 'text-stone-800' : 'text-zinc-200']">2A3 AMP</span>
+                <svg viewBox="0 0 100 80" class="w-full h-16 stroke-current fill-none stroke-2 mt-1" :class="[theme === 'light' ? 'text-stone-700' : 'text-zinc-300']">
                   <rect x="5" y="60" width="90" height="12" rx="2" />
                   <rect x="20" y="20" width="25" height="40" rx="2" />
                   <path d="M 60 60 C 56 25, 74 25, 70 60" class="fill-orange-500/20 stroke-orange-500" />
@@ -119,9 +119,9 @@
                 </svg>
               </div>
               
-              <div class="flex-1 flex flex-col items-center justify-center">
-                <span class="text-xs font-bold opacity-70 tracking-widest mb-2" :class="[theme === 'light' ? 'text-stone-800' : 'text-zinc-200']">6R-A3 AMP</span>
-                <svg viewBox="0 0 100 80" class="w-full h-28 stroke-current fill-none stroke-2" :class="[theme === 'light' ? 'text-stone-700' : 'text-zinc-300']">
+              <div class="row-start-5 flex flex-col items-center justify-center">
+                <span class="text-xs font-bold opacity-70 tracking-widest" :class="[theme === 'light' ? 'text-stone-800' : 'text-zinc-200']">6R-A3 AMP</span>
+                <svg viewBox="0 0 100 80" class="w-full h-16 stroke-current fill-none stroke-2 mt-1" :class="[theme === 'light' ? 'text-stone-700' : 'text-zinc-300']">
                   <rect x="10" y="60" width="80" height="12" rx="2" />
                   <rect x="25" y="25" width="20" height="35" rx="1.5" />
                   <rect x="55" y="35" width="12" height="25" rx="5" class="fill-orange-500/20 stroke-orange-500" />
@@ -140,11 +140,11 @@
               <div class="text-xs font-bold mt-1 uppercase" :class="[theme === 'light' ? 'text-stone-700' : 'text-zinc-400']">TRANSDUCERS</div>
             </div>
             
-            <div class="flex-grow flex flex-col justify-around space-y-4">
+            <div class="flex-grow grid grid-rows-5 gap-y-2 pb-2">
               
-              <div class="flex-1 flex flex-col items-center justify-center">
-                <span class="text-xs font-bold opacity-70 tracking-widest mb-2" :class="[theme === 'light' ? 'text-stone-800' : 'text-zinc-200']">喇叭</span>
-                <svg viewBox="0 0 100 80" class="w-full h-28 stroke-current fill-none stroke-2" :class="[theme === 'light' ? 'text-stone-700' : 'text-zinc-300']">
+              <div class="row-start-2 flex flex-col items-center justify-center">
+                <span class="text-xs font-bold opacity-70 tracking-widest" :class="[theme === 'light' ? 'text-stone-800' : 'text-zinc-200']">喇叭</span>
+                <svg viewBox="0 0 100 80" class="w-full h-16 stroke-current fill-none stroke-2 mt-1" :class="[theme === 'light' ? 'text-stone-700' : 'text-zinc-300']">
                   <rect x="25" y="2" width="50" height="76" rx="2" />
                   <circle cx="50" cy="22" r="8" />
                   <circle cx="50" cy="54" r="16" />
@@ -152,9 +152,9 @@
                 </svg>
               </div>
               
-              <div class="flex-1 flex flex-col items-center justify-center">
-                <span class="text-xs font-bold opacity-70 tracking-widest mb-2" :class="[theme === 'light' ? 'text-stone-800' : 'text-zinc-200']">耳機</span>
-                <svg viewBox="0 0 100 80" class="w-full h-28 stroke-current fill-none stroke-2" :class="[theme === 'light' ? 'text-stone-700' : 'text-zinc-300']">
+              <div class="row-start-5 flex flex-col items-center justify-center">
+                <span class="text-xs font-bold opacity-70 tracking-widest" :class="[theme === 'light' ? 'text-stone-800' : 'text-zinc-200']">耳機</span>
+                <svg viewBox="0 0 100 80" class="w-full h-16 stroke-current fill-none stroke-2 mt-1" :class="[theme === 'light' ? 'text-stone-700' : 'text-zinc-300']">
                   <circle cx="35" cy="22" r="8" />
                   <rect x="22" y="18" width="6" height="8" rx="1" />
                   <circle cx="65" cy="22" r="8" />
@@ -175,8 +175,8 @@
           class="p-6 min-h-[140px] flex flex-col"
         >
           <div class="flex-grow flex flex-col items-center justify-center pt-2">
-            <span class="text-xs font-bold opacity-70 tracking-widest mb-2" :class="[theme === 'light' ? 'text-stone-800' : 'text-zinc-200']">隔離變壓器</span>
-            <svg viewBox="0 0 100 80" class="w-full h-28 stroke-current fill-none stroke-2" :class="[theme === 'light' ? 'text-stone-700' : 'text-zinc-300']">
+            <span class="text-xs font-bold opacity-70 tracking-widest" :class="[theme === 'light' ? 'text-stone-800' : 'text-zinc-200']">隔離變壓器</span>
+            <svg viewBox="0 0 100 80" class="w-full h-16 stroke-current fill-none stroke-2 mt-1" :class="[theme === 'light' ? 'text-stone-700' : 'text-zinc-300']">
               <path d="M 30 15 A 8 8 0 0 0 30 27 A 8 8 0 0 0 30 39 A 8 8 0 0 0 30 51 A 8 8 0 0 0 30 63" />
               <path d="M 70 15 A 8 8 0 0 1 70 27 A 8 8 0 0 1 70 39 A 8 8 0 0 1 70 51 A 8 8 0 0 1 70 63" />
               <line x1="46" y1="10" x2="46" y2="70" />
