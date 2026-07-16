@@ -26,12 +26,12 @@
           <svg class="absolute inset-0 w-full h-full pointer-events-none hidden md:block z-0" viewBox="0 0 1000 520" preserveAspectRatio="none">
             
             <path d="M 180 115 C 260 115, 260 200, 320 200" class="signal-usb" fill="none" stroke-width="2" stroke-linecap="round" />
-            <text x="250" y="145" class="text-xs font-bold fill-sky-500" text-anchor="middle">USB</text>
+            <text x="240" y="135" class="text-xs font-bold fill-sky-500" text-anchor="middle">USB</text>
 
             <path d="M 180 275 C 240 275, 260 200, 320 200" class="signal-optical" fill="none" stroke-width="2" stroke-linecap="round" />
-            <text x="220" y="240" class="text-xs font-bold fill-rose-500" text-anchor="middle">光纖</text>
+            <text x="225" y="220" class="text-xs font-bold fill-rose-500" text-anchor="middle">光纖</text>
             <path d="M 180 295 C 260 295, 280 200, 320 200" class="signal-coax" fill="none" stroke-width="2" stroke-linecap="round" />
-            <text x="270" y="265" class="text-xs font-bold fill-amber-500" text-anchor="middle">同軸</text>
+            <text x="270" y="280" class="text-xs font-bold fill-amber-500" text-anchor="middle">同軸</text>
 
             <path d="M 180 455 L 320 455" class="signal-rca" fill="none" stroke-width="2" stroke-linecap="round" />
             <text x="250" y="445" class="text-xs font-bold fill-amber-500" text-anchor="middle">RCA</text>
@@ -250,14 +250,15 @@ const { theme } = useTheme()
   opacity: 0.8;
 }
 
-/* RCA 類比傳輸 (統一為琥珀色，流動參數同 USB) */
+/* RCA 類比傳輸 (居中流速：1.6s) */
 .signal-rca {
   stroke: #f59e0b; 
   stroke-dasharray: 6 6;
-  animation: flow 0.8s linear infinite;
+  animation: flow 1.6s linear infinite;
   opacity: 0.8;
 }
 
+/* 高功率傳輸 (最慢流速：2.5s) */
 .signal-power {
   stroke: #f97316; 
   stroke-dasharray: 20 10;
