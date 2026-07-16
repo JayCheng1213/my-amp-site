@@ -45,7 +45,7 @@
 
           </template>
         </div>
-      </div>
+      </div> 
 
       <div :class="[theme === 'light' ? 'border-stone-300/80' : 'border-zinc-900']" class="block lg:hidden mt-12 pt-6 border-t space-y-4">
         <div class="grid grid-cols-2 gap-4">
