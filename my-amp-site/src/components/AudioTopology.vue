@@ -28,24 +28,25 @@
             <path d="M 180 115 C 260 115, 260 200, 320 200" class="signal-usb" fill="none" stroke-width="2" stroke-linecap="round" />
             <text x="250" y="145" class="text-xs font-bold fill-sky-500" text-anchor="middle">USB</text>
 
-            <path d="M 180 275 C 240 275, 260 195, 320 195" class="signal-optical" fill="none" stroke-width="2" stroke-linecap="round" />
+            <path d="M 180 275 C 240 275, 260 200, 320 200" class="signal-optical" fill="none" stroke-width="2" stroke-linecap="round" />
             <text x="220" y="240" class="text-xs font-bold fill-rose-500" text-anchor="middle">光纖</text>
-            <path d="M 180 295 C 260 295, 280 205, 320 205" class="signal-coax" fill="none" stroke-width="2" stroke-linecap="round" />
+            <path d="M 180 295 C 260 295, 280 200, 320 200" class="signal-coax" fill="none" stroke-width="2" stroke-linecap="round" />
             <text x="270" y="265" class="text-xs font-bold fill-amber-500" text-anchor="middle">同軸</text>
 
-            <path d="M 180 455 L 320 455" class="signal-analog-low" fill="none" stroke-width="2" stroke-linecap="round" />
-            <text x="250" y="445" class="text-xs font-bold fill-zinc-400" text-anchor="middle">RCA (LOW)</text>
+            <path d="M 180 455 L 320 455" class="signal-rca" fill="none" stroke-width="2" stroke-linecap="round" />
+            <text x="250" y="445" class="text-xs font-bold fill-amber-500" text-anchor="middle">RCA</text>
 
-            <path d="M 430 200 L 570 200" class="signal-analog" fill="none" stroke-width="2" stroke-linecap="round" />
-            <path d="M 430 200 C 500 200, 500 450, 570 450" class="signal-analog" fill="none" stroke-width="2" stroke-linecap="round" />
-            <text x="480" y="190" class="text-xs font-bold fill-emerald-500" text-anchor="middle">RCA</text>
+            <path d="M 430 200 L 570 200" class="signal-rca" fill="none" stroke-width="2" stroke-linecap="round" />
+            <path d="M 430 200 C 500 200, 500 450, 570 450" class="signal-rca" fill="none" stroke-width="2" stroke-linecap="round" />
+            <text x="480" y="190" class="text-xs font-bold fill-amber-500" text-anchor="middle">RCA</text>
 
-            <path d="M 430 455 L 570 455" class="signal-analog" fill="none" stroke-width="2" stroke-linecap="round" />
-            <path d="M 430 455 C 500 455, 500 205, 570 205" class="signal-analog" fill="none" stroke-width="2" stroke-linecap="round" />
-            <text x="480" y="445" class="text-xs font-bold fill-emerald-500" text-anchor="middle">RCA</text>
+            <path d="M 430 455 L 570 455" class="signal-rca" fill="none" stroke-width="2" stroke-linecap="round" />
+            <path d="M 430 455 C 500 455, 500 205, 570 205" class="signal-rca" fill="none" stroke-width="2" stroke-linecap="round" />
+            <text x="480" y="445" class="text-xs font-bold fill-amber-500" text-anchor="middle">RCA</text>
 
             <path d="M 680 200 L 820 200" class="signal-power" fill="none" stroke-width="3" stroke-linecap="round" />
             <text x="750" y="190" class="text-xs font-bold fill-orange-500" text-anchor="middle">SPK CABLE</text>
+            
             <path d="M 680 455 L 820 455" class="signal-power" fill="none" stroke-width="3" stroke-linecap="round" />
             <text x="750" y="445" class="text-xs font-bold fill-orange-500" text-anchor="middle">IEM CABLE</text>
           </svg>
@@ -223,55 +224,42 @@ const { theme } = useTheme()
 </script>
 
 <style scoped>
-/* 訊號線流動動畫定義 */
 @keyframes flow {
   from { stroke-dashoffset: 24; }
   to { stroke-dashoffset: 0; }
 }
 
-/* USB 數位傳輸 (高頻藍光) */
 .signal-usb {
-  stroke: #0ea5e9; /* Sky 500 */
+  stroke: #0ea5e9; 
   stroke-dasharray: 6 6;
   animation: flow 0.8s linear infinite;
   opacity: 0.8;
 }
 
-/* 光纖 數位傳輸 (紅光脈衝) */
 .signal-optical {
-  stroke: #f43f5e; /* Rose 500 */
+  stroke: #f43f5e; 
   stroke-dasharray: 8 4;
   animation: flow 0.6s linear infinite;
   opacity: 0.8;
 }
 
-/* 同軸 數位傳輸 (琥珀色) */
 .signal-coax {
-  stroke: #f59e0b; /* Amber 500 */
+  stroke: #f59e0b; 
   stroke-dasharray: 4 8;
   animation: flow 1s linear infinite;
   opacity: 0.8;
 }
 
-/* 微弱類比傳輸 (灰白點劃線) */
-.signal-analog-low {
-  stroke: #a1a1aa; /* Zinc 400 */
-  stroke-dasharray: 2 4;
-  animation: flow 2s linear infinite;
-  opacity: 0.6;
-}
-
-/* 標準類比傳輸 (翡翠綠連續波) */
-.signal-analog {
-  stroke: #10b981; /* Emerald 500 */
-  stroke-dasharray: 12 12;
-  animation: flow 1.5s linear infinite;
+/* RCA 類比傳輸 (統一為琥珀色，流動參數同 USB) */
+.signal-rca {
+  stroke: #f59e0b; 
+  stroke-dasharray: 6 6;
+  animation: flow 0.8s linear infinite;
   opacity: 0.8;
 }
 
-/* 喇叭/耳機 大功率輸出 (粗線緩流) */
 .signal-power {
-  stroke: #f97316; /* Orange 500 */
+  stroke: #f97316; 
   stroke-dasharray: 20 10;
   animation: flow 2.5s linear infinite;
   opacity: 0.9;
