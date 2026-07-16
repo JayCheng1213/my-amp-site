@@ -26,11 +26,8 @@
           <template v-if="activeAmp">
             
             <div class="contents lg:block lg:col-span-1 lg:space-y-6">
-              
               <ProjectSpec :amp="activeAmp" class="order-1 animate-fadeIn" />
-              
               <ProjectGallery :items="galleryItems" :loading="isGalleryLoading" class="order-3 lg:mt-6 animate-fadeIn" />
-            
             </div>
 
             <MarkdownViewer 
@@ -39,6 +36,11 @@
               :path="activeAmp.markdownPath" 
               :loading="isMarkdownLoading" 
               class="order-2 lg:col-span-2 animate-fadeIn" 
+            />
+
+            <AudioTopology 
+              v-if="activeAmpId === 'bio'" 
+              class="col-span-1 lg:col-span-3 w-full order-4 animate-fadeIn" 
             />
 
           </template>
@@ -74,6 +76,7 @@ import Sidebar from './components/Sidebar.vue'
 import ProjectSpec from './components/ProjectSpec.vue'
 import MarkdownViewer from './components/MarkdownViewer.vue'
 import ProjectGallery from './components/ProjectGallery.vue'
+import AudioTopology from './components/AudioTopology.vue' // 🎛️ 拓撲晶片完美並聯
 import { useProjects } from './composables/useProjects'
 import { useTheme } from './composables/useTheme'
 import { useFontSize } from './composables/useFontSize'
@@ -81,9 +84,7 @@ import { useFontSize } from './composables/useFontSize'
 const { activeProjects, archivedProjects, activeAmpId, isLoading, isMarkdownLoading, galleryItems, isGalleryLoading, activeAmp, renderedMarkdown, switchAmp } = useProjects()
 const { theme, toggleTheme } = useTheme()
 const { fontSize, setFontSize } = useFontSize()
-</script>
-
-<style scoped>
+</script> <style scoped>
 .animate-fadeIn { animation: fadeIn 0.25s ease-out forwards; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(2px); } to { opacity: 1; transform: translateY(0); } }
 </style>

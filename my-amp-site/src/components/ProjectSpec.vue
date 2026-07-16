@@ -107,16 +107,10 @@
       </span>
     </div>
   </div>
-
-  <div v-if="amp.id === 'bio'" class="lg:col-span-full w-full">
-    <AudioTopology />
-  </div>
 </template>
 
 <script setup>
 import { useTheme } from '../composables/useTheme'
-import AudioTopology from './AudioTopology.vue' // 📡 引入剛建立的拓撲電路晶片
-
 const { theme } = useTheme()
 defineProps({ amp: Object })
 </script>
