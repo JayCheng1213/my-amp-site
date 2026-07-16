@@ -27,7 +27,7 @@
       <div class="space-y-0.5">
         <span class="text-[10px] text-zinc-500 block">CURRENT_STATE // 狀態暫存</span>
         <span class="text-sm font-bold tracking-wide text-emerald-500">
-          電機系 大二
+          電機系 大三
         </span>
       </div>
       
@@ -42,37 +42,36 @@
         <span class="text-[9px] text-zinc-500 block">UPTIME // 運行時長</span>
         <span class="text-sm font-bold text-amber-500 tracking-wider">SINCE_2005.12</span>
       </div>
+      
       <div class="space-y-1">
-  <span class="text-[10px] text-zinc-500 block">IO_CHANNELS // 外部通訊埠</span>
-  <div class="font-mono text-xs space-y-2 pt-1 w-full">
-    
-    <div class="flex items-center justify-between w-full h-7">
-      <span class="text-emerald-500 font-bold">[0x01_GMAIL] :</span>
-      <a href="mailto:Jaycheng1213@gmail.com" 
-         :class="[theme === 'light' ? 'bg-stone-300/30 border-stone-300/60 text-stone-800 hover:bg-emerald-600/10 hover:text-emerald-700 hover:border-emerald-600/30 shadow-[0_1px_2px_rgba(0,0,0,0.02)]' : 'bg-zinc-800/30 border-zinc-800/60 text-zinc-300 hover:bg-emerald-500/10 hover:text-emerald-400 hover:border-emerald-500/30 shadow-inner']" 
-         class="px-2 py-0.5 rounded-lg border transition-all duration-200 text-[11px]">
-        Jaycheng1213@gmail.com
-      </a>
-    </div>
-    
-    <div class="flex items-center justify-between w-full h-7">
-      <span class="text-sky-500 font-bold">[0x02_LINE_ID] :</span>
-      <span :class="[theme === 'light' ? 'text-stone-800' : 'text-zinc-300']" class="pr-2 font-medium tracking-wide">
-        jaycheng1213
-      </span>
-    </div>
-    
-    <div class="flex items-center justify-between w-full h-7">
-      <span class="text-fuchsia-500 font-bold">[0x03_IG] :</span>
-      <a href="https://instagram.com/jaycheng1213" target="_blank" 
-         :class="[theme === 'light' ? 'bg-stone-300/30 border-stone-300/60 text-stone-800 hover:bg-fuchsia-600/10 hover:text-fuchsia-700 hover:border-fuchsia-600/30 shadow-[0_1px_2px_rgba(0,0,0,0.02)]' : 'bg-zinc-800/30 border-zinc-800/60 text-zinc-300 hover:bg-fuchsia-500/10 hover:text-fuchsia-400 hover:border-fuchsia-500/30 shadow-inner']" 
-         class="px-2 py-0.5 rounded-lg border transition-all duration-200 text-[11px]">
-        jaycheng1213
-      </a>
-    </div>
-
-  </div>
-</div>
+        <span class="text-[10px] text-zinc-500 block">IO_CHANNELS // 外部通訊埠</span>
+        <div class="font-mono text-xs space-y-2 pt-1 w-full">
+          <div class="flex items-center justify-between w-full h-7">
+            <span class="text-emerald-500 font-bold">[0x01_GMAIL] :</span>
+            <a href="mailto:Jaycheng1213@gmail.com" 
+               :class="[theme === 'light' ? 'bg-stone-300/30 border-stone-300/60 text-stone-800 hover:bg-emerald-600/10 hover:text-emerald-700 hover:border-emerald-600/30 shadow-[0_1px_2px_rgba(0,0,0,0.02)]' : 'bg-zinc-800/30 border-zinc-800/60 text-zinc-300 hover:bg-emerald-500/10 hover:text-emerald-400 hover:border-emerald-500/30 shadow-inner']" 
+               class="px-2 py-0.5 rounded-lg border transition-all duration-200 text-[11px]">
+              Jaycheng1213@gmail.com
+            </a>
+          </div>
+          
+          <div class="flex items-center justify-between w-full h-7">
+            <span class="text-sky-500 font-bold">[0x02_LINE_ID] :</span>
+            <span :class="[theme === 'light' ? 'text-stone-800' : 'text-zinc-300']" class="pr-2 font-medium tracking-wide">
+              jaycheng1213
+            </span>
+          </div>
+          
+          <div class="flex items-center justify-between w-full h-7">
+            <span class="text-fuchsia-500 font-bold">[0x03_IG] :</span>
+            <a href="https://instagram.com/jaycheng1213" target="_blank" 
+               :class="[theme === 'light' ? 'bg-stone-300/30 border-stone-300/60 text-stone-800 hover:bg-fuchsia-600/10 hover:text-fuchsia-700 hover:border-fuchsia-600/30 shadow-[0_1px_2px_rgba(0,0,0,0.02)]' : 'bg-zinc-800/30 border-zinc-800/60 text-zinc-300 hover:bg-fuchsia-500/10 hover:text-fuchsia-400 hover:border-fuchsia-500/30 shadow-inner']" 
+               class="px-2 py-0.5 rounded-lg border transition-all duration-200 text-[11px]">
+              jaycheng1213
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div :class="[theme === 'light' ? 'bg-stone-100 border-stone-200' : 'bg-zinc-950/60 border-zinc-900']" 
@@ -108,10 +107,16 @@
       </span>
     </div>
   </div>
+
+  <div v-if="amp.id === 'bio'" class="lg:col-span-full w-full">
+    <AudioTopology />
+  </div>
 </template>
 
 <script setup>
 import { useTheme } from '../composables/useTheme'
+import AudioTopology from './AudioTopology.vue' // 📡 引入剛建立的拓撲電路晶片
+
 const { theme } = useTheme()
 defineProps({ amp: Object })
 </script>
