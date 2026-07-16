@@ -28,21 +28,33 @@
           
           <div 
             :class="[theme === 'light' ? 'border-stone-200 text-stone-400' : 'border-zinc-800 text-zinc-600']"
-            class="p-6 flex flex-col justify-between border-b md:border-b-0 md:border-r border-dashed"
+            class="p-6 flex flex-col border-b md:border-b-0 md:border-r border-dashed"
           >
-            <div>
+            <div class="mb-6">
               <div class="text-[10px] font-bold tracking-widest text-emerald-600">[STAGE_01]</div>
               <div class="text-xs font-bold mt-1 uppercase" :class="[theme === 'light' ? 'text-stone-700' : 'text-zinc-400']">
                 INPUT_SOURCES
               </div>
             </div>
-            <div class="text-center text-xs tracking-widest uppercase">SLOT_EMPTY</div>
-            <div class="text-[10px]">Z_IN: HIGH IMPEDANCE</div>
+            
+            <div class="flex-grow flex flex-col space-y-4">
+              <div :class="[theme === 'light' ? 'border-stone-300 bg-white text-stone-700' : 'border-zinc-700 bg-zinc-900/50 text-zinc-300']" class="flex-1 border rounded-lg flex items-center justify-center shadow-sm">
+                <span class="text-xs font-bold tracking-wider">[ PC 串流 ]</span>
+              </div>
+              
+              <div :class="[theme === 'light' ? 'border-stone-300 bg-white text-stone-700' : 'border-zinc-700 bg-zinc-900/50 text-zinc-300']" class="flex-1 border rounded-lg flex items-center justify-center shadow-sm">
+                <span class="text-xs font-bold tracking-wider">[ CD 機 ]</span>
+              </div>
+              
+              <div :class="[theme === 'light' ? 'border-stone-300 bg-white text-stone-700' : 'border-zinc-700 bg-zinc-900/50 text-zinc-300']" class="flex-1 border rounded-lg flex items-center justify-center shadow-sm">
+                <span class="text-xs font-bold tracking-wider">[ 黑膠唱盤 ]</span>
+              </div>
+            </div>
           </div>
 
           <div 
             :class="[theme === 'light' ? 'border-stone-200 text-stone-400' : 'border-zinc-800 text-zinc-600']"
-            class="p-6 flex flex-col justify-between border-b md:border-b-0 md:border-r border-dashed"
+            class="p-6 flex flex-col border-b md:border-b-0 md:border-r border-dashed"
           >
             <div>
               <div class="text-[10px] font-bold tracking-widest text-emerald-600">[STAGE_02]</div>
@@ -50,13 +62,11 @@
                 PROCESSING
               </div>
             </div>
-            <div class="text-center text-xs tracking-widest uppercase">SLOT_EMPTY</div>
-            <div class="text-[10px]">D/A CONVERSION</div>
-          </div>
+            </div>
 
           <div 
             :class="[theme === 'light' ? 'border-stone-200 text-stone-400' : 'border-zinc-800 text-zinc-600']"
-            class="p-6 flex flex-col justify-between border-b md:border-b-0 md:border-r border-dashed"
+            class="p-6 flex flex-col border-b md:border-b-0 md:border-r border-dashed"
           >
             <div>
               <div class="text-[10px] font-bold tracking-widest text-emerald-600">[STAGE_03]</div>
@@ -64,13 +74,11 @@
                 AMPLIFICATION
               </div>
             </div>
-            <div class="text-center text-xs tracking-widest uppercase">SLOT_EMPTY</div>
-            <div class="text-[10px]">CLASS_A GAIN</div>
-          </div>
+            </div>
 
           <div 
             :class="[theme === 'light' ? 'text-stone-400' : 'text-zinc-600']"
-            class="p-6 flex flex-col justify-between"
+            class="p-6 flex flex-col"
           >
             <div>
               <div class="text-[10px] font-bold tracking-widest text-emerald-600">[STAGE_04]</div>
@@ -78,9 +86,7 @@
                 TRANSDUCERS
               </div>
             </div>
-            <div class="text-center text-xs tracking-widest uppercase">SLOT_EMPTY</div>
-            <div class="text-[10px] text-right">Z_LOAD: 8-32 OHM</div>
-          </div>
+            </div>
 
         </div>
 
@@ -88,7 +94,7 @@
 
         <div 
           :class="[theme === 'light' ? 'text-stone-400' : 'text-zinc-600']"
-          class="p-6 min-h-[140px] flex flex-col justify-between"
+          class="p-6 min-h-[140px] flex flex-col"
         >
           <div>
             <div class="text-[10px] font-bold tracking-widest text-amber-600">[POWER_STAGE]</div>
@@ -96,16 +102,7 @@
               POWER_DISTRIBUTION_UNIT
             </div>
           </div>
-          
-          <div class="text-center text-xs tracking-widest uppercase">
-            POWER_SLOT_EMPTY (ISOLATION_TRANSFORMER / AC_MAINS)
           </div>
-          
-          <div class="flex justify-between items-center text-[10px]">
-            <span>ISOLATION LEVEL: 1000V</span>
-            <span>AC INPUT: 110V-220V // 60HZ</span>
-          </div>
-        </div>
 
       </div>
     </div>
