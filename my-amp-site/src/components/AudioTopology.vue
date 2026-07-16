@@ -25,27 +25,16 @@
           
           <g class="power-network">
             
-            <path d="M 500 580 L 500 550 L 60 550" class="signal-ac-power" fill="none" stroke-width="2" stroke-linejoin="round" />
-            <circle cx="500" cy="580" r="2" class="fill-violet-500" />
-            <circle cx="500" cy="550" r="3" class="fill-violet-500" />
-            <circle cx="60" cy="550" r="3" class="fill-violet-500" />
-
-            <path d="M 60 550 L 60 495 L 125 495" class="signal-ac-power" fill="none" stroke-width="2" stroke-linejoin="round" />
-            <circle cx="60" cy="495" r="3" class="fill-violet-500" />
-            <circle cx="125" cy="495" r="2" class="fill-violet-500" />
-
-            <path d="M 60 495 L 60 325 L 125 325" class="signal-ac-power" fill="none" stroke-width="2" stroke-linejoin="round" />
-            <circle cx="60" cy="325" r="3" class="fill-violet-500" />
-            <circle cx="125" cy="325" r="2" class="fill-violet-500" />
-
-            <path d="M 125 325 L 375 325 L 375 240" class="signal-ac-power" fill="none" stroke-width="2" stroke-linejoin="round" />
-            <circle cx="375" cy="325" r="3" class="fill-violet-500" />
-            <circle cx="375" cy="240" r="2" class="fill-violet-500" />
-            
-          </g>
+            <path d="M 470 590 L 60 590" class="signal-ac-power" fill="none" stroke-width="2" stroke-linejoin="round" />
+            <circle cx="470" cy="590" r="3" class="fill-violet-500" /> <circle cx="125" cy="590" r="2" class="fill-violet-500" /> <circle cx="60" cy="590" r="3" class="fill-violet-500" />  <path d="M 125 495 L 125 590" class="signal-ac-power" fill="none" stroke-width="2" stroke-linejoin="round" />
+            <circle cx="125" cy="495" r="3" class="fill-violet-500" /> <path d="M 60 590 L 60 360" class="signal-ac-power" fill="none" stroke-width="2" stroke-linejoin="round" />
+            <circle cx="60" cy="360" r="3" class="fill-violet-500" />  <path d="M 60 360 L 375 360" class="signal-ac-power" fill="none" stroke-width="2" stroke-linejoin="round" />
+            <circle cx="125" cy="360" r="2" class="fill-violet-500" /> <circle cx="375" cy="360" r="3" class="fill-violet-500" /> <path d="M 125 325 L 125 360" class="signal-ac-power" fill="none" stroke-width="2" stroke-linejoin="round" />
+            <circle cx="125" cy="325" r="3" class="fill-violet-500" /> <path d="M 375 360 L 375 240" class="signal-ac-power" fill="none" stroke-width="2" stroke-linejoin="round" />
+            <circle cx="375" cy="240" r="3" class="fill-violet-500" /> </g>
 
           <path d="M 180 115 C 260 115, 260 200, 320 200" class="signal-usb" fill="none" stroke-width="2" stroke-linecap="round" />
-          <text x="240" y="135" class="text-xs font-bold fill-sky-500" text-anchor="middle">USB</text>
+          <text x="235" y="105" class="text-xs font-bold fill-sky-500" text-anchor="middle">USB</text>
 
           <path d="M 180 275 C 240 275, 260 200, 320 200" class="signal-optical" fill="none" stroke-width="2" stroke-linecap="round" />
           <text x="225" y="220" class="text-xs font-bold fill-rose-500" text-anchor="middle">光纖</text>
@@ -291,7 +280,6 @@ const { theme } = useTheme()
   opacity: 0.9;
 }
 
-/* 交流電源傳輸 (專屬紫羅蘭色，平滑慢速) */
 .signal-ac-power {
   stroke: #8b5cf6; /* violet-500 */
   stroke-dasharray: 12 12;
