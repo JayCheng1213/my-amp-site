@@ -27,11 +27,11 @@
             
             <path d="M 474 595 L 72 595 Q 60 595 60 583 L 60 362 Q 60 350 72 350 L 113 350 Q 125 350 125 338 L 125 325" class="signal-ac-power" fill="none" stroke-width="2" stroke-linecap="round" />
             <circle cx="474" cy="595" r="3" class="fill-violet-500" /> <circle cx="125" cy="325" r="3" class="fill-violet-500" /> <path d="M 125 495 L 125 595" class="signal-ac-power" fill="none" stroke-width="2" stroke-linecap="round" />
-            <circle cx="125" cy="495" r="3" class="fill-violet-500" /> <circle cx="125" cy="595" r="3" class="fill-violet-500" /> <path d="M 375 240 L 375 313 Q 375 325 363 325 L 125 325" class="signal-ac-power" fill="none" stroke-width="2" stroke-linecap="round" />
-            <circle cx="375" cy="240" r="3" class="fill-violet-500" /> </g>
+            <circle cx="125" cy="495" r="3" class="fill-violet-500" /> <circle cx="125" cy="595" r="3" class="fill-violet-500" /> <path d="M 375 240 L 375 338 Q 375 350 363 350 L 125 350" class="signal-ac-power" fill="none" stroke-width="2" stroke-linecap="round" />
+            <circle cx="375" cy="240" r="3" class="fill-violet-500" /> <circle cx="125" cy="350" r="3" class="fill-violet-500" /> </g>
 
           <path d="M 180 115 C 260 115, 260 200, 320 200" class="signal-usb" fill="none" stroke-width="2" stroke-linecap="round" />
-          <text x="250" y="110" class="text-xs font-bold fill-sky-500" text-anchor="middle">USB</text>
+          <text x="250" y="105" class="text-xs font-bold fill-sky-500" text-anchor="middle">USB</text>
 
           <path d="M 180 275 C 240 275, 260 200, 320 200" class="signal-optical" fill="none" stroke-width="2" stroke-linecap="round" />
           <text x="225" y="220" class="text-xs font-bold fill-rose-500" text-anchor="middle">光纖</text>
