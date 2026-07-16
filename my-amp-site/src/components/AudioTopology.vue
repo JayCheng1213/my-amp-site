@@ -2,7 +2,7 @@
   <div class="p-6 font-mono selection:bg-emerald-500/30">
     <div 
       :class="[theme === 'light' ? 'bg-white border-stone-200 shadow-sm' : 'bg-zinc-900 border-zinc-800 shadow-inner']"
-      class="border rounded-2xl p-6 transition-colors duration-300"
+      class="border rounded-2xl p-6 transition-colors duration-300 hidden md:block"
     >
       <div class="flex items-center justify-between mb-8 pb-4 border-b border-dashed" :class="[theme === 'light' ? 'border-stone-200' : 'border-zinc-800']">
         <div>
