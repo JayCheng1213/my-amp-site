@@ -38,16 +38,28 @@
             </div>
             
             <div class="flex-grow flex flex-col space-y-4">
-              <div :class="[theme === 'light' ? 'border-stone-300 bg-white text-stone-700' : 'border-zinc-700 bg-zinc-900/50 text-zinc-300']" class="flex-1 border rounded-lg flex items-center justify-center shadow-sm">
-                <span class="text-xs font-bold tracking-wider">[ PC 串流 ]</span>
+              <div :class="[theme === 'light' ? 'border-stone-300 bg-white text-stone-800' : 'border-zinc-700 bg-zinc-900/40 text-zinc-200']" class="flex-1 border rounded-lg p-3 flex flex-col justify-between shadow-sm">
+                <div class="flex justify-between items-center">
+                  <span class="text-xs font-bold tracking-wider">PC STREAMER</span>
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                </div>
+                <div class="text-[9px] text-zinc-500">USB OUT // 192KHZ 32BIT</div>
               </div>
               
-              <div :class="[theme === 'light' ? 'border-stone-300 bg-white text-stone-700' : 'border-zinc-700 bg-zinc-900/50 text-zinc-300']" class="flex-1 border rounded-lg flex items-center justify-center shadow-sm">
-                <span class="text-xs font-bold tracking-wider">[ CD 機 ]</span>
+              <div :class="[theme === 'light' ? 'border-stone-300 bg-white text-stone-800' : 'border-zinc-700 bg-zinc-900/40 text-zinc-200']" class="flex-1 border rounded-lg p-3 flex flex-col justify-between shadow-sm">
+                <div class="flex justify-between items-center">
+                  <span class="text-xs font-bold tracking-wider">CD PLAYER</span>
+                  <span class="text-[9px] text-emerald-500 font-mono">TR_01</span>
+                </div>
+                <div class="text-[9px] text-zinc-500">COAX OUT // 44.1KHZ</div>
               </div>
               
-              <div :class="[theme === 'light' ? 'border-stone-300 bg-white text-stone-700' : 'border-zinc-700 bg-zinc-900/50 text-zinc-300']" class="flex-1 border rounded-lg flex items-center justify-center shadow-sm">
-                <span class="text-xs font-bold tracking-wider">[ 黑膠唱盤 ]</span>
+              <div :class="[theme === 'light' ? 'border-stone-300 bg-white text-stone-800' : 'border-zinc-700 bg-zinc-900/40 text-zinc-200']" class="flex-1 border rounded-lg p-3 flex flex-col justify-between shadow-sm">
+                <div class="flex justify-between items-center">
+                  <span class="text-xs font-bold tracking-wider">TURNTABLE</span>
+                  <span class="text-[8px] border border-amber-500 text-amber-500 px-1 rounded">33 RPM</span>
+                </div>
+                <div class="text-[9px] text-zinc-500">PHONO OUT // ANALOG</div>
               </div>
             </div>
           </div>
@@ -64,12 +76,20 @@
             </div>
             
             <div class="flex-grow flex flex-col space-y-4">
-              <div :class="[theme === 'light' ? 'border-stone-300 bg-white text-stone-700' : 'border-zinc-700 bg-zinc-900/50 text-zinc-300']" class="flex-1 border rounded-lg flex items-center justify-center shadow-sm">
-                <span class="text-xs font-bold tracking-wider">[ DX5ii ]</span>
+              <div :class="[theme === 'light' ? 'border-stone-300 bg-white text-stone-800' : 'border-zinc-700 bg-zinc-900/40 text-zinc-200']" class="flex-1 border rounded-lg p-3 flex flex-col justify-between shadow-sm">
+                <div class="flex justify-between items-center">
+                  <span class="text-xs font-bold tracking-wider">TOPPING DX5 II</span>
+                  <span class="text-[9px] text-emerald-500 font-mono">-12.5DB</span>
+                </div>
+                <div class="text-[9px] text-zinc-500">ES9068AS DAC // NFCA</div>
               </div>
               
-              <div :class="[theme === 'light' ? 'border-stone-300 bg-white text-stone-700' : 'border-zinc-700 bg-zinc-900/50 text-zinc-300']" class="flex-1 border rounded-lg flex items-center justify-center shadow-sm">
-                <span class="text-xs font-bold tracking-wider">[ 唱頭放大 ]</span>
+              <div :class="[theme === 'light' ? 'border-stone-300 bg-white text-stone-800' : 'border-zinc-700 bg-zinc-900/40 text-zinc-200']" class="flex-1 border rounded-lg p-3 flex flex-col justify-between shadow-sm">
+                <div class="flex justify-between items-center">
+                  <span class="text-xs font-bold tracking-wider">PHONO STAGE</span>
+                  <span class="text-[8px] bg-zinc-800 text-zinc-300 px-1 rounded">MC</span>
+                </div>
+                <div class="text-[9px] text-zinc-500">GAIN 60DB // R-EQ active</div>
               </div>
             </div>
           </div>
@@ -86,12 +106,20 @@
             </div>
             
             <div class="flex-grow flex flex-col space-y-4">
-              <div :class="[theme === 'light' ? 'border-stone-300 bg-white text-stone-700' : 'border-zinc-700 bg-zinc-900/50 text-zinc-300']" class="flex-1 border rounded-lg flex items-center justify-center shadow-sm">
-                <span class="text-xs font-bold tracking-wider">[ 單端 2A3 ]</span>
+              <div :class="[theme === 'light' ? 'border-stone-300 bg-white text-stone-800' : 'border-zinc-700 bg-zinc-900/40 text-zinc-200']" class="flex-1 border rounded-lg p-3 flex flex-col justify-between shadow-sm">
+                <div class="flex justify-between items-center">
+                  <span class="text-xs font-bold tracking-wider">2A3 AMP</span>
+                  <span class="w-2.5 h-2.5 rounded-full bg-orange-500 shadow-[0_0_8px_rgba(249,115,22,0.8)]"></span>
+                </div>
+                <div class="text-[9px] text-zinc-500">SINGLE-ENDED CLASS A // 3.5W</div>
               </div>
               
-              <div :class="[theme === 'light' ? 'border-stone-300 bg-white text-stone-700' : 'border-zinc-700 bg-zinc-900/50 text-zinc-300']" class="flex-1 border rounded-lg flex items-center justify-center shadow-sm">
-                <span class="text-xs font-bold tracking-wider">[ 單端 6R-A3 ]</span>
+              <div :class="[theme === 'light' ? 'border-stone-300 bg-white text-stone-800' : 'border-zinc-700 bg-zinc-900/40 text-zinc-200']" class="flex-1 border rounded-lg p-3 flex flex-col justify-between shadow-sm">
+                <div class="flex justify-between items-center">
+                  <span class="text-xs font-bold tracking-wider">6R-A3 AMP</span>
+                  <span class="w-2.5 h-2.5 rounded-full bg-orange-500 shadow-[0_0_8px_rgba(249,115,22,0.8)]"></span>
+                </div>
+                <div class="text-[9px] text-zinc-500">OTL HEADPHONE DRIVER // CLASS A</div>
               </div>
             </div>
           </div>
@@ -108,12 +136,20 @@
             </div>
             
             <div class="flex-grow flex flex-col space-y-4">
-              <div :class="[theme === 'light' ? 'border-stone-300 bg-white text-stone-700' : 'border-zinc-700 bg-zinc-900/50 text-zinc-300']" class="flex-1 border rounded-lg flex items-center justify-center shadow-sm">
-                <span class="text-xs font-bold tracking-wider">[ 喇叭 ]</span>
+              <div :class="[theme === 'light' ? 'border-stone-300 bg-white text-stone-800' : 'border-zinc-700 bg-zinc-900/40 text-zinc-200']" class="flex-1 border rounded-lg p-3 flex flex-col justify-between shadow-sm">
+                <div class="flex justify-between items-center">
+                  <span class="text-xs font-bold tracking-wider">SPEAKERS</span>
+                  <span class="text-[9px] text-zinc-500">8 OHM</span>
+                </div>
+                <div class="text-[9px] text-zinc-500">CORAL 8 INCH FULL-RANGE</div>
               </div>
               
-              <div :class="[theme === 'light' ? 'border-stone-300 bg-white text-stone-700' : 'border-zinc-700 bg-zinc-900/50 text-zinc-300']" class="flex-1 border rounded-lg flex items-center justify-center shadow-sm">
-                <span class="text-xs font-bold tracking-wider">[ 耳機 ]</span>
+              <div :class="[theme === 'light' ? 'border-stone-300 bg-white text-stone-800' : 'border-zinc-700 bg-zinc-900/40 text-zinc-200']" class="flex-1 border rounded-lg p-3 flex flex-col justify-between shadow-sm">
+                <div class="flex justify-between items-center">
+                  <span class="text-xs font-bold tracking-wider">IEM HEADPHONES</span>
+                  <span class="text-[9px] text-zinc-500">18 OHM</span>
+                </div>
+                <div class="text-[9px] text-zinc-500">SEEAUDIO BRAVERY</div>
               </div>
             </div>
           </div>
@@ -134,8 +170,15 @@
           </div>
           
           <div class="flex-grow flex">
-            <div :class="[theme === 'light' ? 'border-stone-300 bg-white text-stone-700' : 'border-zinc-700 bg-zinc-900/50 text-zinc-300']" class="flex-grow border rounded-lg flex items-center justify-center shadow-sm">
-              <span class="text-xs font-bold tracking-wider">[ 隔離變壓器 ]</span>
+            <div :class="[theme === 'light' ? 'border-stone-300 bg-white text-stone-800' : 'border-zinc-700 bg-zinc-900/40 text-zinc-200']" class="flex-grow border rounded-lg p-4 flex justify-between items-center shadow-sm">
+              <div class="flex flex-col">
+                <span class="text-sm font-bold tracking-wider">ISOLATION TRANSFORMER</span>
+                <span class="text-[9px] text-zinc-500 mt-1">TOROIDAL CORE SYSTEM // LOW AC NOISE FLOOR</span>
+              </div>
+              <div class="text-right">
+                <div class="text-xs font-bold text-amber-600">110V TO 110V</div>
+                <div class="text-[9px] text-zinc-500 mt-0.5">ISOLATION LEVEL: 1000V</div>
+              </div>
             </div>
           </div>
         </div>
