@@ -10,60 +10,71 @@
           <h2 :class="[theme === 'light' ? 'text-stone-900' : 'text-white']" class="text-xl font-extrabold tracking-tighter uppercase">
             SYSTEM_AUDIO_PATH
           </h2>
-          <p class="text-[11px] text-zinc-500 mt-0.5">STAGE 01 TO 04: SIGNAL ROUTING AND GAIN ARCHITECTURE</p>
+          <p class="text-[11px] text-zinc-500 mt-0.5">STAGE 01 TO 04: UNIFIED SIGNAL FLOW CHASSIS</p>
         </div>
         
         <div class="flex items-center space-x-2 text-xs">
           <span class="text-zinc-500">CHASSIS_STATE:</span>
-          <span class="text-amber-500 font-bold">PREPARING</span>
+          <span class="text-emerald-500 font-bold">READY</span>
         </div>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 min-h-[350px]">
+      <div 
+        :class="[theme === 'light' ? 'border-stone-300 bg-stone-50/30' : 'border-zinc-800 bg-zinc-950/30']"
+        class="border rounded-xl min-h-[380px] grid grid-cols-1 md:grid-cols-4 overflow-hidden relative"
+      >
         
         <div 
-          :class="[theme === 'light' ? 'border-stone-300 bg-stone-50/50 text-stone-400' : 'border-zinc-800 bg-zinc-950/50 text-zinc-600']"
-          class="border border-dashed rounded-xl p-4 flex flex-col justify-between"
+          :class="[theme === 'light' ? 'border-stone-200 text-stone-400' : 'border-zinc-800 text-zinc-600']"
+          class="p-5 flex flex-col justify-between border-b md:border-b-0 md:border-r border-dashed"
         >
           <div>
             <div class="text-[10px] font-bold tracking-widest text-emerald-600">[STAGE_01]</div>
-            <div class="text-xs font-bold mt-1 uppercase" :class="[theme === 'light' ? 'text-stone-700' : 'text-zinc-400']">INPUT_SOURCES</div>
+            <div class="text-xs font-bold mt-1 uppercase" :class="[theme === 'light' ? 'text-stone-700' : 'text-zinc-400']">
+              INPUT_SOURCES
+            </div>
           </div>
           <div class="text-center text-xs tracking-widest uppercase">SLOT_EMPTY</div>
-          <div class="text-[10px] text-right">Z_IN: HIGH</div>
+          <div class="text-[10px]">Z_IN: HIGH</div>
         </div>
 
         <div 
-          :class="[theme === 'light' ? 'border-stone-300 bg-stone-50/50 text-stone-400' : 'border-zinc-800 bg-zinc-950/50 text-zinc-600']"
-          class="border border-dashed rounded-xl p-4 flex flex-col justify-between"
+          :class="[theme === 'light' ? 'border-stone-200 text-stone-400' : 'border-zinc-800 text-zinc-600']"
+          class="p-5 flex flex-col justify-between border-b md:border-b-0 md:border-r border-dashed"
         >
           <div>
             <div class="text-[10px] font-bold tracking-widest text-emerald-600">[STAGE_02]</div>
-            <div class="text-xs font-bold mt-1 uppercase" :class="[theme === 'light' ? 'text-stone-700' : 'text-zinc-400']">PROCESSING</div>
+            <div class="text-xs font-bold mt-1 uppercase" :class="[theme === 'light' ? 'text-stone-700' : 'text-zinc-400']">
+              PROCESSING
+            </div>
           </div>
           <div class="text-center text-xs tracking-widest uppercase">SLOT_EMPTY</div>
-          <div class="text-[10px] text-right">D/A CONVERSION</div>
+          <div class="text-[10px]">D/A CONVERSION</div>
         </div>
 
         <div 
-          :class="[theme === 'light' ? 'border-stone-300 bg-stone-50/50 text-stone-400' : 'border-zinc-800 bg-zinc-950/50 text-zinc-600']"
-          class="border border-dashed rounded-xl p-4 flex flex-col justify-between"
+          :class="[theme === 'light' ? 'border-stone-200 text-stone-400' : 'border-zinc-800 text-zinc-600']"
+          class="p-5 flex flex-col justify-between border-b md:border-b-0 md:border-r border-dashed"
         >
           <div>
             <div class="text-[10px] font-bold tracking-widest text-emerald-600">[STAGE_03]</div>
-            <div class="text-xs font-bold mt-1 uppercase" :class="[theme === 'light' ? 'text-stone-700' : 'text-zinc-400']">AMPLIFICATION</div>
+            <div class="text-xs font-bold mt-1 uppercase" :class="[theme === 'light' ? 'text-stone-700' : 'text-zinc-400']">
+              AMPLIFICATION
+            </div>
           </div>
           <div class="text-center text-xs tracking-widest uppercase">SLOT_EMPTY</div>
-          <div class="text-[10px] text-right">CLASS_A GAIN</div>
+          <div class="text-[10px]">CLASS_A GAIN</div>
         </div>
 
         <div 
-          :class="[theme === 'light' ? 'border-stone-300 bg-stone-50/50 text-stone-400' : 'border-zinc-800 bg-zinc-950/50 text-zinc-600']"
-          class="border border-dashed rounded-xl p-4 flex flex-col justify-between"
+          :class="[theme === 'light' ? 'text-stone-400' : 'text-zinc-600']"
+          class="p-5 flex flex-col justify-between"
         >
           <div>
             <div class="text-[10px] font-bold tracking-widest text-emerald-600">[STAGE_04]</div>
-            <div class="text-xs font-bold mt-1 uppercase" :class="[theme === 'light' ? 'text-stone-700' : 'text-zinc-400']">TRANSDUCERS</div>
+            <div class="text-xs font-bold mt-1 uppercase" :class="[theme === 'light' ? 'text-stone-700' : 'text-zinc-400']">
+              TRANSDUCERS
+            </div>
           </div>
           <div class="text-center text-xs tracking-widest uppercase">SLOT_EMPTY</div>
           <div class="text-[10px] text-right">Z_LOAD: 8-32 OHM</div>
