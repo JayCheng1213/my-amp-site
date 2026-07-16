@@ -24,24 +24,44 @@
         <svg class="absolute inset-0 w-full h-full pointer-events-none hidden md:block z-0" viewBox="0 0 1000 660" preserveAspectRatio="none">
           
           <g class="power-network">
-            <path d="M 450 590 L 120 590" class="signal-ac-power" fill="none" stroke-width="2" />
-            <path d="M 125 590 L 125 480" class="signal-ac-power" fill="none" stroke-width="2" />
-            <circle cx="125" cy="590" r="3" class="fill-rose-500" />
-            <path d="M 125 480 L 125 310" class="signal-ac-power" fill="none" stroke-width="2" />
-            <path d="M 100 590 L 60 590 L 60 140 L 125 140" class="signal-ac-power" fill="none" stroke-width="2" stroke-linejoin="round" />
-            <circle cx="100" cy="590" r="3" class="fill-rose-500" />
+            
+            <path d="M 500 580 L 500 550" class="signal-ac-power" fill="none" stroke-width="2" />
+            <circle cx="500" cy="580" r="3" class="fill-rose-500" />
+            <circle cx="500" cy="550" r="2" class="fill-rose-500" />
 
-            <path d="M 375 590 L 375 480" class="signal-ac-power" fill="none" stroke-width="2" />
-            <circle cx="375" cy="590" r="3" class="fill-rose-500" />
-            <path d="M 390 590 L 415 590 L 415 220 L 375 220" class="signal-ac-power" fill="none" stroke-width="2" stroke-linejoin="round" />
-            <circle cx="390" cy="590" r="3" class="fill-rose-500" />
+            <path d="M 40 550 L 834 550" class="signal-ac-power" fill="none" stroke-width="2" />
+            
+            <circle cx="850" cy="550" r="16" fill="none" class="stroke-rose-500" stroke-width="2" />
+            <path d="M 838 550 Q 844 540 850 550 T 862 550" fill="none" class="stroke-rose-500" stroke-width="2" />
+            <text x="850" y="585" class="text-[10px] font-bold fill-rose-500" text-anchor="middle">115V AC</text>
 
-            <path d="M 550 590 L 880 590" class="signal-ac-power" fill="none" stroke-width="3" />
-            <text x="850" y="580" class="text-xl font-bold fill-rose-500" text-anchor="middle">115V</text>
-            <path d="M 625 590 L 625 480" class="signal-ac-power" fill="none" stroke-width="2" />
-            <circle cx="625" cy="590" r="3" class="fill-rose-500" />
-            <path d="M 645 590 L 685 590 L 685 220 L 625 220" class="signal-ac-power" fill="none" stroke-width="2" stroke-linejoin="round" />
-            <circle cx="645" cy="590" r="3" class="fill-rose-500" />
+            <path d="M 125 150 L 125 160 L 40 160 L 40 550" class="signal-ac-power" fill="none" stroke-width="2" stroke-linejoin="round" />
+            <circle cx="125" cy="150" r="3" class="fill-rose-500" />
+            <circle cx="40" cy="550" r="2" class="fill-rose-500" />
+
+            <path d="M 125 325 L 125 335 L 60 335 L 60 550" class="signal-ac-power" fill="none" stroke-width="2" stroke-linejoin="round" />
+            <circle cx="125" cy="325" r="3" class="fill-rose-500" />
+            <circle cx="60" cy="550" r="2" class="fill-rose-500" />
+
+            <path d="M 125 495 L 125 550" class="signal-ac-power" fill="none" stroke-width="2" stroke-linejoin="round" />
+            <circle cx="125" cy="495" r="3" class="fill-rose-500" />
+            <circle cx="125" cy="550" r="2" class="fill-rose-500" />
+
+            <path d="M 375 240 L 375 250 L 310 250 L 310 550" class="signal-ac-power" fill="none" stroke-width="2" stroke-linejoin="round" />
+            <circle cx="375" cy="240" r="3" class="fill-rose-500" />
+            <circle cx="310" cy="550" r="2" class="fill-rose-500" />
+
+            <path d="M 375 495 L 375 550" class="signal-ac-power" fill="none" stroke-width="2" stroke-linejoin="round" />
+            <circle cx="375" cy="495" r="3" class="fill-rose-500" />
+            <circle cx="375" cy="550" r="2" class="fill-rose-500" />
+
+            <path d="M 625 240 L 625 250 L 700 250 L 700 550" class="signal-ac-power" fill="none" stroke-width="2" stroke-linejoin="round" />
+            <circle cx="625" cy="240" r="3" class="fill-rose-500" />
+            <circle cx="700" cy="550" r="2" class="fill-rose-500" />
+
+            <path d="M 625 495 L 625 550" class="signal-ac-power" fill="none" stroke-width="2" stroke-linejoin="round" />
+            <circle cx="625" cy="495" r="3" class="fill-rose-500" />
+            <circle cx="625" cy="550" r="2" class="fill-rose-500" />
           </g>
 
           <path d="M 180 115 C 260 115, 260 200, 320 200" class="signal-usb" fill="none" stroke-width="2" stroke-linecap="round" />
@@ -49,6 +69,7 @@
 
           <path d="M 180 275 C 240 275, 260 200, 320 200" class="signal-optical" fill="none" stroke-width="2" stroke-linecap="round" />
           <text x="225" y="220" class="text-xs font-bold fill-rose-500" text-anchor="middle">光纖</text>
+          
           <path d="M 180 295 C 260 295, 280 200, 320 200" class="signal-coax" fill="none" stroke-width="2" stroke-linecap="round" />
           <text x="270" y="280" class="text-xs font-bold fill-amber-500" text-anchor="middle">同軸</text>
 
@@ -290,9 +311,8 @@ const { theme } = useTheme()
   opacity: 0.9;
 }
 
-/* 交流電源傳輸 (紅光慢速長波) */
 .signal-ac-power {
-  stroke: #f43f5e; /* Rose 500 */
+  stroke: #f43f5e; 
   stroke-dasharray: 20 20;
   animation: power-flow 4s linear infinite;
   opacity: 0.7;
