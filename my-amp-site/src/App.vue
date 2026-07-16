@@ -76,15 +76,31 @@ import Sidebar from './components/Sidebar.vue'
 import ProjectSpec from './components/ProjectSpec.vue'
 import MarkdownViewer from './components/MarkdownViewer.vue'
 import ProjectGallery from './components/ProjectGallery.vue'
-import AudioTopology from './components/AudioTopology.vue' // 🎛️ 拓撲晶片完美並聯
+import AudioTopology from './components/AudioTopology.vue' // 📡 拓撲晶片並聯
 import { useProjects } from './composables/useProjects'
 import { useTheme } from './composables/useTheme'
 import { useFontSize } from './composables/useFontSize'
 
-const { activeProjects, archivedProjects, activeAmpId, isLoading, isMarkdownLoading, galleryItems, isGalleryLoading, activeAmp, renderedMarkdown, switchAmp } = useProjects()
+// 🟢 你的黃金解構完整保留，一條線都沒少！
+const { 
+  activeProjects, 
+  archivedProjects, 
+  activeAmpId, 
+  isLoading, 
+  isMarkdownLoading, 
+  galleryItems, 
+  isGalleryLoading, 
+  activeAmp, 
+  renderedMarkdown, 
+  switchAmp 
+} = useProjects()
+
 const { theme, toggleTheme } = useTheme()
 const { fontSize, setFontSize } = useFontSize()
-</script> <style scoped>
+</script>
+
+<style scoped>
+/* 🟢 這裡就是原本的樣式，100% 完美復原 */
 .animate-fadeIn { animation: fadeIn 0.25s ease-out forwards; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(2px); } to { opacity: 1; transform: translateY(0); } }
 </style>
