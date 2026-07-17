@@ -24,11 +24,11 @@
         <svg class="absolute inset-0 w-full h-full pointer-events-none hidden md:block z-0" viewBox="0 0 1000 660" preserveAspectRatio="none">
           
           <g class="power-network">
-            
             <path d="M 472 612 L 72 612 Q 60 612 60 600 L 60 362 Q 60 350 72 350 L 113 350 Q 125 350 125 338 L 125 325" class="signal-ac-power" fill="none" stroke-width="2" stroke-linecap="round" />
             <circle cx="472" cy="612" r="3" class="fill-violet-500" /> <circle cx="125" cy="325" r="3" class="fill-violet-500" /> <path d="M 125 495 L 125 612" class="signal-ac-power" fill="none" stroke-width="2" stroke-linecap="round" />
             <circle cx="125" cy="495" r="3" class="fill-violet-500" /> <circle cx="125" cy="612" r="3" class="fill-violet-500" /> <path d="M 375 240 L 375 338 Q 375 350 363 350 L 125 350" class="signal-ac-power" fill="none" stroke-width="2" stroke-linecap="round" />
-            <circle cx="375" cy="240" r="3" class="fill-violet-500" /> <circle cx="125" cy="350" r="3" class="fill-violet-500" /> </g>
+            <circle cx="375" cy="240" r="3" class="fill-violet-500" /> <circle cx="125" cy="350" r="3" class="fill-violet-500" /> 
+          </g>
 
           <path d="M 180 115 C 260 115, 260 200, 320 200" class="signal-usb" fill="none" stroke-width="2" stroke-linecap="round" />
           <text x="250" y="105" class="text-xs font-bold fill-sky-500" text-anchor="middle">USB</text>
@@ -46,7 +46,7 @@
           <path d="M 430 200 C 500 200, 500 450, 570 450" class="signal-rca" fill="none" stroke-width="2" stroke-linecap="round" />
           <text x="480" y="190" class="text-xs font-bold fill-amber-500" text-anchor="middle">RCA</text>
 
-          <path d="M 430 455 L 570 455" class="signal-rca" fill="none" stroke-width="2" stroke-linecap="round" />
+          <!-- 已移除唱放至 1626 的直連 RCA，保留唱放至 2A3 的交叉連線 -->
           <path d="M 430 455 C 500 455, 500 205, 570 205" class="signal-rca" fill="none" stroke-width="2" stroke-linecap="round" />
           <text x="480" y="445" class="text-xs font-bold fill-amber-500" text-anchor="middle">RCA</text>
 
@@ -111,7 +111,7 @@
             
             <div class="flex-grow grid grid-rows-5 gap-y-2 pb-2">
               <div class="row-start-2 flex flex-col items-center justify-center bg-transparent">
-                <span class="text-xs font-bold opacity-70 tracking-widest mb-2" :class="[theme === 'light' ? 'text-stone-800' : 'text-zinc-200']">DAC 解碼器</span>
+                <span class="text-xs font-bold opacity-70 tracking-widest mb-1" :class="[theme === 'light' ? 'text-stone-800' : 'text-zinc-200']">DX5 II DAC</span>
                 <svg viewBox="0 0 100 80" class="w-full h-16 stroke-current fill-none stroke-2 mt-1 bg-transparent" :class="[theme === 'light' ? 'text-stone-700' : 'text-zinc-300']">
                   <rect x="5" y="25" width="90" height="30" rx="2" />
                   <circle cx="30" cy="40" r="8" class="stroke-emerald-500" />
@@ -121,7 +121,7 @@
               </div>
               
               <div class="row-start-5 flex flex-col items-center justify-center bg-transparent">
-                <span class="text-xs font-bold opacity-70 tracking-widest mb-2" :class="[theme === 'light' ? 'text-stone-800' : 'text-zinc-200']">唱頭放大器</span>
+                <span class="text-xs font-bold opacity-70 tracking-widest mb-1" :class="[theme === 'light' ? 'text-stone-800' : 'text-zinc-200']">唱頭放大器</span>
                 <svg viewBox="0 0 100 80" class="w-full h-16 stroke-current fill-none stroke-2 mt-1 bg-transparent" :class="[theme === 'light' ? 'text-stone-700' : 'text-zinc-300']">
                   <rect x="5" y="25" width="90" height="30" rx="2" />
                   <circle cx="30" cy="40" r="3" />
@@ -143,7 +143,7 @@
             
             <div class="flex-grow grid grid-rows-5 gap-y-2 pb-2">
               <div class="row-start-2 flex flex-col items-center justify-center bg-transparent">
-                <span class="text-xs font-bold opacity-70 tracking-widest mb-2" :class="[theme === 'light' ? 'text-stone-800' : 'text-zinc-200']">2A3 AMP</span>
+                <span class="text-xs font-bold opacity-70 tracking-widest mb-1" :class="[theme === 'light' ? 'text-stone-800' : 'text-zinc-200']">2A3 AMP</span>
                 <svg viewBox="0 0 100 80" class="w-full h-16 stroke-current fill-none stroke-2 mt-1 bg-transparent" :class="[theme === 'light' ? 'text-stone-700' : 'text-zinc-300']">
                   <rect x="5" y="60" width="90" height="12" rx="2" />
                   <rect x="20" y="20" width="25" height="40" rx="2" />
@@ -153,7 +153,8 @@
               </div>
               
               <div class="row-start-5 flex flex-col items-center justify-center bg-transparent">
-                <span class="text-xs font-bold opacity-70 tracking-widest mb-2" :class="[theme === 'light' ? 'text-stone-800' : 'text-zinc-200']">6R-A3 AMP</span>
+                <span class="text-xs font-bold opacity-70 tracking-widest" :class="[theme === 'light' ? 'text-stone-800' : 'text-zinc-200']">1626 DARLING</span>
+                <span class="text-[9px] font-bold opacity-40 mb-1" :class="[theme === 'light' ? 'text-stone-800' : 'text-zinc-200']">E80CC DRIVER</span>
                 <svg viewBox="0 0 100 80" class="w-full h-16 stroke-current fill-none stroke-2 mt-1 bg-transparent" :class="[theme === 'light' ? 'text-stone-700' : 'text-zinc-300']">
                   <rect x="10" y="60" width="80" height="12" rx="2" />
                   <rect x="25" y="25" width="20" height="35" rx="1.5" />
@@ -175,7 +176,7 @@
             
             <div class="flex-grow grid grid-rows-5 gap-y-2 pb-2">
               <div class="row-start-2 flex flex-col items-center justify-center bg-transparent">
-                <span class="text-xs font-bold opacity-70 tracking-widest mb-2" :class="[theme === 'light' ? 'text-stone-800' : 'text-zinc-200']">喇叭</span>
+                <span class="text-xs font-bold opacity-70 tracking-widest mb-1" :class="[theme === 'light' ? 'text-stone-800' : 'text-zinc-200']">喇叭</span>
                 <svg viewBox="0 0 100 80" class="w-full h-16 stroke-current fill-none stroke-2 mt-1 bg-transparent" :class="[theme === 'light' ? 'text-stone-700' : 'text-zinc-300']">
                   <rect x="25" y="2" width="50" height="76" rx="2" />
                   <path d="M 32 15 L 68 15 L 60 30 L 40 30 Z" />
@@ -185,7 +186,7 @@
               </div>
               
               <div class="row-start-5 flex flex-col items-center justify-center bg-transparent">
-                <span class="text-xs font-bold opacity-70 tracking-widest mb-2" :class="[theme === 'light' ? 'text-stone-800' : 'text-zinc-200']">耳機</span>
+                <span class="text-xs font-bold opacity-70 tracking-widest mb-1" :class="[theme === 'light' ? 'text-stone-800' : 'text-zinc-200']">BRAVERY IEM</span>
                 <svg viewBox="0 0 100 80" class="w-full h-16 stroke-current fill-none stroke-2 mt-1 bg-transparent" :class="[theme === 'light' ? 'text-stone-700' : 'text-zinc-300']">
                   <circle cx="35" cy="22" r="8" />
                   <rect x="22" y="18" width="6" height="8" rx="1" />
@@ -278,7 +279,7 @@ const { theme } = useTheme()
 }
 
 .signal-ac-power {
-  stroke: #8b5cf6; /* violet-500 */
+  stroke: #8b5cf6;
   stroke-dasharray: 12 12;
   animation: power-flow 3s linear infinite;
   opacity: 0.8;
