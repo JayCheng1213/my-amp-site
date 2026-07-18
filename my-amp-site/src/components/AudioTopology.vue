@@ -1,231 +1,241 @@
 <template>
-  <div class="p-6 font-mono selection:bg-emerald-500/30">
+  <!-- 微調了 padding，讓手機版邊距不會太擠 -->
+  <div class="p-3 md:p-6 font-mono selection:bg-emerald-500/30">
     <div 
       :class="[theme === 'light' ? 'bg-white border-stone-200 shadow-sm' : 'bg-zinc-900 border-zinc-800 shadow-inner']"
-      class="border rounded-2xl p-6 transition-colors duration-300 hidden md:block"
+      class="border rounded-2xl p-4 md:p-6 transition-colors duration-300"
     >
-      <div class="flex items-center justify-between mb-8 pb-4 border-b border-dashed" :class="[theme === 'light' ? 'border-stone-200' : 'border-zinc-800']">
+      <div class="flex items-center justify-between mb-6 md:mb-8 pb-4 border-b border-dashed" :class="[theme === 'light' ? 'border-stone-200' : 'border-zinc-800']">
         <div>
-          <h2 :class="[theme === 'light' ? 'text-stone-900' : 'text-white']" class="text-xl font-extrabold tracking-tighter uppercase">
+          <h2 :class="[theme === 'light' ? 'text-stone-900' : 'text-white']" class="text-lg md:text-xl font-extrabold tracking-tighter uppercase">
             SYSTEM_AUDIO_PATH
           </h2>
-          <p class="text-[11px] text-zinc-500 mt-0.5">STAGE 01 TO 05: UNIFIED CHASSIS AND POWER ISOLATION LAYOUT</p>
+          <p class="text-[10px] md:text-[11px] text-zinc-500 mt-0.5">STAGE 01 TO 05: UNIFIED CHASSIS AND POWER ISOLATION LAYOUT</p>
         </div>
-        <div class="flex items-center space-x-2 text-xs">
+        <div class="flex flex-col md:flex-row items-end md:items-center space-y-1 md:space-y-0 md:space-x-2 text-[10px] md:text-xs">
           <span class="text-zinc-500">CHASSIS_STATE:</span>
           <span class="text-emerald-500 font-bold">ACTIVE_ROUTING</span>
         </div>
       </div>
 
-      <div 
-        :class="[theme === 'light' ? 'border-stone-300 bg-stone-50/30' : 'border-zinc-800 bg-zinc-950/30']"
-        class="border rounded-xl overflow-hidden relative flex flex-col"
-      >
-        <svg class="absolute inset-0 w-full h-full pointer-events-none hidden md:block z-0" viewBox="0 0 1000 660" preserveAspectRatio="none">
-          
-          <g class="power-network">
-            <path d="M 472 612 L 72 612 Q 60 612 60 600 L 60 362 Q 60 350 72 350 L 113 350 Q 125 350 125 338 L 125 325" class="signal-ac-power" fill="none" stroke-width="2" stroke-linecap="round" />
-            <circle cx="472" cy="612" r="3" class="fill-violet-500" /> <circle cx="125" cy="325" r="3" class="fill-violet-500" /> <path d="M 125 495 L 125 612" class="signal-ac-power" fill="none" stroke-width="2" stroke-linecap="round" />
-            <circle cx="125" cy="495" r="3" class="fill-violet-500" /> <circle cx="125" cy="612" r="3" class="fill-violet-500" /> <path d="M 375 240 L 375 338 Q 375 350 363 350 L 125 350" class="signal-ac-power" fill="none" stroke-width="2" stroke-linecap="round" />
-            <circle cx="375" cy="240" r="3" class="fill-violet-500" /> <circle cx="125" cy="350" r="3" class="fill-violet-500" /> 
-          </g>
-
-          <path d="M 180 115 C 260 115, 260 200, 320 200" class="signal-usb" fill="none" stroke-width="2" stroke-linecap="round" />
-          <text x="250" y="105" class="text-xs font-bold fill-sky-500" text-anchor="middle">USB</text>
-
-          <path d="M 180 275 C 240 275, 260 200, 320 200" class="signal-optical" fill="none" stroke-width="2" stroke-linecap="round" />
-          <text x="225" y="220" class="text-xs font-bold fill-rose-500" text-anchor="middle">光纖</text>
-          
-          <path d="M 180 295 C 260 295, 280 200, 320 200" class="signal-coax" fill="none" stroke-width="2" stroke-linecap="round" />
-          <text x="270" y="280" class="text-xs font-bold fill-amber-500" text-anchor="middle">同軸</text>
-
-          <path d="M 180 455 L 320 455" class="signal-rca" fill="none" stroke-width="2" stroke-linecap="round" />
-          <text x="250" y="445" class="text-xs font-bold fill-amber-500" text-anchor="middle">RCA</text>
-
-          <!-- DAC -> 6R-A3 (上方水平直線) -->
-          <path d="M 430 200 L 570 200" class="signal-rca" fill="none" stroke-width="2" stroke-linecap="round" />
-          <text x="480" y="190" class="text-xs font-bold fill-amber-500" text-anchor="middle">RCA</text>
-
-          <!-- DAC -> 2A3 (上方往下方交叉曲線) -->
-          <path d="M 430 200 C 500 200, 500 450, 570 450" class="signal-rca" fill="none" stroke-width="2" stroke-linecap="round" />
-
-          <!-- 唱放 -> 2A3 (下方水平直線) -->
-          <path d="M 430 455 L 570 455" class="signal-rca" fill="none" stroke-width="2" stroke-linecap="round" />
-          <text x="480" y="445" class="text-xs font-bold fill-amber-500" text-anchor="middle">RCA</text>
-
-          <!-- 6R-A3 -> 耳機 (上方輸出線) -->
-          <path d="M 680 200 L 820 200" class="signal-power" fill="none" stroke-width="3" stroke-linecap="round" />
-          <text x="750" y="190" class="text-xs font-bold fill-orange-500" text-anchor="middle">IEM CABLE</text>
-          
-          <!-- 2A3 -> 喇叭 (下方輸出線) -->
-          <path d="M 680 455 L 820 455" class="signal-power" fill="none" stroke-width="3" stroke-linecap="round" />
-          <text x="750" y="445" class="text-xs font-bold fill-orange-500" text-anchor="middle">SPK CABLE</text>
+      <!-- 手機版專屬提示：引導左右滑動 -->
+      <div class="md:hidden flex items-center justify-center text-xs text-zinc-500 mb-4 animate-pulse">
+        <svg class="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
         </svg>
+        左右滑動查看完整拓撲圖
+      </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-4 min-h-[520px] relative z-10">
-          
-          <div 
-            :class="[theme === 'light' ? 'border-stone-200 text-stone-400' : 'border-zinc-800 text-zinc-600']"
-            class="p-6 flex flex-col border-b md:border-b-0 md:border-r border-dashed"
-          >
-            <div class="mb-4">
-              <div class="text-[10px] font-bold tracking-widest text-emerald-600">[STAGE_01]</div>
-              <div class="text-xs font-bold mt-1 uppercase" :class="[theme === 'light' ? 'text-stone-700' : 'text-zinc-400']">INPUT_SOURCES</div>
-            </div>
+      <!-- 橫向捲動容器 (overflow-x-auto) -->
+      <div class="overflow-x-auto pb-2 custom-scrollbar">
+        <!-- 強制設定最小寬度 min-w-[900px]，保護 SVG 比例不被手機擠壓 -->
+        <div 
+          :class="[theme === 'light' ? 'border-stone-300 bg-stone-50/30' : 'border-zinc-800 bg-zinc-950/30']"
+          class="border rounded-xl overflow-hidden relative flex flex-col min-w-[900px]"
+        >
+          <!-- SVG 取消了 hidden md:block，現在手機版也能看見了 -->
+          <svg class="absolute inset-0 w-full h-full pointer-events-none z-0" viewBox="0 0 1000 660" preserveAspectRatio="none">
             
-            <div class="flex-grow grid grid-rows-5 gap-y-2 pb-2">
-              <div class="row-start-1 flex flex-col items-center justify-center bg-transparent">
-                <span class="text-xs font-bold opacity-70 tracking-widest mb-2" :class="[theme === 'light' ? 'text-stone-800' : 'text-zinc-200']">PC 串流</span>
-                <svg viewBox="0 0 100 80" class="w-full h-16 stroke-current fill-none stroke-2 mt-1 bg-transparent" :class="[theme === 'light' ? 'text-stone-700' : 'text-zinc-300']">
-                  <rect x="30" y="5" width="40" height="60" rx="2" />
-                  <line x1="35" y1="20" x2="65" y2="20" />
-                  <circle cx="50" cy="52" r="3" class="fill-emerald-500 stroke-none animate-pulse" />
-                </svg>
+            <g class="power-network">
+              <path d="M 472 612 L 72 612 Q 60 612 60 600 L 60 362 Q 60 350 72 350 L 113 350 Q 125 350 125 338 L 125 325" class="signal-ac-power" fill="none" stroke-width="2" stroke-linecap="round" />
+              <circle cx="472" cy="612" r="3" class="fill-violet-500" /> <circle cx="125" cy="325" r="3" class="fill-violet-500" /> <path d="M 125 495 L 125 612" class="signal-ac-power" fill="none" stroke-width="2" stroke-linecap="round" />
+              <circle cx="125" cy="495" r="3" class="fill-violet-500" /> <circle cx="125" cy="612" r="3" class="fill-violet-500" /> <path d="M 375 240 L 375 338 Q 375 350 363 350 L 125 350" class="signal-ac-power" fill="none" stroke-width="2" stroke-linecap="round" />
+              <circle cx="375" cy="240" r="3" class="fill-violet-500" /> <circle cx="125" cy="350" r="3" class="fill-violet-500" /> 
+            </g>
+
+            <path d="M 180 115 C 260 115, 260 200, 320 200" class="signal-usb" fill="none" stroke-width="2" stroke-linecap="round" />
+            <text x="250" y="105" class="text-xs font-bold fill-sky-500" text-anchor="middle">USB</text>
+
+            <path d="M 180 275 C 240 275, 260 200, 320 200" class="signal-optical" fill="none" stroke-width="2" stroke-linecap="round" />
+            <text x="225" y="220" class="text-xs font-bold fill-rose-500" text-anchor="middle">光纖</text>
+            
+            <path d="M 180 295 C 260 295, 280 200, 320 200" class="signal-coax" fill="none" stroke-width="2" stroke-linecap="round" />
+            <text x="270" y="280" class="text-xs font-bold fill-amber-500" text-anchor="middle">同軸</text>
+
+            <path d="M 180 455 L 320 455" class="signal-rca" fill="none" stroke-width="2" stroke-linecap="round" />
+            <text x="250" y="445" class="text-xs font-bold fill-amber-500" text-anchor="middle">RCA</text>
+
+            <path d="M 430 200 L 570 200" class="signal-rca" fill="none" stroke-width="2" stroke-linecap="round" />
+            <text x="480" y="190" class="text-xs font-bold fill-amber-500" text-anchor="middle">RCA</text>
+
+            <path d="M 430 200 C 500 200, 500 450, 570 450" class="signal-rca" fill="none" stroke-width="2" stroke-linecap="round" />
+
+            <path d="M 430 455 L 570 455" class="signal-rca" fill="none" stroke-width="2" stroke-linecap="round" />
+            <text x="480" y="445" class="text-xs font-bold fill-amber-500" text-anchor="middle">RCA</text>
+
+            <path d="M 680 200 L 820 200" class="signal-power" fill="none" stroke-width="3" stroke-linecap="round" />
+            <text x="750" y="190" class="text-xs font-bold fill-orange-500" text-anchor="middle">IEM CABLE</text>
+            
+            <path d="M 680 455 L 820 455" class="signal-power" fill="none" stroke-width="3" stroke-linecap="round" />
+            <text x="750" y="445" class="text-xs font-bold fill-orange-500" text-anchor="middle">SPK CABLE</text>
+          </svg>
+
+          <!-- 元件網格 (強制為 4 欄，取消手機版單欄堆疊) -->
+          <div class="grid grid-cols-4 min-h-[520px] relative z-10">
+            
+            <div 
+              :class="[theme === 'light' ? 'border-stone-200 text-stone-400' : 'border-zinc-800 text-zinc-600']"
+              class="p-6 flex flex-col border-r border-dashed"
+            >
+              <div class="mb-4">
+                <div class="text-[10px] font-bold tracking-widest text-emerald-600">[STAGE_01]</div>
+                <div class="text-xs font-bold mt-1 uppercase" :class="[theme === 'light' ? 'text-stone-700' : 'text-zinc-400']">INPUT_SOURCES</div>
               </div>
               
-              <div class="row-start-3 flex flex-col items-center justify-center bg-transparent">
-                <span class="text-xs font-bold opacity-70 tracking-widest mb-2" :class="[theme === 'light' ? 'text-stone-800' : 'text-zinc-200']">CD 撥放器</span>
-                <svg viewBox="0 0 100 80" class="w-full h-16 stroke-current fill-none stroke-2 mt-1 bg-transparent" :class="[theme === 'light' ? 'text-stone-700' : 'text-zinc-300']">
-                  <rect x="5" y="30" width="90" height="24" rx="2" />
-                  <rect x="20" y="38" width="40" height="3" class="fill-current stroke-none" />
-                  <circle cx="85" cy="42" r="3" class="fill-emerald-500 stroke-none" />
-                </svg>
-              </div>
-              
-              <div class="row-start-5 flex flex-col items-center justify-center bg-transparent">
-                <span class="text-xs font-bold opacity-70 tracking-widest mb-2" :class="[theme === 'light' ? 'text-stone-800' : 'text-zinc-200']">黑膠唱盤</span>
-                <svg viewBox="0 0 100 80" class="w-full h-16 stroke-current fill-none stroke-2 mt-1 bg-transparent" :class="[theme === 'light' ? 'text-stone-700' : 'text-zinc-300']">
-                  <rect x="5" y="15" width="90" height="50" rx="2" />
-                  <circle cx="35" cy="40" r="18" />
-                  <circle cx="35" cy="40" r="2" class="fill-current" />
-                  <line x1="85" y1="25" x2="52" y2="50" />
-                  <circle cx="85" cy="25" r="5" />
-                </svg>
+              <div class="flex-grow grid grid-rows-5 gap-y-2 pb-2">
+                <div class="row-start-1 flex flex-col items-center justify-center bg-transparent">
+                  <span class="text-xs font-bold opacity-70 tracking-widest mb-2" :class="[theme === 'light' ? 'text-stone-800' : 'text-zinc-200']">PC 串流</span>
+                  <svg viewBox="0 0 100 80" class="w-full h-16 stroke-current fill-none stroke-2 mt-1 bg-transparent" :class="[theme === 'light' ? 'text-stone-700' : 'text-zinc-300']">
+                    <rect x="30" y="5" width="40" height="60" rx="2" />
+                    <line x1="35" y1="20" x2="65" y2="20" />
+                    <circle cx="50" cy="52" r="3" class="fill-emerald-500 stroke-none animate-pulse" />
+                  </svg>
+                </div>
+                
+                <div class="row-start-3 flex flex-col items-center justify-center bg-transparent">
+                  <span class="text-xs font-bold opacity-70 tracking-widest mb-2" :class="[theme === 'light' ? 'text-stone-800' : 'text-zinc-200']">CD 撥放器</span>
+                  <svg viewBox="0 0 100 80" class="w-full h-16 stroke-current fill-none stroke-2 mt-1 bg-transparent" :class="[theme === 'light' ? 'text-stone-700' : 'text-zinc-300']">
+                    <rect x="5" y="30" width="90" height="24" rx="2" />
+                    <rect x="20" y="38" width="40" height="3" class="fill-current stroke-none" />
+                    <circle cx="85" cy="42" r="3" class="fill-emerald-500 stroke-none" />
+                  </svg>
+                </div>
+                
+                <div class="row-start-5 flex flex-col items-center justify-center bg-transparent">
+                  <span class="text-xs font-bold opacity-70 tracking-widest mb-2" :class="[theme === 'light' ? 'text-stone-800' : 'text-zinc-200']">黑膠唱盤</span>
+                  <svg viewBox="0 0 100 80" class="w-full h-16 stroke-current fill-none stroke-2 mt-1 bg-transparent" :class="[theme === 'light' ? 'text-stone-700' : 'text-zinc-300']">
+                    <rect x="5" y="15" width="90" height="50" rx="2" />
+                    <circle cx="35" cy="40" r="18" />
+                    <circle cx="35" cy="40" r="2" class="fill-current" />
+                    <line x1="85" y1="25" x2="52" y2="50" />
+                    <circle cx="85" cy="25" r="5" />
+                  </svg>
+                </div>
               </div>
             </div>
+
+            <div 
+              :class="[theme === 'light' ? 'border-stone-200 text-stone-400' : 'border-zinc-800 text-zinc-600']"
+              class="p-6 flex flex-col border-r border-dashed z-10"
+            >
+              <div class="mb-4">
+                <div class="text-[10px] font-bold tracking-widest text-emerald-600">[STAGE_02]</div>
+                <div class="text-xs font-bold mt-1 uppercase" :class="[theme === 'light' ? 'text-stone-700' : 'text-zinc-400']">PROCESSING</div>
+              </div>
+              
+              <div class="flex-grow grid grid-rows-5 gap-y-2 pb-2">
+                <div class="row-start-2 flex flex-col items-center justify-center bg-transparent">
+                  <span class="text-xs font-bold opacity-70 tracking-widest mb-2" :class="[theme === 'light' ? 'text-stone-800' : 'text-zinc-200']">DAC 解碼器</span>
+                  <svg viewBox="0 0 100 80" class="w-full h-16 stroke-current fill-none stroke-2 mt-1 bg-transparent" :class="[theme === 'light' ? 'text-stone-700' : 'text-zinc-300']">
+                    <rect x="5" y="25" width="90" height="30" rx="2" />
+                    <circle cx="30" cy="40" r="8" class="stroke-emerald-500" />
+                    <circle cx="80" cy="40" r="6" />
+                    <circle cx="15" cy="40" r="2" class="fill-current" />
+                  </svg>
+                </div>
+                
+                <div class="row-start-5 flex flex-col items-center justify-center bg-transparent">
+                  <span class="text-xs font-bold opacity-70 tracking-widest mb-2" :class="[theme === 'light' ? 'text-stone-800' : 'text-zinc-200']">唱頭放大器</span>
+                  <svg viewBox="0 0 100 80" class="w-full h-16 stroke-current fill-none stroke-2 mt-1 bg-transparent" :class="[theme === 'light' ? 'text-stone-700' : 'text-zinc-300']">
+                    <rect x="5" y="25" width="90" height="30" rx="2" />
+                    <circle cx="30" cy="40" r="3" />
+                    <circle cx="45" cy="40" r="3" />
+                    <circle cx="80" cy="40" r="3" class="fill-amber-500 stroke-none" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <div 
+              :class="[theme === 'light' ? 'border-stone-200 text-stone-400' : 'border-zinc-800 text-zinc-600']"
+              class="p-6 flex flex-col border-r border-dashed z-10"
+            >
+              <div class="mb-4">
+                <div class="text-[10px] font-bold tracking-widest text-emerald-600">[STAGE_03]</div>
+                <div class="text-xs font-bold mt-1 uppercase" :class="[theme === 'light' ? 'text-stone-700' : 'text-zinc-400']">AMPLIFICATION</div>
+              </div>
+              
+              <div class="flex-grow grid grid-rows-5 gap-y-2 pb-2">
+                <div class="row-start-2 flex flex-col items-center justify-center bg-transparent">
+                  <span class="text-xs font-bold opacity-70 tracking-widest mb-2" :class="[theme === 'light' ? 'text-stone-800' : 'text-zinc-200']">6R-A3 AMP</span>
+                  <svg viewBox="0 0 100 80" class="w-full h-16 stroke-current fill-none stroke-2 mt-1 bg-transparent" :class="[theme === 'light' ? 'text-stone-700' : 'text-zinc-300']">
+                    <rect x="10" y="60" width="80" height="12" rx="2" />
+                    <rect x="25" y="25" width="20" height="35" rx="1.5" />
+                    <rect x="55" y="35" width="12" height="25" rx="5" class="fill-orange-500/20 stroke-orange-500" />
+                    <rect x="75" y="35" width="12" height="25" rx="5" class="fill-orange-500/20 stroke-orange-500" />
+                  </svg>
+                </div>
+                
+                <div class="row-start-5 flex flex-col items-center justify-center bg-transparent">
+                  <span class="text-xs font-bold opacity-70 tracking-widest mb-2" :class="[theme === 'light' ? 'text-stone-800' : 'text-zinc-200']">2A3 AMP</span>
+                  <svg viewBox="0 0 100 80" class="w-full h-16 stroke-current fill-none stroke-2 mt-1 bg-transparent" :class="[theme === 'light' ? 'text-stone-700' : 'text-zinc-300']">
+                    <rect x="5" y="60" width="90" height="12" rx="2" />
+                    <rect x="20" y="20" width="25" height="40" rx="2" />
+                    <path d="M 60 60 C 56 25, 74 25, 70 60" class="fill-orange-500/20 stroke-orange-500" />
+                    <path d="M 78 60 C 74 25, 92 25, 88 60" class="fill-orange-500/20 stroke-orange-500" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <div 
+              :class="[theme === 'light' ? 'text-stone-400' : 'text-zinc-600']"
+              class="p-6 flex flex-col z-10"
+            >
+              <div class="mb-4">
+                <div class="text-[10px] font-bold tracking-widest text-emerald-600">[STAGE_04]</div>
+                <div class="text-xs font-bold mt-1 uppercase" :class="[theme === 'light' ? 'text-stone-700' : 'text-zinc-400']">TRANSDUCERS</div>
+              </div>
+              
+              <div class="flex-grow grid grid-rows-5 gap-y-2 pb-2">
+                <div class="row-start-2 flex flex-col items-center justify-center bg-transparent">
+                  <span class="text-xs font-bold opacity-70 tracking-widest mb-2" :class="[theme === 'light' ? 'text-stone-800' : 'text-zinc-200']">耳機</span>
+                  <svg viewBox="0 0 100 80" class="w-full h-16 stroke-current fill-none stroke-2 mt-1 bg-transparent" :class="[theme === 'light' ? 'text-stone-700' : 'text-zinc-300']">
+                    <circle cx="35" cy="22" r="8" />
+                    <rect x="22" y="18" width="6" height="8" rx="1" />
+                    <circle cx="65" cy="22" r="8" />
+                    <rect x="72" y="18" width="6" height="8" rx="1" />
+                    <path d="M 35 30 C 35 50, 48 55, 50 80" />
+                    <path d="M 65 30 C 65 50, 52 55, 50 80" />
+                  </svg>
+                </div>
+                
+                <div class="row-start-5 flex flex-col items-center justify-center bg-transparent">
+                  <span class="text-xs font-bold opacity-70 tracking-widest mb-2" :class="[theme === 'light' ? 'text-stone-800' : 'text-zinc-200']">喇叭</span>
+                  <svg viewBox="0 0 100 80" class="w-full h-16 stroke-current fill-none stroke-2 mt-1 bg-transparent" :class="[theme === 'light' ? 'text-stone-700' : 'text-zinc-300']">
+                    <rect x="25" y="2" width="50" height="76" rx="2" />
+                    <path d="M 32 15 L 68 15 L 60 30 L 40 30 Z" />
+                    <circle cx="50" cy="55" r="14" />
+                    <circle cx="50" cy="55" r="4" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+
           </div>
 
-          <div 
-            :class="[theme === 'light' ? 'border-stone-200 text-stone-400' : 'border-zinc-800 text-zinc-600']"
-            class="p-6 flex flex-col border-b md:border-b-0 md:border-r border-dashed z-10"
-          >
-            <div class="mb-4">
-              <div class="text-[10px] font-bold tracking-widest text-emerald-600">[STAGE_02]</div>
-              <div class="text-xs font-bold mt-1 uppercase" :class="[theme === 'light' ? 'text-stone-700' : 'text-zinc-400']">PROCESSING</div>
-            </div>
-            
-            <div class="flex-grow grid grid-rows-5 gap-y-2 pb-2">
-              <div class="row-start-2 flex flex-col items-center justify-center bg-transparent">
-                <span class="text-xs font-bold opacity-70 tracking-widest mb-2" :class="[theme === 'light' ? 'text-stone-800' : 'text-zinc-200']">DAC 解碼器</span>
-                <svg viewBox="0 0 100 80" class="w-full h-16 stroke-current fill-none stroke-2 mt-1 bg-transparent" :class="[theme === 'light' ? 'text-stone-700' : 'text-zinc-300']">
-                  <rect x="5" y="25" width="90" height="30" rx="2" />
-                  <circle cx="30" cy="40" r="8" class="stroke-emerald-500" />
-                  <circle cx="80" cy="40" r="6" />
-                  <circle cx="15" cy="40" r="2" class="fill-current" />
-                </svg>
-              </div>
-              
-              <div class="row-start-5 flex flex-col items-center justify-center bg-transparent">
-                <span class="text-xs font-bold opacity-70 tracking-widest mb-2" :class="[theme === 'light' ? 'text-stone-800' : 'text-zinc-200']">唱頭放大器</span>
-                <svg viewBox="0 0 100 80" class="w-full h-16 stroke-current fill-none stroke-2 mt-1 bg-transparent" :class="[theme === 'light' ? 'text-stone-700' : 'text-zinc-300']">
-                  <rect x="5" y="25" width="90" height="30" rx="2" />
-                  <circle cx="30" cy="40" r="3" />
-                  <circle cx="45" cy="40" r="3" />
-                  <circle cx="80" cy="40" r="3" class="fill-amber-500 stroke-none" />
-                </svg>
-              </div>
-            </div>
-          </div>
-
-          <div 
-            :class="[theme === 'light' ? 'border-stone-200 text-stone-400' : 'border-zinc-800 text-zinc-600']"
-            class="p-6 flex flex-col border-b md:border-b-0 md:border-r border-dashed z-10"
-          >
-            <div class="mb-4">
-              <div class="text-[10px] font-bold tracking-widest text-emerald-600">[STAGE_03]</div>
-              <div class="text-xs font-bold mt-1 uppercase" :class="[theme === 'light' ? 'text-stone-700' : 'text-zinc-400']">AMPLIFICATION</div>
-            </div>
-            
-            <div class="flex-grow grid grid-rows-5 gap-y-2 pb-2">
-              <div class="row-start-2 flex flex-col items-center justify-center bg-transparent">
-                <span class="text-xs font-bold opacity-70 tracking-widest mb-2" :class="[theme === 'light' ? 'text-stone-800' : 'text-zinc-200']">6R-A3 AMP</span>
-                <svg viewBox="0 0 100 80" class="w-full h-16 stroke-current fill-none stroke-2 mt-1 bg-transparent" :class="[theme === 'light' ? 'text-stone-700' : 'text-zinc-300']">
-                  <rect x="10" y="60" width="80" height="12" rx="2" />
-                  <rect x="25" y="25" width="20" height="35" rx="1.5" />
-                  <rect x="55" y="35" width="12" height="25" rx="5" class="fill-orange-500/20 stroke-orange-500" />
-                  <rect x="75" y="35" width="12" height="25" rx="5" class="fill-orange-500/20 stroke-orange-500" />
-                </svg>
-              </div>
-              
-              <div class="row-start-5 flex flex-col items-center justify-center bg-transparent">
-                <span class="text-xs font-bold opacity-70 tracking-widest mb-2" :class="[theme === 'light' ? 'text-stone-800' : 'text-zinc-200']">2A3 AMP</span>
-                <svg viewBox="0 0 100 80" class="w-full h-16 stroke-current fill-none stroke-2 mt-1 bg-transparent" :class="[theme === 'light' ? 'text-stone-700' : 'text-zinc-300']">
-                  <rect x="5" y="60" width="90" height="12" rx="2" />
-                  <rect x="20" y="20" width="25" height="40" rx="2" />
-                  <path d="M 60 60 C 56 25, 74 25, 70 60" class="fill-orange-500/20 stroke-orange-500" />
-                  <path d="M 78 60 C 74 25, 92 25, 88 60" class="fill-orange-500/20 stroke-orange-500" />
-                </svg>
-              </div>
-            </div>
-          </div>
+          <div class="border-t border-dashed relative z-10" :class="[theme === 'light' ? 'border-stone-200' : 'border-zinc-800']"></div>
 
           <div 
             :class="[theme === 'light' ? 'text-stone-400' : 'text-zinc-600']"
-            class="p-6 flex flex-col z-10"
+            class="p-6 min-h-[140px] flex flex-col relative z-10"
           >
-            <div class="mb-4">
-              <div class="text-[10px] font-bold tracking-widest text-emerald-600">[STAGE_04]</div>
-              <div class="text-xs font-bold mt-1 uppercase" :class="[theme === 'light' ? 'text-stone-700' : 'text-zinc-400']">TRANSDUCERS</div>
-            </div>
-            
-            <div class="flex-grow grid grid-rows-5 gap-y-2 pb-2">
-              <div class="row-start-2 flex flex-col items-center justify-center bg-transparent">
-                <span class="text-xs font-bold opacity-70 tracking-widest mb-2" :class="[theme === 'light' ? 'text-stone-800' : 'text-zinc-200']">耳機</span>
-                <svg viewBox="0 0 100 80" class="w-full h-16 stroke-current fill-none stroke-2 mt-1 bg-transparent" :class="[theme === 'light' ? 'text-stone-700' : 'text-zinc-300']">
-                  <circle cx="35" cy="22" r="8" />
-                  <rect x="22" y="18" width="6" height="8" rx="1" />
-                  <circle cx="65" cy="22" r="8" />
-                  <rect x="72" y="18" width="6" height="8" rx="1" />
-                  <path d="M 35 30 C 35 50, 48 55, 50 80" />
-                  <path d="M 65 30 C 65 50, 52 55, 50 80" />
-                </svg>
-              </div>
-              
-              <div class="row-start-5 flex flex-col items-center justify-center bg-transparent">
-                <span class="text-xs font-bold opacity-70 tracking-widest mb-2" :class="[theme === 'light' ? 'text-stone-800' : 'text-zinc-200']">喇叭</span>
-                <svg viewBox="0 0 100 80" class="w-full h-16 stroke-current fill-none stroke-2 mt-1 bg-transparent" :class="[theme === 'light' ? 'text-stone-700' : 'text-zinc-300']">
-                  <rect x="25" y="2" width="50" height="76" rx="2" />
-                  <path d="M 32 15 L 68 15 L 60 30 L 40 30 Z" />
-                  <circle cx="50" cy="55" r="14" />
-                  <circle cx="50" cy="55" r="4" />
-                </svg>
-              </div>
+            <div class="flex-grow flex flex-col items-center justify-center pt-2 bg-transparent">
+              <span class="text-xs font-bold opacity-70 tracking-widest mb-2" :class="[theme === 'light' ? 'text-stone-800' : 'text-zinc-200']">隔離變壓器</span>
+              <svg viewBox="0 0 100 80" class="w-full h-16 stroke-current fill-none stroke-2 mt-1 bg-transparent" :class="[theme === 'light' ? 'text-stone-700' : 'text-zinc-300']">
+                <path d="M 30 15 A 8 8 0 0 0 30 27 A 8 8 0 0 0 30 39 A 8 8 0 0 0 30 51 A 8 8 0 0 0 30 63" />
+                <path d="M 70 15 A 8 8 0 0 1 70 27 A 8 8 0 0 1 70 39 A 8 8 0 0 1 70 51 A 8 8 0 0 1 70 63" />
+                <line x1="46" y1="10" x2="46" y2="70" />
+                <line x1="54" y1="10" x2="54" y2="70" />
+                <line x1="10" y1="15" x2="30" y2="15" />
+                <line x1="10" y1="63" x2="30" y2="63" />
+                <line x1="90" y1="15" x2="70" y2="15" />
+                <line x1="90" y1="63" x2="70" y2="63" />
+              </svg>
             </div>
           </div>
 
         </div>
-
-        <div class="border-t border-dashed relative z-10" :class="[theme === 'light' ? 'border-stone-200' : 'border-zinc-800']"></div>
-
-        <div 
-          :class="[theme === 'light' ? 'text-stone-400' : 'text-zinc-600']"
-          class="p-6 min-h-[140px] flex flex-col relative z-10"
-        >
-          <div class="flex-grow flex flex-col items-center justify-center pt-2 bg-transparent">
-            <span class="text-xs font-bold opacity-70 tracking-widest mb-2" :class="[theme === 'light' ? 'text-stone-800' : 'text-zinc-200']">隔離變壓器</span>
-            <svg viewBox="0 0 100 80" class="w-full h-16 stroke-current fill-none stroke-2 mt-1 bg-transparent" :class="[theme === 'light' ? 'text-stone-700' : 'text-zinc-300']">
-              <path d="M 30 15 A 8 8 0 0 0 30 27 A 8 8 0 0 0 30 39 A 8 8 0 0 0 30 51 A 8 8 0 0 0 30 63" />
-              <path d="M 70 15 A 8 8 0 0 1 70 27 A 8 8 0 0 1 70 39 A 8 8 0 0 1 70 51 A 8 8 0 0 1 70 63" />
-              <line x1="46" y1="10" x2="46" y2="70" />
-              <line x1="54" y1="10" x2="54" y2="70" />
-              <line x1="10" y1="15" x2="30" y2="15" />
-              <line x1="10" y1="63" x2="30" y2="63" />
-              <line x1="90" y1="15" x2="70" y2="15" />
-              <line x1="90" y1="63" x2="70" y2="63" />
-            </svg>
-          </div>
-        </div>
-
       </div>
     </div>
   </div>
@@ -283,9 +293,24 @@ const { theme } = useTheme()
 }
 
 .signal-ac-power {
-  stroke: #8b5cf6; /* violet-500 */
+  stroke: #8b5cf6; 
   stroke-dasharray: 12 12;
   animation: power-flow 3s linear infinite;
   opacity: 0.8;
+}
+
+/* 美化橫向捲動條 */
+.custom-scrollbar::-webkit-scrollbar {
+  height: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #52525b;
+  border-radius: 10px;
+}
+.dark .custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #3f3f46;
 }
 </style>
