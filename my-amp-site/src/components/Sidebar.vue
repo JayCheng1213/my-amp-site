@@ -36,18 +36,18 @@
             </button>
             <div :class="[theme === 'light' ? 'border-stone-300' : 'border-zinc-800/40']" class="h-[1px] border-b my-2 w-full"></div>
             <ProjectSelector :projects="activeProjects" :activeId="activeId" @select="handleMobileSelect" label="PROJECT_LIST:" />
+
+            <div v-if="creativeProjects.length > 0" :class="[theme === 'light' ? 'border-stone-300' : 'border-zinc-800/40']" class="pt-3 border-t">
+              <ProjectSelector :projects="creativeProjects" :activeId="activeId" @select="handleMobileSelect" label="CREATIVE_WORKS // 創意作品:" collapsible :defaultOpen="false" />
+            </div>
+
+            <div v-if="archivedProjects.length > 0" :class="[theme === 'light' ? 'border-stone-300' : 'border-zinc-800/40']" class="pt-3 border-t">
+              <ProjectSelector :projects="archivedProjects" :activeId="activeId" @select="handleMobileSelect" label="LEGACY_CORES // 歷代作品:" collapsible :defaultOpen="false" />
+            </div>
           </nav>
         </div>
 
         <div class="space-y-4">
-          <div v-if="creativeProjects.length > 0" :class="[theme === 'light' ? 'border-stone-300' : 'border-zinc-800/40']" class="pt-4 border-t">
-            <ProjectSelector :projects="creativeProjects" :activeId="activeId" @select="handleMobileSelect" label="CREATIVE_WORKS // 創意作品:" collapsible :defaultOpen="false" />
-          </div>
-
-          <div v-if="archivedProjects.length > 0" :class="[theme === 'light' ? 'border-stone-300' : 'border-zinc-800/40']" class="pt-4 border-t">
-            <ProjectSelector :projects="archivedProjects" :activeId="activeId" @select="handleMobileSelect" label="LEGACY_CORES // 歷代作品:" collapsible :defaultOpen="false" />
-          </div>
-
           <div :class="[theme === 'light' ? 'border-stone-300' : 'border-zinc-800/40']" class="pt-4 border-t border-dashed space-y-1">
             <div class="text-[9px] text-zinc-500 uppercase tracking-wider">TELEMETRY // 訪客計數</div>
             <div :class="[theme === 'light' ? 'bg-stone-300/50 border-stone-300/80 text-emerald-700' : 'bg-zinc-950/40 border-zinc-900 text-emerald-400']"
@@ -86,18 +86,18 @@
           </div>
           <div :class="[theme === 'light' ? 'border-stone-300/60' : 'border-zinc-800/40']" class="h-[1px] border-b my-1 w-full"></div>
           <ProjectSelector :projects="activeProjects" :activeId="activeId" @select="$emit('select', $event)" label="PROJECT_LIST:" />
+
+          <div v-if="creativeProjects.length > 0" :class="[theme === 'light' ? 'border-stone-300' : 'border-zinc-800/40']" class="pt-3 border-t">
+            <ProjectSelector :projects="creativeProjects" :activeId="activeId" @select="$emit('select', $event)" label="CREATIVE_WORKS // 創意作品:" collapsible :defaultOpen="false" />
+          </div>
+
+          <div v-if="archivedProjects.length > 0" :class="[theme === 'light' ? 'border-stone-300' : 'border-zinc-800/40']" class="pt-3 border-t">
+            <ProjectSelector :projects="archivedProjects" :activeId="activeId" @select="$emit('select', $event)" label="LEGACY_CORES // 歷代作品:" collapsible :defaultOpen="false" />
+          </div>
         </nav>
       </div>
 
       <div class="space-y-4">
-        <div v-if="creativeProjects.length > 0" :class="[theme === 'light' ? 'border-stone-300' : 'border-zinc-800/40']" class="pt-4 border-t">
-          <ProjectSelector :projects="creativeProjects" :activeId="activeId" @select="$emit('select', $event)" label="CREATIVE_WORKS // 創意作品:" collapsible :defaultOpen="false" />
-        </div>
-
-        <div v-if="archivedProjects.length > 0" :class="[theme === 'light' ? 'border-stone-300' : 'border-zinc-800/40']" class="pt-4 border-t">
-          <ProjectSelector :projects="archivedProjects" :activeId="activeId" @select="$emit('select', $event)" label="LEGACY_CORES // 歷代作品:" collapsible :defaultOpen="false" />
-        </div>
-
         <div :class="[theme === 'light' ? 'border-stone-300' : 'border-zinc-800/60']" class="pt-4 border-t space-y-2">
           <div class="text-[0.6rem] text-zinc-600 uppercase tracking-wider">ENVIRONMENT // 燈光</div>
           <div :class="[theme === 'light' ? 'bg-stone-200/60 border-stone-300' : 'bg-zinc-950/60 border-zinc-900']" class="flex gap-1 p-1 border rounded-xl">
