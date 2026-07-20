@@ -15,9 +15,9 @@
   "devDependencies": {
     "@tailwindcss/vite": "^4.0.0",
     "@vitejs/plugin-vue": "^5.2.x",
+    "puppeteer": "^25.3.0",
     "tailwindcss": "^4.0.0",
-    "vite": "^6.0.0",
-    "vite-plugin-prerender": "^1.0.8"
+    "vite": "^6.0.0"
   },
   "optionalDependencies": {
     "lightningcss-linux-x64-gnu": "^1.24.1"
