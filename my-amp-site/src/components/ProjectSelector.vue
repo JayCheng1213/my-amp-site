@@ -1,43 +1,70 @@
 <template>
   <div class="flex flex-col gap-1 w-full shrink-0">
-    
-    <span class="text-[0.6rem] font-mono text-zinc-600 uppercase tracking-wider pb-1 block mb-0.5 select-none">
-      {{ label }}
-    </span>
-    
+
     <div
-      v-for="amp in projects"
-      :key="amp.id"
-      class="jelly-wrapper w-full"
+      class="flex items-center justify-between w-full pb-1 mb-0.5 select-none"
+      :class="collapsible ? 'cursor-pointer' : ''"
+      @click="collapsible && (isOpen = !isOpen)"
     >
-      <button
-        @click="$emit('select', amp.id)"
-        :class="[
-          activeId === amp.id 
-            ? (theme === 'light' ? 'bg-emerald-600/10 border-emerald-600 text-emerald-700 font-bold shadow-sm' : 'bg-emerald-500/10 border-emerald-500 text-emerald-400 font-bold shadow-sm') 
-            : (theme === 'light' ? 'bg-stone-200/40 border-stone-300 text-stone-500 hover:text-stone-800 hover:border-stone-400' : 'bg-zinc-900/10 border-zinc-900/60 text-zinc-500 hover:border-zinc-800 hover:text-zinc-300')
-        ]"
-        class="px-3 py-1.5 rounded-xl border text-xs font-mono w-full text-left cursor-pointer jelly-btn"
-      >
-        <span class="text-zinc-600 mr-1 inline">▪</span> {{ amp.menuName }}
-      </button>
+      <span class="text-[0.6rem] font-mono text-zinc-600 uppercase tracking-wider">{{ label }}</span>
+      <span
+        v-if="collapsible"
+        class="text-[0.6rem] text-zinc-600 transition-transform duration-200"
+        :class="isOpen ? 'rotate-90' : ''"
+      >▸</span>
     </div>
+
+    <Transition name="collapse">
+      <div v-if="isOpen" class="flex flex-col gap-1 overflow-hidden">
+        <div
+          v-for="amp in projects"
+          :key="amp.id"
+          class="jelly-wrapper w-full"
+        >
+          <button
+            @click="$emit('select', amp.id)"
+            :class="[
+              activeId === amp.id
+                ? (theme === 'light' ? 'bg-emerald-600/10 border-emerald-600 text-emerald-700 font-bold shadow-sm' : 'bg-emerald-500/10 border-emerald-500 text-emerald-400 font-bold shadow-sm')
+                : (theme === 'light' ? 'bg-stone-200/40 border-stone-300 text-stone-500 hover:text-stone-800 hover:border-stone-400' : 'bg-zinc-900/10 border-zinc-900/60 text-zinc-500 hover:border-zinc-800 hover:text-zinc-300')
+            ]"
+            class="px-3 py-1.5 rounded-xl border text-xs font-mono w-full text-left cursor-pointer jelly-btn"
+          >
+            <span class="text-zinc-600 mr-1 inline">▪</span> {{ amp.menuName }}
+          </button>
+        </div>
+      </div>
+    </Transition>
   </div>
 </template>
 
 <script setup>
+import { ref } from 'vue'
 import { useTheme } from '../composables/useTheme'
 const { theme } = useTheme()
 
-defineProps({
+const props = defineProps({
   projects: Array,
   activeId: String,
-  label: { type: String, default: 'PROJECT_LIST:' }
+  label: { type: String, default: 'PROJECT_LIST:' },
+  collapsible: { type: Boolean, default: false },
+  defaultOpen: { type: Boolean, default: true }
 })
 defineEmits(['select'])
+
+const isOpen = ref(props.defaultOpen)
 </script>
 
 <style scoped>
+.collapse-enter-active, .collapse-leave-active {
+  transition: max-height 0.25s ease, opacity 0.2s ease;
+  max-height: 500px;
+}
+.collapse-enter-from, .collapse-leave-to {
+  max-height: 0;
+  opacity: 0;
+}
+
 .jelly-wrapper {
   transition: padding 0.35s cubic-bezier(0.34, 1.75, 0.64, 1);
   padding: 0px;

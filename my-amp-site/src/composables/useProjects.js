@@ -75,7 +75,9 @@ export function useProjects() {
     return ampProjects.value.find(amp => amp.id === activeAmpId.value) || null
   })
 
-  const activeProjects = computed(() => ampProjects.value.filter(amp => !amp.archived))
+  // category: 'creative' 標記的專案獨立成一欄，其餘現役專案維持在主清單
+  const activeProjects = computed(() => ampProjects.value.filter(amp => !amp.archived && amp.category !== 'creative'))
+  const creativeProjects = computed(() => ampProjects.value.filter(amp => !amp.archived && amp.category === 'creative'))
   const archivedProjects = computed(() => ampProjects.value.filter(amp => amp.archived))
 
   const renderedMarkdown = computed(() => {
@@ -174,6 +176,7 @@ export function useProjects() {
   return {
     ampProjects,
     activeProjects,
+    creativeProjects,
     archivedProjects,
     activeAmpId,
     isLoading,

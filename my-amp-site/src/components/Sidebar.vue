@@ -40,8 +40,12 @@
         </div>
 
         <div class="space-y-4">
+          <div v-if="creativeProjects.length > 0" :class="[theme === 'light' ? 'border-stone-300' : 'border-zinc-800/40']" class="pt-4 border-t">
+            <ProjectSelector :projects="creativeProjects" :activeId="activeId" @select="handleMobileSelect" label="CREATIVE_WORKS // 創意作品:" collapsible :defaultOpen="false" />
+          </div>
+
           <div v-if="archivedProjects.length > 0" :class="[theme === 'light' ? 'border-stone-300' : 'border-zinc-800/40']" class="pt-4 border-t">
-            <ProjectSelector :projects="archivedProjects" :activeId="activeId" @select="handleMobileSelect" label="LEGACY_CORES // 歷代作品:" />
+            <ProjectSelector :projects="archivedProjects" :activeId="activeId" @select="handleMobileSelect" label="LEGACY_CORES // 歷代作品:" collapsible :defaultOpen="false" />
           </div>
 
           <div :class="[theme === 'light' ? 'border-stone-300' : 'border-zinc-800/40']" class="pt-4 border-t border-dashed space-y-1">
@@ -86,8 +90,12 @@
       </div>
 
       <div class="space-y-4">
+        <div v-if="creativeProjects.length > 0" :class="[theme === 'light' ? 'border-stone-300' : 'border-zinc-800/40']" class="pt-4 border-t">
+          <ProjectSelector :projects="creativeProjects" :activeId="activeId" @select="$emit('select', $event)" label="CREATIVE_WORKS // 創意作品:" collapsible :defaultOpen="false" />
+        </div>
+
         <div v-if="archivedProjects.length > 0" :class="[theme === 'light' ? 'border-stone-300' : 'border-zinc-800/40']" class="pt-4 border-t">
-          <ProjectSelector :projects="archivedProjects" :activeId="activeId" @select="$emit('select', $event)" label="LEGACY_CORES // 歷代作品:" />
+          <ProjectSelector :projects="archivedProjects" :activeId="activeId" @select="$emit('select', $event)" label="LEGACY_CORES // 歷代作品:" collapsible :defaultOpen="false" />
         </div>
 
         <div :class="[theme === 'light' ? 'border-stone-300' : 'border-zinc-800/60']" class="pt-4 border-t space-y-2">
@@ -127,7 +135,7 @@ import { useFontSize } from '../composables/useFontSize'
 import { useTheme } from '../composables/useTheme'
 import { useAnalytics } from '../composables/useAnalytics'
 
-defineProps({ activeProjects: Array, archivedProjects: Array, activeId: String })
+defineProps({ activeProjects: Array, creativeProjects: Array, archivedProjects: Array, activeId: String })
 const emit = defineEmits(['select'])
 
 const isHovered = ref(false)

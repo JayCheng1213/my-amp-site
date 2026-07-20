@@ -3,7 +3,7 @@
        class="min-h-screen font-sans antialiased selection:bg-emerald-500/30 transition-colors duration-300 relative">
     
     <!-- ⚠️ 注意這裡：把 @select 改綁定為 handleSelectProject -->
-    <Sidebar :activeProjects="activeProjects" :archivedProjects="archivedProjects" :activeId="activeAmpId" @select="handleSelectProject" />
+    <Sidebar :activeProjects="activeProjects" :creativeProjects="creativeProjects" :archivedProjects="archivedProjects" :activeId="activeAmpId" @select="handleSelectProject" />
 
     <main class="max-w-6xl w-full mx-auto px-4 py-6 lg:py-12 lg:px-12 space-y-6 flex flex-col justify-between">
       
@@ -92,8 +92,9 @@ const route = useRoute()
 const router = useRouter()
 
 const { 
-  activeProjects, 
-  archivedProjects, 
+  activeProjects,
+  creativeProjects,
+  archivedProjects,
   activeAmpId, 
   isLoading, 
   isMarkdownLoading,
