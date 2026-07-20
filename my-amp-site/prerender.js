@@ -7,6 +7,7 @@ import puppeteer from 'puppeteer'
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const PORT = 4173
 const DIST_DIR = path.resolve(__dirname, 'dist')
+const SITE_URL = 'https://jaycheng1213.synology.me'
 
 const MIME = {
   '.html': 'text/html; charset=utf-8',
@@ -117,4 +118,14 @@ server.listen(PORT, async () => {
   await browser.close()
   server.close()
   console.log('[Prerender] All routes successfully prerendered!')
+
+  // 產生 sitemap.xml 供 Google Search Console 提交
+  const today = new Date().toISOString().slice(0, 10)
+  const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${routes.map(route => `  <url>\n    <loc>${SITE_URL}${route}</loc>\n    <lastmod>${today}</lastmod>\n  </url>`).join('\n')}
+</urlset>
+`
+  fs.writeFileSync(path.join(DIST_DIR, 'sitemap.xml'), sitemapXml)
+  console.log(`[Prerender] Generated: sitemap.xml (${routes.length} urls)`)
 })

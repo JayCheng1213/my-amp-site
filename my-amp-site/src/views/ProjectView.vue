@@ -149,6 +149,9 @@ useHead(() => ({
     { name: 'description', content: pageDescription.value },
     { property: 'og:title', content: pageTitle.value },
     { property: 'og:description', content: pageDescription.value }
+  ],
+  link: [
+    { rel: 'canonical', href: `https://jaycheng1213.synology.me/project/${activeAmpId.value}/` }
   ]
 }))
 
