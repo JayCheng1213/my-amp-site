@@ -2,20 +2,22 @@
   <div class="flex flex-col gap-1 w-full shrink-0">
 
     <div
-      class="flex items-center justify-between w-full pb-1 mb-0.5 select-none"
-      :class="collapsible ? 'cursor-pointer' : ''"
+      class="flex items-center justify-between w-full pb-1 mb-0.5 select-none rounded-lg px-1 -mx-1"
+      :class="collapsible ? 'cursor-pointer hover:bg-zinc-500/10' : ''"
       @click="collapsible && (isOpen = !isOpen)"
     >
       <span class="text-[0.6rem] font-mono text-zinc-600 uppercase tracking-wider">{{ label }}</span>
       <span
         v-if="collapsible"
-        class="text-[0.6rem] text-zinc-600 transition-transform duration-200"
-        :class="isOpen ? 'rotate-90' : ''"
+        class="flex items-center justify-center w-4 h-4 rounded-md border text-[0.6rem] leading-none transition-all duration-200"
+        :class="isOpen
+          ? 'rotate-90 border-emerald-500/40 text-emerald-500 bg-emerald-500/10'
+          : 'border-zinc-500/40 text-zinc-500'"
       >▸</span>
     </div>
 
     <Transition name="collapse">
-      <div v-if="isOpen" class="flex flex-col gap-1 overflow-hidden">
+      <div v-if="isOpen" class="flex flex-col gap-1">
         <div
           v-for="amp in projects"
           :key="amp.id"
@@ -59,6 +61,7 @@ const isOpen = ref(props.defaultOpen)
 .collapse-enter-active, .collapse-leave-active {
   transition: max-height 0.25s ease, opacity 0.2s ease;
   max-height: 500px;
+  overflow: hidden;
 }
 .collapse-enter-from, .collapse-leave-to {
   max-height: 0;
