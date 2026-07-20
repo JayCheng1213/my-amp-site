@@ -33,16 +33,21 @@ server.listen(PORT, async () => {
   })
 
   // 從 nas-media/project.json 動態讀取所有專案 id
+  // 從 nas-media/project.json 動態讀取（加裝防呆機制）
   const projectJsonPath = path.resolve(__dirname, 'nas-media/project.json')
   let projectRoutes = []
   
   try {
-    const rawData = fs.readFileSync(projectJsonPath, 'utf-8')
-    const projects = JSON.parse(rawData)
-    projectRoutes = projects.map(p => `/project/${p.id}`)
-    console.log(`[Prerender] Successfully loaded ${projectRoutes.length} projects from JSON.`)
+    if (fs.existsSync(projectJsonPath)) {
+      const rawData = fs.readFileSync(projectJsonPath, 'utf-8')
+      const projects = JSON.parse(rawData)
+      projectRoutes = projects.map(p => `/project/${p.id}`)
+      console.log(`[Prerender] Successfully loaded ${projectRoutes.length} projects from JSON.`)
+    } else {
+      console.log('[Prerender] Notice: nas-media/project.json not found locally/cloud, skipping dynamic routes.')
+    }
   } catch (err) {
-    console.error('[Prerender] Warning: Could not read project.json, using fallback routes.', err)
+    console.error('[Prerender] Warning: Error reading project.json, using fallback routes.')
   }
 
   // 結合首頁、bio 與動態讀取到的所有專案路由
