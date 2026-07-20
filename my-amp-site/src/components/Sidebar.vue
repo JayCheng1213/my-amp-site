@@ -38,11 +38,11 @@
             <ProjectSelector :projects="activeProjects" :activeId="activeId" @select="handleMobileSelect" label="PROJECT_LIST:" />
 
             <div v-if="creativeProjects.length > 0" :class="[theme === 'light' ? 'border-stone-300' : 'border-zinc-800/40']" class="pt-3 border-t">
-              <ProjectSelector :projects="creativeProjects" :activeId="activeId" @select="handleMobileSelect" label="CREATIVE_WORKS // 創意作品:" collapsible :defaultOpen="false" />
+              <ProjectSelector :projects="creativeProjects" :activeId="activeId" @select="handleMobileSelect" label="CREATIVE_WORKS // 創意作品:" collapsible :defaultOpen="true" />
             </div>
 
             <div v-if="archivedProjects.length > 0" :class="[theme === 'light' ? 'border-stone-300' : 'border-zinc-800/40']" class="pt-3 border-t">
-              <ProjectSelector :projects="archivedProjects" :activeId="activeId" @select="handleMobileSelect" label="LEGACY_CORES // 歷代作品:" collapsible :defaultOpen="false" />
+              <ProjectSelector :projects="archivedProjects" :activeId="activeId" @select="handleMobileSelect" label="LEGACY_CORES // 歷代作品:" collapsible :defaultOpen="true" />
             </div>
           </nav>
         </div>
@@ -88,11 +88,11 @@
           <ProjectSelector :projects="activeProjects" :activeId="activeId" @select="$emit('select', $event)" label="PROJECT_LIST:" />
 
           <div v-if="creativeProjects.length > 0" :class="[theme === 'light' ? 'border-stone-300' : 'border-zinc-800/40']" class="pt-3 border-t">
-            <ProjectSelector :projects="creativeProjects" :activeId="activeId" @select="$emit('select', $event)" label="CREATIVE_WORKS // 創意作品:" collapsible :defaultOpen="false" />
+            <ProjectSelector :projects="creativeProjects" :activeId="activeId" @select="$emit('select', $event)" label="CREATIVE_WORKS // 創意作品:" collapsible :defaultOpen="true" />
           </div>
 
           <div v-if="archivedProjects.length > 0" :class="[theme === 'light' ? 'border-stone-300' : 'border-zinc-800/40']" class="pt-3 border-t">
-            <ProjectSelector :projects="archivedProjects" :activeId="activeId" @select="$emit('select', $event)" label="LEGACY_CORES // 歷代作品:" collapsible :defaultOpen="false" />
+            <ProjectSelector :projects="archivedProjects" :activeId="activeId" @select="$emit('select', $event)" label="LEGACY_CORES // 歷代作品:" collapsible :defaultOpen="true" />
           </div>
         </nav>
       </div>
