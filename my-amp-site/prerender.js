@@ -32,22 +32,32 @@ server.listen(PORT, async () => {
     args: ['--no-sandbox', '--disable-setuid-sandbox']
   })
 
+  // 從 nas-media/project.json 動態讀取所有專案 id
+  const projectJsonPath = path.resolve(__dirname, 'nas-media/project.json')
+  let projectRoutes = []
+  
+  try {
+    const rawData = fs.readFileSync(projectJsonPath, 'utf-8')
+    const projects = JSON.parse(rawData)
+    projectRoutes = projects.map(p => `/project/${p.id}`)
+    console.log(`[Prerender] Successfully loaded ${projectRoutes.length} projects from JSON.`)
+  } catch (err) {
+    console.error('[Prerender] Warning: Could not read project.json, using fallback routes.', err)
+  }
+
+  // 結合首頁、bio 與動態讀取到的所有專案路由
   const routes = [
     '/',
     '/project/bio',
-    '/project/1626',
-    '/project/2a3',
-    '/project/6ra3'
+    ...projectRoutes
   ]
 
   for (const route of routes) {
     const page = await browser.newPage()
     await page.goto(`http://localhost:${PORT}${route}`, { waitUntil: 'networkidle0' })
     
-    // 如果是首頁，多等一秒讓重新導向或穩定
-    if (route === '/') {
-      await new Promise(r => setTimeout(r, 1000))
-    }
+    // 給 Vue Router 緩衝時間，確保動態參數渲染完成
+    await new Promise(r => setTimeout(r, 800))
 
     const html = await page.content()
 
@@ -55,7 +65,6 @@ server.listen(PORT, async () => {
     if (route === '/') {
       targetPath = path.join(DIST_DIR, 'index.html')
     } else {
-      // 確保跨平台路徑正確，去掉開頭的斜線
       const cleanRoute = route.startsWith('/') ? route.slice(1) : route
       const dir = path.join(DIST_DIR, cleanRoute)
       fs.mkdirSync(dir, { recursive: true })
