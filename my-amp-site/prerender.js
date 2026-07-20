@@ -46,7 +46,7 @@ server.listen(PORT, async () => {
     
     // 如果是首頁，多等一秒讓重新導向或穩定
     if (route === '/') {
-      await new Promise(r => setTimeout(r, 500))
+      await new Promise(r => setTimeout(r, 1000))
     }
 
     const html = await page.content()
