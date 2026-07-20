@@ -5,7 +5,7 @@ const routes = [
   {
     // 首頁，預設會重導向到你的第一個專案（例如 'bio'）
     path: '/',
-    redirect: '/project/bio'
+    redirect: '/project/bio/'
   },
   {
     // 這個設定超重要！它會把網址後面的 id 變成變數

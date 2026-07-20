@@ -75,7 +75,7 @@
 </template>
 
 <script setup>
-import { onMounted, watch } from 'vue'
+import { computed, onMounted, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useHead } from '@unhead/vue'
 
@@ -96,8 +96,9 @@ const {
   archivedProjects, 
   activeAmpId, 
   isLoading, 
-  isMarkdownLoading, 
-  galleryItems, 
+  isMarkdownLoading,
+  markdownAvailable,
+  galleryItems,
   isGalleryLoading, 
   activeAmp, 
   renderedMarkdown, 
@@ -118,31 +119,38 @@ watch(
 
 // 🟢 核心修改 2：Sidebar 點擊時，改為推進網址，而不是直接切資料
 const handleSelectProject = (projectId) => {
-  router.push(`/project/${projectId}`)
+  // 強制結尾斜線，避免 Synology nginx 301 補斜線時帶入內部 port
+  router.push(`/project/${projectId}/`)
 }
 
 // 🟢 核心修改 3：動態 SEO 設定
-watch(
-  () => activeAmp.value,
-  (amp) => {
-    if (amp) {
-      // 這裡你可以根據你 activeAmp 裡面的屬性來調整，例如 amp.name 或 amp.deviceCode
-      const pageTitle = `${amp.name || amp.deviceCode || 'Project'} | JAY_LAB.`
-      // 擷取 Markdown 內容的前 100 個字作為 description (去除 html 標籤)
-      const pageDescription = renderedMarkdown.value ? renderedMarkdown.value.replace(/<[^>]*>?/gm, '').substring(0, 100) + '...' : 'Explore projects in JAY_LAB.'
+// useHead 只能在 setup 期間呼叫一次（watch callback 裡呼叫會因脫離注入環境而失效），
+// 改傳 computed 讓 unhead 自行追蹤 activeAmp / renderedMarkdown 的變化
+const pageTitle = computed(() => {
+  const amp = activeAmp.value
+  return amp ? `${amp.fullName || amp.menuName || amp.deviceCode || 'Project'} | JAY_LAB.` : 'JAY_LAB.'
+})
+// 擷取 Markdown 內容的前 100 個字作為 description (去除 html 標籤)；
+// markdown 缺檔（如 CI 預渲染環境）時改用規格欄位組合，避免把錯誤訊息寫進 SEO
+const pageDescription = computed(() => {
+  if (markdownAvailable.value && renderedMarkdown.value) {
+    return renderedMarkdown.value.replace(/<[^>]*>?/gm, '').replace(/\s+/g, ' ').trim().substring(0, 100) + '...'
+  }
+  const amp = activeAmp.value
+  if (amp) {
+    return [amp.fullName || amp.menuName, amp.type, amp.tubes, amp.power].filter(Boolean).join(' / ')
+  }
+  return 'Explore projects in JAY_LAB.'
+})
 
-      useHead({
-        title: pageTitle,
-        meta: [
-          { name: 'description', content: pageDescription },
-          { property: 'og:title', content: pageTitle },
-          { property: 'og:description', content: pageDescription }
-        ]
-      })
-    }
-  },
-  { immediate: true }
-)
+useHead(() => ({
+  title: pageTitle.value,
+  meta: [
+    { name: 'description', content: pageDescription.value },
+    { property: 'og:title', content: pageTitle.value },
+    { property: 'og:description', content: pageDescription.value }
+  ]
+}))
 
 </script>
 

@@ -65,6 +65,8 @@ export function useProjects() {
   const isLoading = ref(true)
   const isMarkdownLoading = ref(false)
   const rawMarkdown = ref('')
+  // markdown 是否真的載入成功（預渲染環境缺檔時為 false，SEO description 會改用規格欄位）
+  const markdownAvailable = ref(false)
   const galleryItems = ref([])
   const isGalleryLoading = ref(false)
 
@@ -122,11 +124,14 @@ export function useProjects() {
       const response = await fetch(target.markdownPath)
       if (response.ok) {
         rawMarkdown.value = await response.text()
+        markdownAvailable.value = true
       } else {
         rawMarkdown.value = `### ⚠️ 讀取失敗\n無法在 NAS 中找到 \`${target.markdownPath}\` 的實體日誌檔案。`
+        markdownAvailable.value = false
       }
     } catch (error) {
       rawMarkdown.value = '### ⚠️ 訊號中斷\n解析 Markdown 發生例外錯誤。'
+      markdownAvailable.value = false
     } finally {
       isMarkdownLoading.value = false
     }
@@ -156,7 +161,8 @@ export function useProjects() {
         return codeA.localeCompare(codeB, undefined, { numeric: true, sensitivity: 'base' })
       })
       ampProjects.value = data
-      await switchAmp('bio')
+      // 尊重路由已設定的 id（直接訪問 /project/1626/ 時不可被蓋回 bio）
+      await switchAmp(activeAmpId.value || 'bio')
     } catch (error) {
       console.error('前端讀取 NAS 專案目錄失敗：', error)
       await switchAmp('bio')
@@ -172,6 +178,7 @@ export function useProjects() {
     activeAmpId,
     isLoading,
     isMarkdownLoading,
+    markdownAvailable,
     galleryItems,
     isGalleryLoading,
     activeAmp,
