@@ -40,9 +40,16 @@
             />
 
             <!-- 📡 拓撲晶片並聯 (維持在你指定的 bio 專案顯示) -->
-            <AudioTopology 
-              v-if="activeAmpId === 'bio'" 
-              class="col-span-1 lg:col-span-3 w-full order-4 animate-fadeIn" 
+            <AudioTopology
+              v-if="activeAmpId === 'bio'"
+              class="col-span-1 lg:col-span-3 w-full order-4 animate-fadeIn"
+            />
+
+            <SignalChainNav
+              :prevProject="prevProject"
+              :nextProject="nextProject"
+              @navigate="handleSelectProject"
+              class="col-span-1 lg:col-span-3 w-full order-5 animate-fadeIn"
             />
 
           </template>
@@ -84,6 +91,7 @@ import ProjectSpec from '../components/ProjectSpec.vue'
 import MarkdownViewer from '../components/MarkdownViewer.vue'
 import ProjectGallery from '../components/ProjectGallery.vue'
 import AudioTopology from '../components/AudioTopology.vue'
+import SignalChainNav from '../components/SignalChainNav.vue'
 import { useProjects } from '../composables/useProjects'
 import { useTheme } from '../composables/useTheme'
 import { useFontSize } from '../composables/useFontSize'
@@ -95,7 +103,9 @@ const {
   activeProjects,
   creativeProjects,
   archivedProjects,
-  activeAmpId, 
+  prevProject,
+  nextProject,
+  activeAmpId,
   isLoading, 
   isMarkdownLoading,
   markdownAvailable,

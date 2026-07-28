@@ -80,6 +80,22 @@ export function useProjects() {
   const creativeProjects = computed(() => ampProjects.value.filter(amp => !amp.archived && amp.category === 'creative'))
   const archivedProjects = computed(() => ampProjects.value.filter(amp => amp.archived))
 
+  // 「訊號鏈」上一篇/下一篇導覽：依 deviceCode 排序（與側邊欄同順序），bio 視為起點，首尾循環銜接
+  const navSequence = computed(() => [bioItem, ...ampProjects.value])
+  const currentNavIndex = computed(() => navSequence.value.findIndex(p => p.id === activeAmpId.value))
+  const prevProject = computed(() => {
+    const list = navSequence.value
+    const idx = currentNavIndex.value
+    if (idx === -1 || list.length < 2) return null
+    return list[(idx - 1 + list.length) % list.length]
+  })
+  const nextProject = computed(() => {
+    const list = navSequence.value
+    const idx = currentNavIndex.value
+    if (idx === -1 || list.length < 2) return null
+    return list[(idx + 1) % list.length]
+  })
+
   const renderedMarkdown = computed(() => {
     let rawHtml = marked.parse(rawMarkdown.value)
     const folderName = activeAmpId.value === 'bio' ? 'mydata' : activeAmpId.value
@@ -180,6 +196,8 @@ export function useProjects() {
     activeProjects,
     creativeProjects,
     archivedProjects,
+    prevProject,
+    nextProject,
     activeAmpId,
     isLoading,
     isMarkdownLoading,
