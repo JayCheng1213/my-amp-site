@@ -24,9 +24,11 @@
                    : 'border-zinc-800/80 group-hover:border-emerald-500/50 group-hover:shadow-[0_0_15px_rgba(16,185,129,0.15)]',
                  'group-hover:scale-[1.04] group-hover:-translate-y-1'
                ]">
-            <img 
-              :src="img.src" 
+            <img
+              :src="img.src"
               :alt="img.caption"
+              loading="lazy"
+              decoding="async"
               class="w-full object-cover max-h-48 transition-transform duration-700 ease-out group-hover:scale-105 select-none pointer-events-none"
             />
           </div>

@@ -86,7 +86,9 @@ export function useProjects() {
     const currentFolder = `/nas-media/posts/${folderName}/`
     
     rawHtml = rawHtml.replace(/(src|href)=["'](?!http|\/)([^"']+)["']/g, `$1="${currentFolder}$2"`)
-    
+    // 內文直接嵌入的 <img> 補上延遲載入，減少長文章首屏載入時間
+    rawHtml = rawHtml.replace(/<img /g, '<img loading="lazy" decoding="async" ')
+
     return rawHtml.replace(/\[(FILAMENT|DIODE|TRIODE|TETRODE|PENTODE)\]/g, (match, type) => {
       return TUBE_SVG_REGISTRY[type] || match
     })
