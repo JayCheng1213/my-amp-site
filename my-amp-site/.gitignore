@@ -26,6 +26,9 @@ dist-ssr
 
 nas-media/*
 !nas-media/projects.json
+
+# 建置期間從線上抓回的文章暫存
+.prerender-content/
 nas-media-projects/
 api/
 telemetry_data/

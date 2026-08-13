@@ -25,10 +25,11 @@
                  'group-hover:scale-[1.04] group-hover:-translate-y-1'
                ]">
             <img
-              :src="img.src"
+              :src="variantSrc(img.src, 'thumb')"
               :alt="img.caption"
               loading="lazy"
               decoding="async"
+              @error="onImgError($event, img.src)"
               class="w-full object-cover max-h-48 transition-transform duration-700 ease-out group-hover:scale-105 select-none pointer-events-none"
             />
           </div>
@@ -65,10 +66,21 @@
             </button>
 
             <Transition name="img-zoom" mode="out-in">
-              <img :key="currentIndex" 
-                   :src="items[currentIndex].src" 
-                   :alt="items[currentIndex].caption" 
-                   class="max-w-full max-h-[70vh] object-contain rounded-xl shadow-2xl border border-zinc-900 animate-imgIn" />
+              <div :key="currentIndex" class="relative inline-block">
+                <!-- 低解析底圖：點擊當下已在瀏覽器快取中，零等待先撐住畫面 -->
+                <img :src="variantSrc(items[currentIndex].src, 'thumb')"
+                     :alt="items[currentIndex].caption"
+                     @error="onImgError($event, items[currentIndex].src)"
+                     class="max-w-full max-h-[70vh] object-contain rounded-xl shadow-2xl border border-zinc-900 transition-[filter] duration-300"
+                     :class="largeReady ? '' : 'blur-[2px]'" />
+                <!-- 高解析版本：載入完成後淡入覆蓋 -->
+                <img :src="variantSrc(items[currentIndex].src, 'large')"
+                     :alt="items[currentIndex].caption"
+                     @load="largeReady = true"
+                     @error="onImgError($event, items[currentIndex].src)"
+                     class="absolute inset-0 w-full h-full object-contain rounded-xl border border-zinc-900 transition-opacity duration-300"
+                     :class="largeReady ? 'opacity-100' : 'opacity-0'" />
+              </div>
             </Transition>
 
             <button @click="nextImg" 
@@ -77,13 +89,17 @@
             </button>
           </div>
 
-          <div class="mt-8 max-w-xl w-full px-4 h-16 flex items-center justify-center">
+          <div class="mt-6 max-w-xl w-full px-4 min-h-16 flex flex-col items-center justify-center gap-2">
             <Transition name="caption-cross" mode="out-in">
-              <p :key="currentIndex" 
+              <p :key="currentIndex"
                  class="text-xs sm:text-sm text-center leading-relaxed text-zinc-400 bg-zinc-900/30 px-5 py-3 rounded-xl border border-zinc-900 w-full shadow-lg">
                 <span class="text-emerald-500 mr-1.5 animate-pulse">●</span> {{ items[currentIndex].caption }}
               </p>
             </Transition>
+            <a :href="items[currentIndex].src" target="_blank" rel="noopener noreferrer" @click.stop
+               class="text-[10px] text-zinc-600 hover:text-emerald-400 transition-colors duration-200 tracking-wider">
+              ⤓ 檢視原圖<span v-if="originalSize"> ({{ originalSize }})</span>
+            </a>
           </div>
 
         </div>
@@ -105,6 +121,43 @@ const props = defineProps({
 
 const isOpen = ref(false)
 const currentIndex = ref(0)
+const largeReady = ref(false)
+const originalSize = ref(null)
+
+// 由原圖路徑推導壓縮變體：a/b.jpg → a/_opt/b-thumb.webp
+const variantSrc = (src, suffix) => {
+  const cut = src.lastIndexOf('/')
+  const dir = src.slice(0, cut)
+  const base = src.slice(cut + 1).replace(/\.[^.]+$/, '')
+  return `${dir}/_opt/${base}-${suffix}.webp`
+}
+
+// 尚未跑過壓縮腳本的舊照片，退回原圖顯示
+const onImgError = (e, originalSrc) => {
+  if (e.target.dataset.fellBack) return
+  e.target.dataset.fellBack = '1'
+  e.target.src = originalSrc
+}
+
+const prefetchLarge = (index) => {
+  const item = props.items[index]
+  if (item) new Image().src = variantSrc(item.src, 'large')
+}
+
+const sizeCache = new Map()
+const fetchOriginalSize = async (src) => {
+  if (sizeCache.has(src)) { originalSize.value = sizeCache.get(src); return }
+  originalSize.value = null
+  try {
+    const res = await fetch(src, { method: 'HEAD' })
+    const bytes = Number(res.headers.get('content-length'))
+    const label = bytes ? (bytes >= 1048576 ? (bytes / 1048576).toFixed(1) + 'MB' : Math.round(bytes / 1024) + 'KB') : null
+    sizeCache.set(src, label)
+    originalSize.value = label
+  } catch {
+    originalSize.value = null
+  }
+}
 
 const openLightbox = (index) => {
   currentIndex.value = index
@@ -120,6 +173,18 @@ const nextImg = () => {
   if (props.items.length <= 1) return
   currentIndex.value = (currentIndex.value + 1) % props.items.length
 }
+
+// 切換圖片時重置高解析狀態，並僅預抓前後各一張（不做全量背景下載，避免佔用上傳頻寬）
+watch([currentIndex, isOpen], ([idx, open]) => {
+  if (!open) return
+  largeReady.value = false
+  fetchOriginalSize(props.items[idx].src)
+  const len = props.items.length
+  if (len > 1) {
+    prefetchLarge((idx + 1) % len)
+    prefetchLarge((idx - 1 + len) % len)
+  }
+}, { immediate: true })
 
 const handleKeydown = (e) => {
   if (!isOpen.value) return

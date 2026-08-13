@@ -141,7 +141,9 @@ export function useProjects() {
     const currentFolderPath = `/nas-media/posts/${folderName}/`
 
     try {
-      const response = await fetch(target.markdownPath)
+      // no-cache：帶 ETag 重新驗證，內容沒變時伺服器回 304 空內容，
+      // 避免 Synology 未送 Cache-Control 而觸發瀏覽器啟發式快取，讀者卡在舊版文章
+      const response = await fetch(target.markdownPath, { cache: 'no-cache' })
       if (response.ok) {
         rawMarkdown.value = await response.text()
         markdownAvailable.value = true
@@ -157,7 +159,7 @@ export function useProjects() {
     }
 
     try {
-      const galleryRes = await fetch(`${currentFolderPath}gallery.md`)
+      const galleryRes = await fetch(`${currentFolderPath}gallery.md`, { cache: 'no-cache' })
       if (galleryRes.ok) {
         const galleryText = await galleryRes.text()
         galleryItems.value = parseGalleryMarkdown(galleryText, currentFolderPath)
@@ -173,7 +175,7 @@ export function useProjects() {
 
   onMounted(async () => {
     try {
-      const response = await fetch('/nas-media/projects.json')
+      const response = await fetch('/nas-media/projects.json', { cache: 'no-cache' })
       const data = await response.json()
       data.sort((a, b) => {
         const codeA = a.deviceCode || ''
