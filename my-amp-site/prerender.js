@@ -102,6 +102,10 @@ const MIME = {
   '.ico': 'image/x-icon'
 }
 
+const IMAGE_EXT = new Set(['.png', '.jpg', '.jpeg', '.webp', '.gif', '.svg', '.ico'])
+// 1x1 透明 WebP，僅供預渲染期間充當缺席圖檔的佔位回應
+const PLACEHOLDER_IMAGE = Buffer.from('UklGRhoAAABXRUJQVlA4TA0AAAAvAAAAEAcQERGIiP4HAA==', 'base64')
+
 // 啟動本地靜態伺服器
 const server = http.createServer((req, res) => {
   const urlPath = decodeURIComponent(req.url.split('?')[0])
@@ -120,8 +124,20 @@ const server = http.createServer((req, res) => {
   }
 
   if (!fs.existsSync(filePath)) {
-    if (path.extname(filePath)) {
-      // 缺少實體資源（如 markdown、圖片）時回 404，讓前端走既有的容錯畫面
+    const ext = path.extname(filePath).toLowerCase()
+
+    // 建置環境沒有實體圖檔（只抓 markdown），若讓圖片請求失敗，
+    // 前端的「變體不存在則退回原圖」機制會在預渲染時觸發，
+    // 把退回原圖的結果烘焙進靜態 HTML，反而讓壓縮圖失效。
+    // 因此一律回傳 1x1 佔位圖，確保烘焙出來的 src 維持壓縮版路徑。
+    if (IMAGE_EXT.has(ext)) {
+      res.writeHead(200, { 'Content-Type': MIME[ext] || 'image/webp' })
+      res.end(PLACEHOLDER_IMAGE)
+      return
+    }
+
+    if (ext) {
+      // 缺少 markdown 等文字資源時回 404，讓前端走既有的容錯畫面
       res.writeHead(404)
       res.end('Not found')
       return
