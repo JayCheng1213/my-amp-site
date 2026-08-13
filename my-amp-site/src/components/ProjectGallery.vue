@@ -112,6 +112,7 @@
 <script setup>
 import { ref, onUnmounted, watch } from 'vue'
 import { useTheme } from '../composables/useTheme'
+import { variantPath } from '../../site.config.js'
 const { theme } = useTheme()
 
 const props = defineProps({
@@ -124,13 +125,7 @@ const currentIndex = ref(0)
 const largeReady = ref(false)
 const originalSize = ref(null)
 
-// 由原圖路徑推導壓縮變體：a/b.jpg → a/_opt/b-thumb.webp
-const variantSrc = (src, suffix) => {
-  const cut = src.lastIndexOf('/')
-  const dir = src.slice(0, cut)
-  const base = src.slice(cut + 1).replace(/\.[^.]+$/, '')
-  return `${dir}/_opt/${base}-${suffix}.webp`
-}
+const variantSrc = (src, suffix) => variantPath(src, suffix)
 
 // 尚未跑過壓縮腳本的舊照片，退回原圖顯示
 const onImgError = (e, originalSrc) => {

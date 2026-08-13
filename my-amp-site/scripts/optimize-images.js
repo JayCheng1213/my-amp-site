@@ -9,21 +9,58 @@
  *   {檔名}-thumb.webp   800px 寬 — 相簿格子用
  *   {檔名}-large.webp  1800px 寬 — 燈箱用
  *
+ * 另外會為「精選照片」多產一張社群分享用的 JPG：
+ *   {檔名}-og.jpg      1200px 寬 — og:image 用（LINE / FB 對 WebP 支援不穩，故用 JPG）
+ * 精選照片由 gallery.md 中標記 [COVER] 的項目決定，未標記則取第一張。
+ *
  * 原圖保留不動（供「檢視原圖」連結與存檔）。
  * 已存在且比原圖新的變體會自動跳過，可重複執行。
  */
 import fs from 'fs'
 import path from 'path'
 import sharp from 'sharp'
+import { OPT_DIR, COVER_TAG } from '../site.config.js'
 
 const SOURCE_DIR = process.argv[2] || 'D:/真空管專案'
-const OPT_DIR = '_opt'
 const SOURCE_EXT = new Set(['.jpg', '.jpeg', '.png'])
 
 const VARIANTS = [
   { suffix: 'thumb', width: 800, quality: 78 },
   { suffix: 'large', width: 1800, quality: 82 }
 ]
+
+// 社群分享預覽圖：固定用 JPG，確保各家爬蟲都讀得到
+const OG_VARIANT = { suffix: 'og', width: 1200, quality: 82 }
+
+/**
+ * 從 gallery.md 找出精選照片的檔名。
+ * 標記方式為在說明文字前加上 [COVER]，例如：
+ *   3.[COVER] 完工開聲照片。
+ *   ![完工](3_IMG_xxx.jpg)
+ * 未標記時退回第一張照片。
+ */
+function findCoverImage(dir) {
+  const galleryPath = path.join(dir, 'gallery.md')
+  if (!fs.existsSync(galleryPath)) return null
+
+  const lines = fs.readFileSync(galleryPath, 'utf-8').split('\n').map(l => l.trim()).filter(Boolean)
+  let firstImage = null
+  let coverPending = false
+
+  for (const line of lines) {
+    if (line.startsWith('![')) {
+      const match = line.match(/!\[.*?\]\((.*?)\)/)
+      if (!match) continue
+      const file = match[1]
+      if (!firstImage) firstImage = file
+      if (coverPending) return file
+    } else if (line.includes(COVER_TAG)) {
+      coverPending = true
+    }
+  }
+
+  return firstImage
+}
 
 const fmtMB = bytes => (bytes / 1048576).toFixed(1) + 'MB'
 const fmtKB = bytes => Math.round(bytes / 1024) + 'KB'
@@ -61,6 +98,41 @@ async function processImage(dir, file) {
   return { srcBytes: srcStat.size, outBytes, produced }
 }
 
+/** 為精選照片產生社群分享用的 JPG，並清掉換封面後殘留的舊檔 */
+async function processCover(dir, coverFile) {
+  const outDir = path.join(dir, OPT_DIR)
+  if (!fs.existsSync(outDir)) return { produced: 0, cover: null }
+
+  const base = path.basename(coverFile, path.extname(coverFile))
+  const outName = `${base}-${OG_VARIANT.suffix}.jpg`
+
+  // 換過封面時，移除不再使用的 og 檔
+  for (const f of fs.readdirSync(outDir)) {
+    if (f.endsWith(`-${OG_VARIANT.suffix}.jpg`) && f !== outName) {
+      fs.unlinkSync(path.join(outDir, f))
+    }
+  }
+
+  const srcPath = path.join(dir, coverFile)
+  if (!fs.existsSync(srcPath)) {
+    console.warn(`[Optimize] ${path.basename(dir)}：gallery.md 指定的封面 ${coverFile} 不存在，已略過。`)
+    return { produced: 0, cover: null }
+  }
+
+  const outPath = path.join(outDir, outName)
+  if (fs.existsSync(outPath) && fs.statSync(outPath).mtimeMs >= fs.statSync(srcPath).mtimeMs) {
+    return { produced: 0, cover: coverFile }
+  }
+
+  await sharp(srcPath, { limitInputPixels: false })
+    .rotate()
+    .resize({ width: OG_VARIANT.width, withoutEnlargement: true })
+    .jpeg({ quality: OG_VARIANT.quality, mozjpeg: true })
+    .toFile(outPath)
+
+  return { produced: 1, cover: coverFile }
+}
+
 async function main() {
   if (!fs.existsSync(SOURCE_DIR)) {
     console.error(`[Optimize] 找不到來源資料夾：${SOURCE_DIR}`)
@@ -93,15 +165,23 @@ async function main() {
       projProduced += produced
     }
 
+    // 精選照片（社群分享預覽圖）
+    const coverFile = findCoverImage(dir)
+    let coverNote = ''
+    if (coverFile) {
+      const { produced, cover } = await processCover(dir, coverFile)
+      projProduced += produced
+      if (cover) coverNote = `  封面:${cover.replace(/\.[^.]+$/, '').slice(0, 22)}`
+    }
+
     totalSrc += projSrc
     totalOut += projOut
     totalProduced += projProduced
 
     const ratio = projOut > 0 ? (projSrc / projOut).toFixed(0) : '-'
-    const note = projProduced === 0 ? ' (皆已是最新)' : ` (新產生 ${projProduced} 個檔)`
     console.log(
       `[Optimize] ${project.padEnd(16)} ${String(images.length).padStart(2)} 張  ` +
-      `${fmtMB(projSrc).padStart(7)} → ${fmtKB(projOut).padStart(7)}  省 ${ratio}x${note}`
+      `${fmtMB(projSrc).padStart(7)} → ${fmtKB(projOut).padStart(7)}  省 ${ratio}x${coverNote}`
     )
   }
 

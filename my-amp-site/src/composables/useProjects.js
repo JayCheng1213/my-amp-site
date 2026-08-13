@@ -1,5 +1,6 @@
 import { ref, onMounted, computed } from 'vue'
 import { marked } from 'marked'
+import { COVER_TAG } from '../../site.config.js'
 
 // 💡 終極幾何校正：徹底拉開 g1 與燈絲頂點的 Y 軸座標，確保 100% 絕緣不短路
 const TUBE_SVG_REGISTRY = {
@@ -69,6 +70,14 @@ export function useProjects() {
   const markdownAvailable = ref(false)
   const galleryItems = ref([])
   const isGalleryLoading = ref(false)
+  // 精選作品區（bio 頁最上方）用：帶封面縮圖的代表作
+  const featuredProjects = ref([])
+
+  // 目前專案的封面照，供社群分享預覽圖（og:image）使用
+  const coverImage = computed(() => {
+    const found = galleryItems.value.find(item => item.isCover) || galleryItems.value[0]
+    return found?.src || null
+  })
 
   const activeAmp = computed(() => {
     if (activeAmpId.value === 'bio') return bioItem
@@ -114,20 +123,48 @@ export function useProjects() {
     const lines = text.split('\n').map(l => l.trim()).filter(Boolean)
     const items = []
     let currentCaption = ''
+    let currentIsCover = false
     for (const line of lines) {
       if (line.match(/^\d+\./)) {
         currentCaption = line.replace(/^\d+\./, '').trim()
+        // 說明文字前的 [COVER] 代表精選照片，解析後移除以免顯示在相簿說明中
+        currentIsCover = currentCaption.includes(COVER_TAG)
+        if (currentIsCover) currentCaption = currentCaption.replace(COVER_TAG, '').trim()
       } else if (line.startsWith('![')) {
         const match = line.match(/!\[(.*?)\]\((.*?)\)/)
         if (match) {
           let src = match[2]
           if (!src.startsWith('http') && !src.startsWith('/')) src = `${folderPath}${src}`
-          items.push({ caption: currentCaption || match[1], src })
+          items.push({ caption: currentCaption || match[1], src, isCover: currentIsCover })
           currentCaption = ''
+          currentIsCover = false
         }
       }
     }
     return items
+  }
+
+  /**
+   * 載入精選作品的封面照。挑選已完成的代表作（最多 3 台），
+   * 各自讀取 gallery.md 取出標記 [COVER] 的照片，未標記則取第一張。
+   */
+  const loadFeatured = async (projects) => {
+    const picks = projects
+      .filter(p => !p.archived && (p.statusText || '').includes('已完成'))
+      .slice(0, 3)
+
+    featuredProjects.value = await Promise.all(picks.map(async (project) => {
+      const folderPath = `/nas-media/posts/${project.id}/`
+      try {
+        const res = await fetch(`${folderPath}gallery.md`, { cache: 'no-cache' })
+        if (!res.ok) return { ...project, cover: null }
+        const items = parseGalleryMarkdown(await res.text(), folderPath)
+        const picked = items.find(item => item.isCover) || items[0]
+        return { ...project, cover: picked?.src || null }
+      } catch {
+        return { ...project, cover: null }
+      }
+    }))
   }
 
   const switchAmp = async (id) => {
@@ -185,6 +222,7 @@ export function useProjects() {
       ampProjects.value = data
       // 尊重路由已設定的 id（直接訪問 /project/1626/ 時不可被蓋回 bio）
       await switchAmp(activeAmpId.value || 'bio')
+      await loadFeatured(data)
     } catch (error) {
       console.error('前端讀取 NAS 專案目錄失敗：', error)
       await switchAmp('bio')
@@ -206,6 +244,8 @@ export function useProjects() {
     markdownAvailable,
     galleryItems,
     isGalleryLoading,
+    featuredProjects,
+    coverImage,
     activeAmp,
     renderedMarkdown,
     switchAmp

@@ -23,7 +23,16 @@
           // FETCHING CORE BUFFER FROM NAS...
         </div>
 
-        <div v-else class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start pl-0 lg:pl-12">
+        <template v-else>
+        <!-- 🎯 精選作品：首頁訪客的主要入口，避免作品被藏在需 hover 才出現的側邊欄裡 -->
+        <FeaturedProjects
+          v-if="activeAmpId === 'bio'"
+          :projects="featuredProjects"
+          @select="handleSelectProject"
+          class="pl-0 lg:pl-12 animate-fadeIn"
+        />
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start pl-0 lg:pl-12">
           <template v-if="activeAmp">
             
             <div class="contents lg:block lg:col-span-1 lg:space-y-6">
@@ -54,7 +63,8 @@
 
           </template>
         </div>
-      </div> 
+        </template>
+      </div>
 
       <!-- 手機版控制列保持不變 -->
       <div :class="[theme === 'light' ? 'border-stone-300/80' : 'border-zinc-900']" class="block lg:hidden mt-12 pt-6 border-t space-y-4">
@@ -92,6 +102,8 @@ import MarkdownViewer from '../components/MarkdownViewer.vue'
 import ProjectGallery from '../components/ProjectGallery.vue'
 import AudioTopology from '../components/AudioTopology.vue'
 import SignalChainNav from '../components/SignalChainNav.vue'
+import FeaturedProjects from '../components/FeaturedProjects.vue'
+import { SITE_URL, variantPath } from '../../site.config.js'
 import { useProjects } from '../composables/useProjects'
 import { useTheme } from '../composables/useTheme'
 import { useFontSize } from '../composables/useFontSize'
@@ -110,7 +122,9 @@ const {
   isMarkdownLoading,
   markdownAvailable,
   galleryItems,
-  isGalleryLoading, 
+  isGalleryLoading,
+  featuredProjects,
+  coverImage,
   activeAmp, 
   renderedMarkdown, 
   switchAmp 
@@ -154,15 +168,29 @@ const pageDescription = computed(() => {
   return 'Explore projects in JAY_LAB.'
 })
 
+// 社群分享預覽圖：用專案的精選照片（gallery.md 標記 [COVER]，未標記則第一張）。
+// 必須是絕對網址，LINE / Facebook 等爬蟲不接受相對路徑；固定用 JPG 變體以確保相容性。
+const pageImage = computed(() =>
+  coverImage.value ? `${SITE_URL}${variantPath(coverImage.value, 'og', 'jpg')}` : null
+)
+
 useHead(() => ({
   title: pageTitle.value,
   meta: [
     { name: 'description', content: pageDescription.value },
+    { property: 'og:type', content: 'article' },
     { property: 'og:title', content: pageTitle.value },
-    { property: 'og:description', content: pageDescription.value }
+    { property: 'og:description', content: pageDescription.value },
+    { property: 'og:url', content: `${SITE_URL}/project/${activeAmpId.value}/` },
+    ...(pageImage.value ? [
+      { property: 'og:image', content: pageImage.value },
+      { property: 'og:image:alt', content: pageTitle.value },
+      { name: 'twitter:card', content: 'summary_large_image' },
+      { name: 'twitter:image', content: pageImage.value }
+    ] : [])
   ],
   link: [
-    { rel: 'canonical', href: `https://jaycheng1213.synology.me/project/${activeAmpId.value}/` }
+    { rel: 'canonical', href: `${SITE_URL}/project/${activeAmpId.value}/` }
   ]
 }))
 
