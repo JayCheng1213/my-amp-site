@@ -73,11 +73,10 @@ export function useProjects() {
   // 精選作品區（bio 頁最上方）用：帶封面縮圖的代表作
   const featuredProjects = ref([])
 
-  // 目前專案的封面照，供社群分享預覽圖（og:image）使用
-  const coverImage = computed(() => {
-    const found = galleryItems.value.find(item => item.isCover) || galleryItems.value[0]
-    return found?.src || null
-  })
+  // 目前專案的封面照，供社群分享預覽圖（og:image）使用。
+  // 必須在 gallery.md 明確標記 [COVER] 才會有值 —— 未完工的專案不強迫挑封面，
+  // 也避免自動選到備料照當作分享預覽圖。
+  const coverImage = computed(() => galleryItems.value.find(item => item.isCover)?.src || null)
 
   const activeAmp = computed(() => {
     if (activeAmpId.value === 'bio') return bioItem

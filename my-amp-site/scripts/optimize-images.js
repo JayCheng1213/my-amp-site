@@ -37,29 +37,28 @@ const OG_VARIANT = { suffix: 'og', width: 1200, quality: 82 }
  * 標記方式為在說明文字前加上 [COVER]，例如：
  *   3.[COVER] 完工開聲照片。
  *   ![完工](3_IMG_xxx.jpg)
- * 未標記時退回第一張照片。
+ *
+ * 未標記時回傳 null，不產生社群分享圖 —— 未完工的專案通常沒有值得當門面的照片，
+ * 由作者明確標記才產生，避免自動挑到備料照當分享預覽圖。
  */
 function findCoverImage(dir) {
   const galleryPath = path.join(dir, 'gallery.md')
   if (!fs.existsSync(galleryPath)) return null
 
   const lines = fs.readFileSync(galleryPath, 'utf-8').split('\n').map(l => l.trim()).filter(Boolean)
-  let firstImage = null
   let coverPending = false
 
   for (const line of lines) {
     if (line.startsWith('![')) {
+      if (!coverPending) continue
       const match = line.match(/!\[.*?\]\((.*?)\)/)
-      if (!match) continue
-      const file = match[1]
-      if (!firstImage) firstImage = file
-      if (coverPending) return file
+      if (match) return match[1]
     } else if (line.includes(COVER_TAG)) {
       coverPending = true
     }
   }
 
-  return firstImage
+  return null
 }
 
 const fmtMB = bytes => (bytes / 1048576).toFixed(1) + 'MB'
@@ -98,20 +97,22 @@ async function processImage(dir, file) {
   return { srcBytes: srcStat.size, outBytes, produced }
 }
 
-/** 為精選照片產生社群分享用的 JPG，並清掉換封面後殘留的舊檔 */
+/** 為精選照片產生社群分享用的 JPG，並清掉換封面（或取消標記）後殘留的舊檔 */
 async function processCover(dir, coverFile) {
   const outDir = path.join(dir, OPT_DIR)
   if (!fs.existsSync(outDir)) return { produced: 0, cover: null }
 
-  const base = path.basename(coverFile, path.extname(coverFile))
-  const outName = `${base}-${OG_VARIANT.suffix}.jpg`
+  const base = coverFile ? path.basename(coverFile, path.extname(coverFile)) : null
+  const outName = base ? `${base}-${OG_VARIANT.suffix}.jpg` : null
 
-  // 換過封面時，移除不再使用的 og 檔
+  // 換過封面或取消標記時，移除不再使用的 og 檔
   for (const f of fs.readdirSync(outDir)) {
     if (f.endsWith(`-${OG_VARIANT.suffix}.jpg`) && f !== outName) {
       fs.unlinkSync(path.join(outDir, f))
     }
   }
+
+  if (!coverFile) return { produced: 0, cover: null }
 
   const srcPath = path.join(dir, coverFile)
   if (!fs.existsSync(srcPath)) {
@@ -165,14 +166,12 @@ async function main() {
       projProduced += produced
     }
 
-    // 精選照片（社群分享預覽圖）
-    const coverFile = findCoverImage(dir)
-    let coverNote = ''
-    if (coverFile) {
-      const { produced, cover } = await processCover(dir, coverFile)
-      projProduced += produced
-      if (cover) coverNote = `  封面:${cover.replace(/\.[^.]+$/, '').slice(0, 22)}`
-    }
+    // 精選照片（社群分享預覽圖）— 需在 gallery.md 明確標記 [COVER]
+    const { produced: coverProduced, cover } = await processCover(dir, findCoverImage(dir))
+    projProduced += coverProduced
+    const coverNote = cover
+      ? `  封面:${cover.replace(/\.[^.]+$/, '')}`
+      : '  (未標記 COVER)'
 
     totalSrc += projSrc
     totalOut += projOut
