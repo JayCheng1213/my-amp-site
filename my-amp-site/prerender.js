@@ -7,7 +7,7 @@ import puppeteer from 'puppeteer'
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const PORT = 4173
 const DIST_DIR = path.resolve(__dirname, 'dist')
-const SITE_URL = 'https://jaycheng1213.synology.me'
+const SITE_URL = 'https://jaycheng1213.com'
 // 建置期間暫存從線上抓回的文章，讓預渲染能烘焙真實內容（.md 不進 repo）
 const CONTENT_CACHE = path.resolve(__dirname, '.prerender-content')
 

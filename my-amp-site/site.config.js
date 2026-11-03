@@ -2,7 +2,7 @@
  * 全站共用設定 — 前端、prerender 與壓縮腳本共用同一份來源，
  * 避免網域字串散落各處而不一致（canonical、og:image、sitemap 都依賴它）。
  */
-export const SITE_URL = 'https://jaycheng1213.synology.me'
+export const SITE_URL = 'https://jaycheng1213.com'
 
 /** 壓縮變體的輸出子目錄名稱 */
 export const OPT_DIR = '_opt'
